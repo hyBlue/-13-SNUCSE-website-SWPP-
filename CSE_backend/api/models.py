@@ -18,7 +18,23 @@ class Notice(Post) :
     def __str__(self) :
         return self.title
 
-    @classmethod
-    def create(cls, title, content, user) :
-        notice = cls(title = title, content = content, author = user.username)
-        return notice
+class News(Post) :
+
+    title = models.CharField(max_length = 100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add = True)
+    image = models.ImageField(null = True)
+
+    def __str__(self) :
+        return self.title
+
+class Professor(Post) :
+
+    name = models.CharField(max_length = 20)
+    location = models.CharField(max_length = 20)
+    url = models.URLField()
+    email = models.EmailField()
+    phone = models.CharField(max_length = 20)
+    fax = models.CharField(max_length = 20)
+    research = models.CharField(max_length = 100)
+    education = models.CharField(max_length = 100)
