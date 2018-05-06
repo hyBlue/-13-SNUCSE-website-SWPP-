@@ -17,13 +17,13 @@ class  NoticeDetail extends Component {
         }
         return (
             <div>
-                <Link to="/" className="btn btn-primary">뒤로 가기</Link>
                 <h3>{notice.title}</h3>
                 <thead>
                 <tr><td>작성자: {notice.author}</td><td>작성일: {notice.created_at.substring(0,10)}</td><td>조회: </td></tr>
                 </thead>
                 <h6>분류: </h6>
                 <p>{notice.content}</p>
+                <Link to="/notice" className="btn">목록</Link>
             </div>
         )
     }

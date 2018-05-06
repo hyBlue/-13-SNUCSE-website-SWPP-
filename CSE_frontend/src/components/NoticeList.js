@@ -32,6 +32,11 @@ class NoticeList extends Component {
     }
     return (
         <div>
+            <div className="write-notice">
+                    <Link className="btn btn-primary" to="/notice/new">
+                        공지사항 쓰기
+                    </Link>
+            </div>
             <h3>공지사항</h3>
             <table className="table table-hover">
                 <thead>

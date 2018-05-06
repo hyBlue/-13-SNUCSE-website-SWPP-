@@ -5,3 +5,11 @@
 .topnav {
     margin-left: 30px!important;
 }   
+
+.write-notice {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    border: 1px solid #ddd8d8;
+}
