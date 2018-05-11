@@ -1,9 +1,20 @@
 from django.conf.urls import url
 from api import views
+from django.conf.urls import include
 
 urlpatterns = [
-    url(r'^api/notice$', views.NoticeList.as_view()),
-    url(r'^api/users$', views.UserList.as_view()),
-    url(r'^api/professor$', views.ProfessorList.as_view()),
-    url(r'^api/news$', views.NewsList.as_view()),
+    url(r'^api/notice/$', views.NoticeList.as_view()),
+    url(r'^api/notice/(?P<pk>[0-9]+)/$', views.NoticeDetail.as_view()),
+    url(r'^api/users/$', views.UserList.as_view()),
+    url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
+
+    url(r'^api/professor/$', views.ProfessorList.as_view()),
+    url(r'^api/news/$', views.NewsList.as_view()),
+
+]
+
+
+
+urlpatterns += [
+    url(r'^api/login/', include('rest_framework.urls')),
 ]

@@ -1,3 +1,6 @@
+
+
+
 from django.db import models
 # Create your models here.
 class Post(models.Model) :
@@ -8,13 +11,15 @@ class Post(models.Model) :
         abstract = True
 
 class Notice(Post) :
-
+    user = models.ForeignKey('auth.User', related_name = 'notices', on_delete = models.CASCADE, null = True)
     title = models.CharField(max_length = 100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
     author = models.CharField(max_length = 30, default = 'anonymous')
     image = models.ImageField(null = True)
     attached = models.FileField(null = True)
+    view = models.IntegerField(default = 0)
+
     def __str__(self) :
         return self.title
 
