@@ -12,7 +12,8 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'author',
          'image',
          'attached',
-         'view',)
+         'view',
+         'tag_set')
 class UserSerializer(serializers.ModelSerializer):
     notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
 

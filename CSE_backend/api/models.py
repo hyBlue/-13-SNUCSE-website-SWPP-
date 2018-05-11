@@ -19,7 +19,7 @@ class Notice(Post) :
     image = models.ImageField(null = True)
     attached = models.FileField(null = True)
     view = models.IntegerField(default = 0)
-
+    tag_set = models.ManyToManyField('Tag', blank = True)
     def __str__(self) :
         return self.title
 
@@ -43,3 +43,8 @@ class Professor(Post) :
     fax = models.CharField(max_length = 20)
     research = models.CharField(max_length = 100)
     education = models.CharField(max_length = 100)
+
+class Tag(models.Model) :
+    name = models.CharField(max_length = 50, unique = True)
+    def __str__(self) :
+        return self.name
