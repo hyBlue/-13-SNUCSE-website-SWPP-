@@ -3,6 +3,10 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createNotice } from '../actions';
+
+//This part is the problem.
+import { DatePicker } from 'antd';
+
 //import Button from 'antd/lib/button';  // for js
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
@@ -67,7 +71,7 @@ class NoticeCreate extends Component {
                     className="form-control"
                     onChange={adaptFileEventToValue(onChange)}
                     onBlur={adaptFileEventToValue(onBlur)}
-                    type="file"
+                    type="files"
                     {...inputProps}
                     {...props}
                 />
@@ -107,6 +111,8 @@ class NoticeCreate extends Component {
                         component={this.renderFileInput}
                         type="file"
                     />
+                    
+                    <DatePicker onChange={onChange} />
 
                     <button type="submit" className="btn btn-primary">
                         작성완료</button>

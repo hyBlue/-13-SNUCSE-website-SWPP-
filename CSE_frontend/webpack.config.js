@@ -14,11 +14,6 @@ module.exports = {
           presets: ['react', 'env', 'stage-1']
         }
       },
-      { test: /\.js$/, loaders: ['react-hot','jsx?harmony'] },
-
-      { test: /\.css$/, loader: "style-loader!css-loader?importLoaders=1" },
-      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
-
     ],
     
   },
