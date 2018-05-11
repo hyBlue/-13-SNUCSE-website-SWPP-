@@ -4,6 +4,8 @@ from api.serializers import *
 from rest_framework import generics
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 class NoticeList(generics.ListCreateAPIView):
     queryset = Notice.objects.all()
@@ -29,6 +31,22 @@ class NoticeDetail(generics.RetrieveUpdateDestroyAPIView):
         obj.save()
 
         return obj
+@api_view(['GET', 'POST'])
+def NoticeSearch(request, word):
+    """
+    코드 조각을 모두 보여주거나 새 코드 조각을 만듭니다.
+    """
+    if request.method == 'GET':
+        notices = Notice.objects.all()
+        word = word
+        result = []
+        for i in notices:
+            if word in i.title or word in i.content :
+                result.append(i)
+        serializer = NoticeSerializer(result, many=True)
+        return Response(serializer.data)
+
+
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
@@ -50,3 +68,7 @@ class ProfessorList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer) :
         serializer.save()
+
+class ProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Professor.objects.all()
+    serializer_class = ProfessorSerializer

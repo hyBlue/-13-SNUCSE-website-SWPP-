@@ -25,4 +25,31 @@ for i in range(50) :
     notice = Notice(title = title, content = content, author = author, user = user)
     notice.save()
 
-# tag create
+# professor create
+import requests
+from bs4 import BeautifulSoup
+prof_url = 'http://cse.snu.ac.kr/professor/'
+html = requests.get("http://cse.snu.ac.kr/people/faculty").text
+soup = BeautifulSoup(html, 'html.parser')
+prof_list = []
+
+k = soup.find_all('div', class_="views-field views-field-title")
+
+for i in k :
+    name = i.find('a')
+    if name :
+        prof_list.append ({'name' : name.text})
+
+for i, j in enumerate(prof_list) :
+    url = prof_url + j['name']
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'html.parser')
+    section = soup.find('div', class_="section clearfix2")
+    contact = section.select("div.group_contact_info")
+    education = section.select("div.field-name-field-education")
+    research = section.select("div.field-name-field-research-area")
+    biography = section.select("div.field-name-field-biography")
+    prof_list[i]['contact'] = contact
+    prof_list[i]['education'] = education
+    prof_list[i]['research'] = research
+    prof_list[i]['biography'] = biography

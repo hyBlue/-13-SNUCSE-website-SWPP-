@@ -31,10 +31,8 @@ class ProfessorSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Professor
         fields = ('name',
-         'location' ,
-         'url' ,
-         'email',
-         'phone',
-         'fax' ,
+         'contact',
+         'education' ,
          'research' ,
-         'education', )
+         'biography',
+         'photo',)
