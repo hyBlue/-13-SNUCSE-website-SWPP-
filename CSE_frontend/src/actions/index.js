@@ -25,6 +25,7 @@ export function fetchNotice(id) {
 }
 
 export function createNotice(values, callback) {
+    //파일, 이미지 여러개 처리 필요.
     var formData = new FormData();
     values.foreach(data=> {
         formData.append(data.key, data);

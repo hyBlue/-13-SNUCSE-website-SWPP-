@@ -175,7 +175,7 @@ class NoticeCreate extends Component {
                     /> */}
                     <Field
                         label="드랍존"
-                        name="files"
+                        name="attached"
                         component={this.renderDropZoneField.bind(this)}
                     />
                     <Field
