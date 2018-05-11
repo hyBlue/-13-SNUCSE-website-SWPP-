@@ -2,50 +2,27 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createNotice } from '../actions';
+import { createNotice} from '../actions';
 
-import {
-    Form, Select, InputNumber, Switch, 
-    Slider, Button, Upload, Icon, Rate,
-} from 'antd';
+import { Form, Button, Upload, Rate } from 'antd';
+const FormItem = Form.Item;
 
-// const FormItem = Form.Item;
-// const Option = Select.Option;
-
-
-// const makeField = Component => ({ input, meta, children, hasFeedback, label, ...rest }) => {
-//     const hasError = meta.touched && meta.invalid;
-//     return (
-//         <FormItem
-//             {...formItemLayout}
-//             label={label}
-//             validateStatus={hasError ? "error" : "success"}
-//             hasFeedback={hasFeedback && hasError}
-//             help={hasError && meta.error}
-//         >
-//             <Component {...input} {...rest} children={children} />
-//         </FormItem>
-//     );
-// };
-// const AInput = makeField(Input);
-
-class NoticeCreate extends Component {
-
-    
+class NoticeCreate  extends Component {
+   
     renderField(field) {
         const { meta: { touched, error } } = field;
-        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        const className=`form-group ${touched && error ?  'has-danger': ''}`;
         return (
             <div className={className}>
-                <label>{field.label}</label>
-                <input className="form-control"
-                    type="text"
-                    //onChange={field.input.onChange}
-                    //onFocus={field.input.onFoucs} etc 
-                    {...field.input}
+            <label>{field.label}</label>
+                <input className="form-control" 
+                  type="text"
+                  //onChange={field.input.onChange}
+                  //onFocus={field.input.onFoucs} etc 
+                  {...field.input} 
                 />
                 <div className="text-help">
-                    {touched ? error : ''}
+                {touched? error : ''}
                 </div>
             </div>
             //field.meta.error: connect validate error with field. 
@@ -63,7 +40,7 @@ class NoticeCreate extends Component {
 
         return (
             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
+                <Field 
                     label="제목"
                     name="title"
                     component={this.renderField}
@@ -73,13 +50,13 @@ class NoticeCreate extends Component {
                     name="categories"
                     component={this.renderField}
                 /> */}
-                <Field
+                <Field 
                     label="내용"
                     name="content"
                     component={this.renderField}
                 />
                 <button type="submit" className="btn btn-primary">
-                    작성완료</button>
+                작성완료</button>
                 <Link to="/notice" className="btn btn-danger">취소</Link>
             </form>
         );
@@ -91,13 +68,13 @@ function validate(values) {
     const errors = {};
     //Validate the inputs from 'values'
     //You can customize this
-    if (!values.title) {
+    if(!values.title) {
         errors.title = "Enter a title";
     }
-    if (!values.categories) {
+    if(!values.categories) {
         errors.categories = "Enter some categories";
     }
-    if (!values.content) {
+    if(!values.content) {
         errors.content = "Enter a content";
     }
     //If errors is empty, the form is fine to submit
@@ -110,5 +87,5 @@ export default reduxForm({
     validate,
     form: 'NoticeNewForm'
 })(
-    connect(null, { createNotice })(NoticeCreate)
+  connect(null,{ createNotice })(NoticeCreate)
 );
