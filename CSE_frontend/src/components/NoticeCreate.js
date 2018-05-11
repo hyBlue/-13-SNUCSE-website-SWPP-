@@ -5,13 +5,22 @@ import { connect } from 'react-redux';
 import { createNotice } from '../actions';
 
 //This part is the problem.
-import { DatePicker } from 'antd';
+//import { DatePicker } from 'antd';
 
 //import Button from 'antd/lib/button';  // for js
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import Dropzone from 'react-dropzone';
 
 class NoticeCreate extends Component {
+    constructor() {
+        super()
+        this.state = {
+            accepted: [],
+            rejected: [],
+            acceptedImages: []
+        }
+    }
 
     renderTextField(field) {
         const { meta: { touched, error } } = field;
@@ -56,8 +65,7 @@ class NoticeCreate extends Component {
         )
     }
 
-    //파일 첨부 
-
+    //파일 첨부-테스트
     renderFileInput({
         input: { value: omitValue, onChange, onBlur, ...inputProps, },
         meta: omitMeta,
@@ -77,6 +85,60 @@ class NoticeCreate extends Component {
                 />
             </div>
         )
+    }
+
+    renderDropZoneField(field) {
+        //let files = field.input.value;
+        let dropzoneRef;
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        return (
+            <div className={className}>
+                <button type="button" onClick={() => { dropzoneRef.open() }}>
+                    파일 가져오기
+                </button>
+                <Dropzone className="form-control"
+                    ref={(node) => { dropzoneRef = node; }}
+                    name={field.name}
+                    onDrop={(accepted, rejected) => this.setState({ accepted: this.state.accepted.concat(accepted), rejected })}
+                >
+                    <div>첨부파일들을 드래그앤드롭하세요</div>
+                    {/* {files && Array.isArray(files) && (
+              <ul>
+                { files.map((file, i) => <li key={i}>{file.name}</li>) }
+              </ul>  )}*/}
+                    {
+                        this.state.accepted ? this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                    }
+                </Dropzone>
+
+            </div>
+        );
+    }
+
+    renderImageDropField(field) {
+        let dropzoneRef;
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        return (
+            <div className={className}>
+                <button type="button" onClick={() => { dropzoneRef.open() }}>
+                    이미지 가져오기
+                </button>
+                <Dropzone className="form-control"
+                    ref={(node) => { dropzoneRef = node; }}
+                    accept="image/jpeg, image/png"
+                    name={field.name}
+                    onDrop={(accepted, rejected) => this.setState({ acceptedImages: this.state.acceptedImages.concat(accepted), rejected })}
+                >
+
+                    <div>이미지들을 드래그앤드롭하세요</div>
+                    {
+                        this.state.acceptedImages ? this.state.acceptedImages.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                    }
+                </Dropzone>
+            </div>
+        );
     }
 
     onSubmit(values) {
@@ -105,15 +167,28 @@ class NoticeCreate extends Component {
                         name="content"
                         component={this.renderTextAreaField}
                     />
-                    <Field
-                        lael="첨부파일"
+                    {/* <Field
+                        label="첨부파일"
                         name="attached"
                         component={this.renderFileInput}
                         type="file"
+                    /> */}
+                    <Field
+                        label="드랍존"
+                        name="files"
+                        component={this.renderDropZoneField.bind(this)}
                     />
-                    
-                    <DatePicker onChange={onChange} />
-
+                    <Field
+                        label="이미지"
+                        name="images"
+                        component={this.renderImageDropField.bind(this)}
+                    />
+                    <div>{this.state.rejected.length !== 0 ? '--잘못된 파일 형식입니다--' : ''}</div>
+                    <ul>
+                        {
+                            this.state.rejected ? this.state.rejected.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                        }
+                    </ul>
                     <button type="submit" className="btn btn-primary">
                         작성완료</button>
                     <Link to="/notice" className="btn btn-danger">취소</Link>
@@ -138,6 +213,17 @@ function validate(values) {
         errors.content = "Enter a content";
     }
 
+    //Looks like not working
+    if (values.files) {
+        let seen = new Set();
+        console.log(values.files)
+        let hasDuplicates = values.files.some(function (currentObject) {
+            return seen.size === seen.add(currentObject.name).size;
+        });
+        if (hasDuplicates) {
+            errors.files = "Duplicate files";
+        }
+    }
     //If errors is empty, the form is fine to submit
     //If erros has any properties, redux form assume form is invalid
     return errors;
