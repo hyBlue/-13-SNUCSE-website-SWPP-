@@ -23,7 +23,7 @@ ReactDOM.render(
         <Switch> 
           <Route path="/notice/new" component={NoticeCreate} />
           <Route path="/notice/:id" component={NoticeDetail} />
-          <Route path="/notice/:id/update" component={NoticeUpdate} />
+          {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
           <Route path="/notice" component={NoticeList} />
           <Route path="/" component={MainPage} />
         </Switch>

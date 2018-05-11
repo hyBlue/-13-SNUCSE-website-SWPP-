@@ -25,12 +25,23 @@ export function fetchNotice(id) {
 }
 
 export function createNotice(values, callback) {
-    const request = axios.post(`${ROOT_URL}/notice${API_KEY}`, values)
+    var formData = new FormData();
+    values.foreach(data=> {
+        formData.append(data.key, data);
+    })
+    const request = axios.post(`${ROOT_URL}/notice${API_KEY}`, formData,
+        {
+            headers: {
+            'Content-Type': 'multipart/form-data'
+            }
+        }
+    )
         .then(() => callback());
-    
+    console.log(values.attached)
+
     return {
         type: CREATE_NOTICE,
-        payload: request 
+        payload: request
     }
 }
 

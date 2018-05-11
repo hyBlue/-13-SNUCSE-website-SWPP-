@@ -3,43 +3,42 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createNotice } from '../actions';
-
-import {
-    Form, Select, InputNumber, Switch, 
-    Slider, Button, Upload, Icon, Rate,
-} from 'antd';
-
-// const FormItem = Form.Item;
-// const Option = Select.Option;
-
-
-// const makeField = Component => ({ input, meta, children, hasFeedback, label, ...rest }) => {
-//     const hasError = meta.touched && meta.invalid;
-//     return (
-//         <FormItem
-//             {...formItemLayout}
-//             label={label}
-//             validateStatus={hasError ? "error" : "success"}
-//             hasFeedback={hasFeedback && hasError}
-//             help={hasError && meta.error}
-//         >
-//             <Component {...input} {...rest} children={children} />
-//         </FormItem>
-//     );
-// };
-// const AInput = makeField(Input);
+//import Button from 'antd/lib/button';  // for js
+import { Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
 class NoticeCreate extends Component {
 
-    
-    renderField(field) {
+    renderTextField(field) {
         const { meta: { touched, error } } = field;
         const className = `form-group ${touched && error ? 'has-danger' : ''}`;
         return (
             <div className={className}>
                 <label>{field.label}</label>
-                <input className="form-control"
+                <Input className="form-control"
                     type="text"
+                    //"text"
+                    //onChange={field.input.onChange}
+                    //onFocus={field.input.onFoucs} etc 
+                    {...field.input}
+                />
+                <div className="text-help">
+                    {touched ? error : ''}
+                </div>
+            </div>
+            //field.meta.error: connect validate error with field. 
+            //Name should be identical
+        )
+    }
+    renderTextAreaField(field) {
+        const { meta: { touched, error } } = field;
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+        return (
+            <div className={className}>
+                <label>{field.label}</label>
+                <Input className="form-control"
+                    type="textarea"
+                    //"text"
                     //onChange={field.input.onChange}
                     //onFocus={field.input.onFoucs} etc 
                     {...field.input}
@@ -53,6 +52,29 @@ class NoticeCreate extends Component {
         )
     }
 
+    //파일 첨부 
+
+    renderFileInput({
+        input: { value: omitValue, onChange, onBlur, ...inputProps, },
+        meta: omitMeta,
+        ...props, }) {
+        const className = `form-group`
+        const adaptFileEventToValue = (delegate) =>
+            e => delegate(e.target.files[0])
+        return (
+            <div className={className}>
+                <Input
+                    className="form-control"
+                    onChange={adaptFileEventToValue(onChange)}
+                    onBlur={adaptFileEventToValue(onBlur)}
+                    type="file"
+                    {...inputProps}
+                    {...props}
+                />
+            </div>
+        )
+    }
+
     onSubmit(values) {
         this.props.createNotice(values, () => {
             this.props.history.push('/notice');
@@ -62,26 +84,35 @@ class NoticeCreate extends Component {
         const { handleSubmit } = this.props;
 
         return (
-            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                <Field
-                    label="제목"
-                    name="title"
-                    component={this.renderField}
-                />
-                {/* <Field 
+            <div>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <Field
+                        label="제목"
+                        name="title"
+                        component={this.renderTextField}
+                    />
+                    {/* <Field 
                     label="분류"
                     name="categories"
                     component={this.renderField}
                 /> */}
-                <Field
-                    label="내용"
-                    name="content"
-                    component={this.renderField}
-                />
-                <button type="submit" className="btn btn-primary">
-                    작성완료</button>
-                <Link to="/notice" className="btn btn-danger">취소</Link>
-            </form>
+                    <Field
+                        label="내용"
+                        name="content"
+                        component={this.renderTextAreaField}
+                    />
+                    <Field
+                        lael="첨부파일"
+                        name="attached"
+                        component={this.renderFileInput}
+                        type="file"
+                    />
+
+                    <button type="submit" className="btn btn-primary">
+                        작성완료</button>
+                    <Link to="/notice" className="btn btn-danger">취소</Link>
+                </form>
+            </div>
         );
     }
 }
@@ -100,6 +131,7 @@ function validate(values) {
     if (!values.content) {
         errors.content = "Enter a content";
     }
+
     //If errors is empty, the form is fine to submit
     //If erros has any properties, redux form assume form is invalid
     return errors;
