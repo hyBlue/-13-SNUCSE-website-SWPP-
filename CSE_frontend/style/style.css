@@ -1,5 +1,3 @@
-/* @import 'antd/dist/antd.css'; */
-
 .MainCategories {
     margin-right: 20px;
 }
@@ -14,4 +12,42 @@
     right: 0;
     width: auto;
     border: 1px solid #ddd8d8;
+}
+
+.main-notice {
+  border: 1px solid #ddd;
+  width: 50%;
+  height: 150px;
+  float: left;
+}
+
+.main-News {
+  border: 1px solid #ddd;
+  width: 50%;
+  height: 150px;
+  float: right;
+}
+
+.main-notice-tag {
+  border: 1px solid #ddd;
+  width: 25%;
+  height: 30px;
+  float: left;
+}
+
+.main-notice-title {
+  border: 1px solid #ddd;
+  width: 100%;
+  height: 30px;
+  float: left;
+}
+
+.main-News-title {
+  border: 1px solid #ddd;
+  width: 25%;
+  height: 30px;
+}
+
+.main-login {
+  float: right;
 }
