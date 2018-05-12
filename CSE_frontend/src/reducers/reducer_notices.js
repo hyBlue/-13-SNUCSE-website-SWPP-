@@ -1,10 +1,10 @@
 import _ from 'lodash';
-import { FETCH_NOTICES, FETCH_NOTICE } from '../actions';
-//FETCH_POST, DELETE_POST,
+import { FETCH_NOTICES, FETCH_NOTICE, DELETE_NOTICE } from '../actions';
+
 export default (state = {}, action) => {
     switch (action.type) {
-        // case DELETE_POST: 
-        //     return _.omit(state, action.payload);
+        case DELETE_NOTICE: 
+            return _.omit(state, action.payload);
         case FETCH_NOTICE:
         //     // const post = action.payload.data;
         //     // const newState = { ...state };
