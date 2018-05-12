@@ -4,26 +4,35 @@ from django.contrib.auth.models import User
 class NoticeSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Notice
-        fields = ('id', 'user', 'title', 'content', 'created_at', 'author', 'image', 'attached')
+        fields = ('id',
+         'user',
+         'title',
+         'content',
+         'created_at',
+         'author',
+         'image',
+         'attached',
+         'view',
+         'tag_set')
 class UserSerializer(serializers.ModelSerializer):
+    notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
+
     class Meta:
         model = User
-        fields = ('id', 'username')
+        fields = ('id', 'username', 'notices')
 class NewsSerializer(serializers.ModelSerializer) :
     class Meta :
         model = News
         fields = ('title',
-        'content',
-        'created_at', 
-        'image' )
+         'content',
+         'created_at',
+         'image', )
 class ProfessorSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Professor
         fields = ('name',
-        'location' ,
-        'url' ,
-        'email',
-        'phone',
-        'fax' ,
-        'research' ,
-        'education' )
+         'contact',
+         'education' ,
+         'research' ,
+         'biography',
+         'photo',)
