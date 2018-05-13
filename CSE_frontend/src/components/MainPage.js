@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchNews } from '../actions';
 
+
 class MainPage extends Component {
 
   constructor() {
@@ -22,7 +23,10 @@ class MainPage extends Component {
     this.setState(() => ({ ntag: tag }));
   }
 */
+  //test
+  onChange() {
 
+  }
   renderNotice() {
     const size = _.size(this.props.notices)
     const rev = _.reject(this.props.notices, notice => { return notice.id <= size-5; })
@@ -71,6 +75,7 @@ class MainPage extends Component {
     const { notices } = this.props;
     const { News } = this.props;
     return (
+      
       <div>
         <h3>Welcome to CSE department Homepage</h3>
         <div>

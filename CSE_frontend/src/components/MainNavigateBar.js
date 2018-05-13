@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class MainNavigateBar extends Component {
+    
     render() {
         return (
             <div>
@@ -11,7 +12,7 @@ export default class MainNavigateBar extends Component {
                     <Link className="MainCategories" to={'/'}>입학</Link>
                     <Link className="MainCategories" to={'/'}>연구</Link>
                     <Link className="MainCategories" to={'/notice'}>공지사항</Link>
-                </span>
+                </span>    
             </div>
         );
     }
