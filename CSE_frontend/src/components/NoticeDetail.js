@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchNotice, deleteNotice } from '../actions';
+import { Row, Col, Card, Button } from 'antd';
 
 class NoticeDetail extends Component {
     componentDidMount() {
@@ -30,18 +31,27 @@ class NoticeDetail extends Component {
         }
         return (
             <div>
-                <h3>{notice.title}</h3>
-                <thead>
-                    <tr><td>작성자: {notice.author}</td><td>작성일: {notice.created_at.substring(0, 10)}</td><td>조회: </td></tr>
-                </thead>
-                <br />
-                <h6>분류: </h6>
-                <p>{notice.content}</p>
-                <Link to="/notice" className="btn">목록</Link>
-                <button className="btn btn-danger pull-xs-right"
-                    onClick={this.onDeleteClick.bind(this)}>지우기</button>
-                <button className="btn btn-primary pull-xs-right"
-                    onClick={this.onUpdateClick.bind(this)}>수정하기</button>
+                <h5>공지사항</h5>
+                <div style={{ background: '#ECECEC', padding: '30px' }}>
+                    <Card title={notice.title} bordered={false} style={{ width: '100%', padding: '10px' }}>
+                        <Row style={{backgroundColor: '#E8E8E8', marginBottom: '20px', padding: '10px'}}>
+                            <Col span={8}>작성자: {notice.author} </Col>
+                            <Col span={8}>작성일: {notice.created_at.substring(0, 10)} </Col>
+                            <Col span={8}>조회: {notice.view} </Col>
+                        </Row>
+                        <p>
+                        {notice.content}
+                        AntFin's projects cover a large number of products of different types and even different orders of magnitude. In order to help designers of various levels to have consistency and similar rhythm in designing page layout, to unify designing language and reduce the restoration losses, Ant Design proposed the concept of UI common scales. From a large amount of practices, we have extracted a set of arrays that can be used as dimensions for UI layout decision. All the numbers are multiples of 8 and have a dynamic sense of rhythm. After verification, it can help us to achieve a faster and better design decision making of layout design.
+                        </p>
+                    </Card>
+                </div>
+
+                <Button type="dashed">
+                <Link to="/notice" className="btn">목록</Link></Button>
+                <Button type="danger" className="btn pull-xs-right"
+                    onClick={this.onDeleteClick.bind(this)}>지우기</Button>
+                <Button type="primary" className="btn pull-xs-right"
+                    onClick={this.onUpdateClick.bind(this)}>수정하기</Button>
             </div>
         )
     }

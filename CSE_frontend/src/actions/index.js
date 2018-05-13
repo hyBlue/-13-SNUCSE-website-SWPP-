@@ -28,58 +28,61 @@ export function fetchNotice(id) {
 }
 
 export function createNotice(values, callback) {
-  //파일, 이미지 여러개 처리 필요.
-  var formData = new FormData();
-  values.foreach(data=> {
-      formData.append(data.key, data);
-  })
-  const request = axios.post(`${ROOT_URL}/notice${API_KEY}`, formData,
-      {
-          headers: {
-          'Content-Type': 'multipart/form-data'
-          }
-      }
-  )
-      .then(() => callback());
-  console.log(values.attached)
+    //파일, 이미지 여러개 처리 필요.
+    var formData = new FormData();
+    _.map(values, data => {
+        formData.append(data.key, data);
+    })
+    //   values.foreach(data=> {
 
-  return {
-      type: CREATE_NOTICE,
-      payload: request
-  }
+    //   })
+    const request = axios.post(`${ROOT_URL}/notice${API_KEY}`, formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+    )
+        .then(() => callback());
+    console.log(values.attached)
+
+    return {
+        type: CREATE_NOTICE,
+        payload: request
+    }
 }
 
-export function deleteNotice(id) {
-  const request = axios.delete(`${ROOT_URL}/notice/${id}${API_KEY}`)
-      .then(() => callback());
-  return {
-      type: DELETE_NOTICE,
-      payload: id
-  }
+export function deleteNotice(id, callback) {
+    const request = axios.delete(`${ROOT_URL}/notice/${id}${API_KEY}`)
+        .then(() => callback());
+    return {
+        type: DELETE_NOTICE,
+        payload: id
+    }
 }
 
 export function fetchNews() {
-  const request = axios.get(`${ROOT_URL}/News${API_KEY}`)
-  return {
-    type: FETCH_NEWS,
-    payload: request
-  };
+    const request = axios.get(`${ROOT_URL}/News${API_KEY}`)
+    return {
+        type: FETCH_NEWS,
+        payload: request
+    };
 }
 
 export function fetchNew(id) {
-  const request = axios.get(`${ROOT_URL}/New/${id}${API_KEY}`)
-  return {
-    type: FETCH_NEW,
-    payload: request
-  };
+    const request = axios.get(`${ROOT_URL}/New/${id}${API_KEY}`)
+    return {
+        type: FETCH_NEW,
+        payload: request
+    };
 }
 
 export function createLogin(values, callback) {
-  const request = axios.post(`${ROOT_URL}/sign_in${API_KEY}`, values)
-    .then(() => callback());
+    const request = axios.post(`${ROOT_URL}/sign_in${API_KEY}`, values)
+        .then(() => callback());
 
-  return {
-    type: CREATE_LOGIN,
-    payload: request
-  }
+    return {
+        type: CREATE_LOGIN,
+        payload: request
+    }
 }

@@ -22,10 +22,12 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <div>
-        <Layout>
-          <Header>Header<MainNavigateBar /></Header>
-          <Content>Content
+      <div style={{height: '100%'}}>
+        <Layout style={{height: '100%', width: '100%'}}>
+          <Header>
+            <MainNavigateBar />
+          </Header>
+          <Content>
             <Switch>
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
