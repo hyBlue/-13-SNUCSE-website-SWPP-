@@ -13,8 +13,8 @@ class Notice(Post) :
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
     author = models.CharField(max_length = 30, default = 'anonymous')
-    image = models.ImageField(null = True)
-    attached = models.FileField(null = True)
+    image = models.ImageField(null = True, upload_to = 'notice/')
+    attached = models.FileField(null = True, upload_to = 'notice/')
     view = models.IntegerField(default = 0)
     tag_set = models.ManyToManyField('Tag', blank = True)
     def __str__(self) :
@@ -25,7 +25,7 @@ class News(Post) :
     title = models.CharField(max_length = 100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
-    image = models.ImageField(null = True)
+    image = models.ImageField(null = True, upload_to = 'news/' )
 
     def __str__(self) :
         return self.title
@@ -42,7 +42,7 @@ class Professor(Post) :
     education = models.TextField(blank = True)
     research = models.TextField(blank = True)
     biography = models.TextField(blank = True)
-    photo = models.ImageField(null = True)
+    photo = models.ImageField(null = True,upload_to = 'professor/')
 
 
 class Tag(models.Model) :

@@ -10,8 +10,9 @@ urlpatterns = [
     url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     url(r'^api/professor/$', views.ProfessorList.as_view()),
     url(r'^api/professor/(?P<pk>[0-9]+)/$', views.ProfessorDetail.as_view()),
-
     url(r'^api/news/$', views.NewsList.as_view()),
+    url(r'^api/news/(?P<pk>[0-9]+)/$', views.NewsDetail.as_view()),
+    url(r'^api/tags/$', views.TagList.as_view()),
 
 ]
 

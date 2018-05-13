@@ -23,16 +23,20 @@ class UserSerializer(serializers.ModelSerializer):
 class NewsSerializer(serializers.ModelSerializer) :
     class Meta :
         model = News
-        fields = ('title',
+        fields = ('id', 'title',
          'content',
          'created_at',
          'image', )
 class ProfessorSerializer(serializers.ModelSerializer) :
     class Meta :
         model = Professor
-        fields = ('name',
+        fields = ('id', 'name',
          'contact',
          'education' ,
          'research' ,
          'biography',
          'photo',)
+class TagSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = Tag
+        fields = ('id', 'name',)
