@@ -51,7 +51,7 @@ class MainPage extends Component {
           <Row>
             <Col span={16}>
               <Link to={`/notice/${notice.id}`}>
-                {notice.title}
+                {notice.title.length > 10 ? notice.title.substring(0,10) : notice.title}
               </Link>
             </Col>
             <Col span={8}>
@@ -64,8 +64,9 @@ class MainPage extends Component {
   }
 
   renderNews() {
-    const size = _.size(this.props.News)
-    const rev = _.reject(this.props.News, New => { return News.id <= size - 10; })
+    //프로퍼티 이름변경 News -> news
+    const size = _.size(this.props.news)
+    const rev = _.reject(this.props.news, New => { return New.id <= size - 10; })
     const rrev = _.chain(rev).reverse().value()
 
     if (size == 0) {
@@ -80,7 +81,7 @@ class MainPage extends Component {
           <Row>
             <Col span={16}>
               <Link to={`/News/${New.id}`}>
-                {New.title}
+                {New.title.length > 10 ? New.title.substring(0,10) : New.title}
               </Link>
             </Col>
             <Col span={8}>
@@ -102,6 +103,7 @@ class MainPage extends Component {
         {this.renderImgSlider()}
         <Row style={{height: '650px'}}>
           <Col className='mainPostsContainer' span={8}>
+            {/* 링크변경 */}
             <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">More</Link>} >
               {this.renderNews()}
             </Card>

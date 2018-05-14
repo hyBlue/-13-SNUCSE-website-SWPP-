@@ -13,6 +13,9 @@ import NoticeUpdate from './components/NoticeUpdate';
 import NoticeDetail from './components/NoticeDetail';
 import NoticeList from './components/NoticeList';
 import Login from './components/Login';
+import MembersPage from './components/MembersPage';
+import NewsList from './components/NewsList';
+import NewsDetail from './components/NewsDetail';
 
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
@@ -29,11 +32,14 @@ ReactDOM.render(
           </Header>
           <Content>
             <Switch>
+              <Route path="/sign_in" component={Login} />
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
               {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
               <Route path="/notice" component={NoticeList} />
-              <Route path="/sign_in" component={Login} />
+              <Route path="/news/:id" component={NewsDetail} />
+              <Route path="/news" component={NewsList} />
+              <Route path="/members" component={MembersPage} />
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>
