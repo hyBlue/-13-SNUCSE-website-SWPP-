@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchNews } from '../actions';
+import { fetchNotices, fetchNewses, fetchNews } from '../actions';
 import { Carousel, Row, Col, Card } from 'antd';
 
 
@@ -17,6 +17,10 @@ class MainPage extends Component {
 
   componentDidMount() {
     this.props.fetchNotices();
+    this.props.fetchNewses();
+//    const { id } = this.props.match.parms;
+ //   this.props.fetchNews(id);
+    this.props.fetchNews(1);
   }
 
   /*
@@ -25,14 +29,69 @@ class MainPage extends Component {
     }
   */
   renderImgSlider() {
+    const size = _.size(this.props.news)
+    const rev = _.reject(this.props.news, New => { return New.id <= size - 4; })
+    const rrev = _.chain(rev).reverse().value()
+    const first_news = _.first(rrev)
+    let new_arr = new Array(4)
+    let i = 0
+
+    if (size == 0) {
+      return (
+        "Loading... Maybe no Notice..."
+      );
+    }
+
+    _.map(rrev, New => {
+      new_arr[i] = New
+      i = i + 1
+    })
+
     return (
       <Carousel autoplay>
-        <div><h3>1</h3></div>
+        <div>
+          <Card title={new_arr[0].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[0].image} />}>
+          </Card>
+        </div>
+        <div>
+          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[1].image} />}>
+          </Card>
+        </div>
+        <div>
+          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[2].image} />}>
+          </Card>
+        </div>
+        <div>
+          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[3].image} />}>
+          </Card>
+        </div>
+      </Carousel>
+    );
+
+/*
+    return (
+      _.map(rrev, New => {
+      return (
+        <div key={New.id}>
+          <Card title={New.title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={New.image} />}>
+          </Card>
+        </div>
+      );
+      })
+    );
+*/
+/*
+    return (
+      <Carousel autoplay>
+        <div>
+          1
+        </div>
         <div><h3>2</h3></div>
         <div><h3>3</h3></div>
         <div><h3>4</h3></div>
       </Carousel>
     );
+*/
   }
   renderNotice() {
     const size = _.size(this.props.notices)
@@ -119,13 +178,18 @@ class MainPage extends Component {
           </Card>
           </Col>
         </Row>
+        <div className='main-login'>
+          <Link to={`/sign_in`}>
+            Login
+          </Link>
+        </div>
       </div >
     );
   }
 }
 
-function mapStateToProps({ notices }) {
-  return { notices }
+function mapStateToProps({ notices, news, News }) {
+  return { notices, news, News }
 }
 
-export default connect(mapStateToProps, { fetchNotices })(MainPage);
+export default connect(mapStateToProps, { fetchNotices, fetchNewses, fetchNews })(MainPage);
