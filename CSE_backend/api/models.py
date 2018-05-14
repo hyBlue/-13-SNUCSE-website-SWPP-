@@ -16,7 +16,7 @@ class Notice(Post) :
     image = models.ImageField(null = True, upload_to = 'notice/')
     attached = models.FileField(null = True, upload_to = 'notice/')
     view = models.IntegerField(default = 0)
-    tag_set = models.ManyToManyField('Tag', blank = True)
+    tag_set = models.ManyToManyField('Tag', related_name = 'notices', blank = True)
     def __str__(self) :
         return self.title
 

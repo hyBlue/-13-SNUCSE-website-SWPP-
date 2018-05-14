@@ -37,6 +37,7 @@ class ProfessorSerializer(serializers.ModelSerializer) :
          'biography',
          'photo',)
 class TagSerializer(serializers.ModelSerializer) :
+    notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
     class Meta :
         model = Tag
-        fields = ('id', 'name',)
+        fields = ('id', 'name', 'notices')
