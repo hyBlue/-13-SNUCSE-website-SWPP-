@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+//커밋 테스트
 export const FETCH_NOTICES = 'fetch_notices';
 export const FETCH_NOTICE = 'fetch_notice';
 export const CREATE_NOTICE = 'create_notice';
