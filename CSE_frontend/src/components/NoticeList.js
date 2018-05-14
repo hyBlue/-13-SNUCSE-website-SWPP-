@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices } from '../actions';
+import { Button } from 'antd';
 
 class NoticeList extends Component {
   componentDidMount() {
@@ -33,11 +34,12 @@ class NoticeList extends Component {
     return (
         <div>
             <div className="write-notice">
-                    <Link className="btn btn-primary" to="/notice/new">
+                <Button type="primary">
+                    <Link className="btn " to="/notice/new">
                         공지사항 쓰기
-                    </Link>
+                    </Link></Button>
             </div>
-            <h3>공지사항</h3>
+            <h5>공지사항</h5>
             <table className="table table-hover">
                 <thead>
                     <tr>
