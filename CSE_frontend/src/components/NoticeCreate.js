@@ -167,20 +167,20 @@ class NoticeCreate extends Component {
                         name="content"
                         component={this.renderTextAreaField}
                     />
-                    {/* <Field
+                    <Field
                         label="첨부파일"
                         name="attached"
                         component={this.renderFileInput}
                         type="file"
-                    /> */}
-                    <Field
+                    />
+                    {/* <Field
                         label="드랍존"
                         name="attached"
                         component={this.renderDropZoneField.bind(this)}
-                    />
+                    /> */}
                     <Field
                         label="이미지"
-                        name="images"
+                        name="image"
                         component={this.renderImageDropField.bind(this)}
                     />
                     <div>{this.state.rejected.length !== 0 ? '--잘못된 파일 형식입니다--' : ''}</div>

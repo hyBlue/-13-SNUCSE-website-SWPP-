@@ -12,7 +12,7 @@ export default class MainNavigateBar extends Component {
                 defaultSelectedKeys={['1']}
                 style={{ lineHeight: '64px' }}>
                 <Menu.Item key="0"><Link className="MainCategories" to={'/'}>소개</Link></Menu.Item>
-                <Menu.Item key="1"><Link className="MainCategories" to={'/'}>구성원</Link></Menu.Item>
+                <Menu.Item key="1"><Link className="MainCategories" to={'/members'}>구성원</Link></Menu.Item>
                 <Menu.Item key="2"><Link className="MainCategories" to={'/'}>연구</Link></Menu.Item>
                 <Menu.Item key="3"><Link className="MainCategories" to={'/'}>입학</Link></Menu.Item>
                 <Menu.Item key="4"><Link className="MainCategories" to={'/notice'}>공지사항</Link></Menu.Item>

@@ -1,11 +1,11 @@
 import axios from 'axios';
-
+//커밋 테스트
 export const FETCH_NOTICES = 'fetch_notices';
 export const FETCH_NOTICE = 'fetch_notice';
 export const CREATE_NOTICE = 'create_notice';
 export const DELETE_NOTICE = 'delete_notice';
-export const FETCH_NEWS = 'fetch_News';
-export const FETCH_NEW = 'fetch_New';
+export const FETCH_NEWSES = 'fetch_newses';
+export const FETCH_NEWS = 'fetch_new';
 export const CREATE_LOGIN = 'create_login';
 const ROOT_URL = 'http://127.0.0.1:8000/api';
 const API_KEY = '?key=TEMPORARY1234';
@@ -28,15 +28,18 @@ export function fetchNotice(id) {
 }
 
 export function createNotice(values, callback) {
+    console.log(values);
     //파일, 이미지 여러개 처리 필요.
     var formData = new FormData();
-    _.map(values, data => {
-        formData.append(data.key, data);
+    console.log(formData);
+    Object.keys(values).map(key => {
+        console.log(values[key]);
+        formData.append(key, values[key]);
     })
     //   values.foreach(data=> {
 
     //   })
-    const request = axios.post(`${ROOT_URL}/notice${API_KEY}`, formData,
+    const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
         {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -61,18 +64,18 @@ export function deleteNotice(id, callback) {
     }
 }
 
-export function fetchNews() {
-    const request = axios.get(`${ROOT_URL}/News${API_KEY}`)
+export function fetchNewses() {
+    const request = axios.get(`${ROOT_URL}/news${API_KEY}`)
     return {
-        type: FETCH_NEWS,
+        type: FETCH_NEWSES,
         payload: request
     };
 }
 
-export function fetchNew(id) {
-    const request = axios.get(`${ROOT_URL}/New/${id}${API_KEY}`)
+export function fetchNews(id) {
+    const request = axios.get(`${ROOT_URL}/news/${id}${API_KEY}`)
     return {
-        type: FETCH_NEW,
+        type: FETCH_NEWS,
         payload: request
     };
 }
