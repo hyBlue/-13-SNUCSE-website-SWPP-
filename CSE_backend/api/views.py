@@ -62,6 +62,10 @@ class NewsList(generics.ListCreateAPIView):
     def perform_create(self, serializer) :
         serializer.save()
 
+class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+
 class ProfessorList(generics.ListCreateAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
@@ -72,3 +76,16 @@ class ProfessorList(generics.ListCreateAPIView):
 class ProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
+
+class TagList(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+    def perform_create(self, serializer) :
+        serializer.save()
+
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+    
