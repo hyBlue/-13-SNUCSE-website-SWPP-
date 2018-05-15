@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices } from '../actions';
+import { fetchNewses } from '../actions';
 import { Button } from 'antd';
 
-class NoticeList extends Component {
+class NewsList extends Component {
   componentDidMount() {
-      this.props.fetchNotices();
+      this.props.fetchNewses();
   }
 
-  renderNotice() {
-    return _.map(this.props.notices, notice => {
+  renderNewses() {
+    return _.map(this.props.news, news => {
         return (
-            <tr key={notice.id}>
-                <td>{notice.id}</td>
+            <tr key={news.id}>
+                <td>{news.id}</td>
                 <td>
-                <Link to={`/notice/${notice.id}`}>
-                    {notice.title} 
+                <Link to={`/news/${news.id}`}>
+                    {news.title} 
                 </Link>
                 </td>
-                <td>{notice.created_at.substring(0,10)}</td>
+                <td>{news.created_at.substring(0,10)}</td>
                 <td></td>
             </tr>
         );
@@ -27,19 +27,19 @@ class NoticeList extends Component {
 }
 
   render() {
-    const { notices } = this.props;
-    if(!notices) {
+    const { news } = this.props;
+    if(!news) {
         return <div>Loading...</div>;
     }
     return (
         <div>
-            <div className="write-notice">
+            {/* <div className="write-News">
                 <Button type="primary">
-                    <Link className="btn " to="/notice/new">
-                        공지사항 쓰기
+                    <Link className="btn " to="/">
+                        새소식 쓰기
                     </Link></Button>
-            </div>
-            <h5>공지사항</h5>
+            </div> */}
+            <h5>새 소식</h5>
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -50,7 +50,7 @@ class NoticeList extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.renderNotice()}
+                    {this.renderNewses()}
                 </tbody>
             </table>
         </div>
@@ -58,9 +58,9 @@ class NoticeList extends Component {
   }
 }
 
-function mapStateToProps({ notices }) {
-    //console.log(state.notices);
-    return { notices }
+function mapStateToProps({ news }) {
+    //console.log(state.Newss);
+    return { news };
 }
 
-export default connect(mapStateToProps, { fetchNotices })(NoticeList);
+export default connect(mapStateToProps, { fetchNewses })(NewsList);

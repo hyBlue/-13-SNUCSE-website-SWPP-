@@ -6,16 +6,20 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
-        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        exclude: '/node_modules/',
         loader: 'babel-loader',
         query: {
           presets: ['react', 'env', 'stage-1']
         }
       },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
     ],
-    
   },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.css']
@@ -30,3 +34,4 @@ module.exports = {
   },
 
 };
+
