@@ -1,10 +1,26 @@
+/* Top nav bar category */
+/* Change the color of links on hover */
+.catBlock:hover {
+  background-color: rgb(255, 255, 255)!important;
+  color: black!important;
+  text-align:center!important;
+}
 .MainCategories {
-    margin-right: 20px;
+  margin:auto!important;
+  display: block;
+  color: #6b9a79!important;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
 }
 
-.topnav {
-    margin-left: 30px!important;
-}   
+
+
+/* Add an active class to highlight the current page */
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
 
 .write-notice {
     position: fixed;
@@ -63,7 +79,7 @@
 .ant-carousel .slick-slide h3 {
   color: #fff;
 }
-/* Main Page MainPosts*/
+/* Main Page MainPosts block*/
 .mainPostsContainer {
   height: 100%!important;
 }
