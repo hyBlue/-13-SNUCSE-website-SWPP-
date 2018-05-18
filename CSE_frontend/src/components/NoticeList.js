@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices } from '../actions';
-import { Button } from 'antd';
+import { Button, SearchBar } from 'antd';
 
 class NoticeList extends Component {
   componentDidMount() {
@@ -33,13 +33,8 @@ class NoticeList extends Component {
     }
     return (
         <div>
-            <div className="write-notice">
-                <Button type="primary">
-                    <Link className="btn " to="/notice/new">
-                        공지사항 쓰기
-                    </Link></Button>
-            </div>
             <h5>공지사항</h5>
+            <SearchBar placeholder="Search" maxLength={8} />
             <table className="table table-hover">
                 <thead>
                     <tr>
@@ -53,6 +48,12 @@ class NoticeList extends Component {
                     {this.renderNotice()}
                 </tbody>
             </table>
+            <div className="write-notice text-xs-right">
+                <Button type="primary">
+                    <Link className="btn" to="/notice/new">
+                        공지사항 쓰기
+                    </Link></Button>
+            </div>
         </div>
     );
   }
