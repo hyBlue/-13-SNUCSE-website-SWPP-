@@ -6,6 +6,7 @@ export const CREATE_NOTICE = 'create_notice';
 export const DELETE_NOTICE = 'delete_notice';
 export const FETCH_NEWSES = 'fetch_newses';
 export const FETCH_NEWS = 'fetch_new';
+export const FETCH_PROFESSORS = 'fetch_professors';
 export const CREATE_LOGIN = 'create_login';
 const ROOT_URL = 'http://127.0.0.1:8000/api';
 const API_KEY = '?key=TEMPORARY1234';
@@ -23,6 +24,30 @@ export function fetchNotice(id) {
     const request = axios.get(`${ROOT_URL}/notice/${id}${API_KEY}`)
     return {
         type: FETCH_NOTICE,
+        payload: request
+    }
+}
+
+export function fetchNewses() {
+    const request = axios.get(`${ROOT_URL}/news${API_KEY}`)
+    return {
+        type: FETCH_NEWSES,
+        payload: request
+    };
+}
+
+export function fetchNews(id) {
+    const request = axios.get(`${ROOT_URL}/news/${id}${API_KEY}`)
+    return {
+        type: FETCH_NEWS,
+        payload: request
+    };
+}
+
+export function fetchProfessors() {
+    const request = axios.get(`${ROOT_URL}/professor${API_KEY}`)
+    return {
+        type: FETCH_PROFESSORS,
         payload: request
     }
 }
@@ -55,31 +80,6 @@ export function createNotice(values, callback) {
     }
 }
 
-export function deleteNotice(id, callback) {
-    const request = axios.delete(`${ROOT_URL}/notice/${id}${API_KEY}`)
-        .then(() => callback());
-    return {
-        type: DELETE_NOTICE,
-        payload: id
-    }
-}
-
-export function fetchNewses() {
-    const request = axios.get(`${ROOT_URL}/news${API_KEY}`)
-    return {
-        type: FETCH_NEWSES,
-        payload: request
-    };
-}
-
-export function fetchNews(id) {
-    const request = axios.get(`${ROOT_URL}/news/${id}${API_KEY}`)
-    return {
-        type: FETCH_NEWS,
-        payload: request
-    };
-}
-
 export function createLogin(values, callback) {
     const request = axios.post(`${ROOT_URL}/sign_in${API_KEY}`, values)
         .then(() => callback());
@@ -87,5 +87,14 @@ export function createLogin(values, callback) {
     return {
         type: CREATE_LOGIN,
         payload: request
+    }
+}
+
+export function deleteNotice(id, callback) {
+    const request = axios.delete(`${ROOT_URL}/notice/${id}${API_KEY}`)
+        .then(() => callback());
+    return {
+        type: DELETE_NOTICE,
+        payload: id
     }
 }

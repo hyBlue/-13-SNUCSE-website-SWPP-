@@ -13,7 +13,7 @@ import NoticeUpdate from './components/NoticeUpdate';
 import NoticeDetail from './components/NoticeDetail';
 import NoticeList from './components/NoticeList';
 import Login from './components/Login';
-import MembersPage from './components/MembersPage';
+import ProfessorsList from './components/ProfessorsList';
 import NewsList from './components/NewsList';
 import NewsDetail from './components/NewsDetail';
 
@@ -39,7 +39,7 @@ ReactDOM.render(
               <Route path="/notice" component={NoticeList} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
-              <Route path="/members" component={MembersPage} />
+              <Route path="/members" component={ProfessorsList} />
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>
