@@ -24,7 +24,6 @@ class ProfessorsList extends Component {
                         description="정교수"
                     />
                     <br/><br/>
-                    <p> Hello man </p>
                     {/* <p>{professor.contact}</p>
                     <p>{professor.education}</p>
                     <p>{professor.research}</p>

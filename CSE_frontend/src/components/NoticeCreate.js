@@ -14,7 +14,7 @@ import Dropzone from 'react-dropzone';
 
 class NoticeCreate extends Component {
     constructor() {
-        super()
+        super();
         this.state = {
             accepted: [],
             rejected: [],
@@ -94,24 +94,28 @@ class NoticeCreate extends Component {
         const className = `form-group ${touched && error ? 'has-danger' : ''}`;
         return (
             <div className={className}>
-                <button type="button" onClick={() => { dropzoneRef.open() }}>
-                    파일 가져오기
-                </button>
-                <Dropzone className="form-control"
-                    ref={(node) => { dropzoneRef = node; }}
-                    name={field.name}
-                    onDrop={(accepted, rejected) => this.setState({ accepted: this.state.accepted.concat(accepted), rejected })}
-                >
-                    <div>첨부파일들을 드래그앤드롭하세요</div>
-                    {/* {files && Array.isArray(files) && (
+                <div className="form-control">
+                    <button type="button" onClick={() => { dropzoneRef.open() }}>
+                        파일 가져오기
+                    </button>
+                    <Dropzone className="form-control"
+                        ref={(node) => { dropzoneRef = node; }}
+                        name={field.name}
+                        onDrop={(accepted, rejected) => {
+                            this.setState({ accepted: this.state.accepted.concat(accepted), rejected })
+                            field.input.onChange(this.state.accepted.concat(accepted));
+                        }}
+                    >
+                        <div>첨부파일들을 드래그앤드롭하세요</div>
+                        {/* {files && Array.isArray(files) && (
               <ul>
                 { files.map((file, i) => <li key={i}>{file.name}</li>) }
               </ul>  )}*/}
-                    {
-                        this.state.accepted ? this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
-                    }
-                </Dropzone>
-
+                        {
+                            this.state.accepted ? this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                        }
+                    </Dropzone>
+                </div>
             </div>
         );
     }
@@ -122,26 +126,32 @@ class NoticeCreate extends Component {
         const className = `form-group ${touched && error ? 'has-danger' : ''}`;
         return (
             <div className={className}>
-                <button type="button" onClick={() => { dropzoneRef.open() }}>
-                    이미지 가져오기
-                </button>
-                <Dropzone className="form-control"
-                    ref={(node) => { dropzoneRef = node; }}
-                    accept="image/jpeg, image/png"
-                    name={field.name}
-                    onDrop={(accepted, rejected) => this.setState({ acceptedImages: this.state.acceptedImages.concat(accepted), rejected })}
-                >
+                <div className="form-control">
+                    <button type="button" onClick={() => { dropzoneRef.open() }}>
+                        이미지 가져오기
+                    </button>
+                    <Dropzone className="form-control"
+                        ref={(node) => { dropzoneRef = node; }}
+                        accept="image/jpeg, image/png"
+                        name={field.name}
+                        onDrop={(accepted, rejected) => {
+                            this.setState({ acceptedImages: this.state.acceptedImages.concat(accepted), rejected })
+                            field.input.onChange(this.state.acceptedImages.concat(accepted));
+                        }}
+                    >
 
-                    <div>이미지들을 드래그앤드롭하세요</div>
-                    {
-                        this.state.acceptedImages ? this.state.acceptedImages.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
-                    }
-                </Dropzone>
+                        <div>이미지들을 드래그앤드롭하세요</div>
+                        {
+                            this.state.acceptedImages ? this.state.acceptedImages.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                        }
+                    </Dropzone>
+                </div>
             </div>
         );
     }
 
     onSubmit(values) {
+        console.log(values);
         this.props.createNotice(values, () => {
             this.props.history.push('/notice');
         });
