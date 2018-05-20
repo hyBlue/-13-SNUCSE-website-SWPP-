@@ -35,10 +35,10 @@ class MainPage extends Component {
     const first_news = _.first(rrev)
     let new_arr = new Array(4)
     let i = 0
-
-    if (size == 0) {
+    //error handling for img load
+    if (rrev.length != 4) {
       return (
-        "Loading... Maybe no Notice..."
+        "Loading... Maybe no enough Imgs..."
       );
     }
 
@@ -154,8 +154,10 @@ class MainPage extends Component {
   }
 
   render() {
-    const { notices } = this.props;
-    const { News } = this.props;
+    const { notices, news } = this.props;
+    if( !notices || !news ) {
+      return <div>Loading...</div>;
+    }
     return (
 
       <div>
@@ -188,8 +190,8 @@ class MainPage extends Component {
   }
 }
 
-function mapStateToProps({ notices, news, News }) {
-  return { notices, news, News }
+function mapStateToProps({ notices, news, }) {
+  return { notices, news, }
 }
 
 export default connect(mapStateToProps, { fetchNotices, fetchNewses, fetchNews })(MainPage);

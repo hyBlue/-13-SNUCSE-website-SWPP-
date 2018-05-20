@@ -1,18 +1,35 @@
+/* MainNavigateBar */
+.catBlock:hover {
+  background-color: rgb(255, 255, 255)!important;
+  text-align:center!important;
+}/* Change the color of link block on hover */
 .MainCategories {
-    margin-right: 20px;
+  margin:auto!important;
+  display: block;
+  color:#6b9a79;
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+}/* Link css */
+.MainCategories:hover {
+  color: rgb(52, 110, 255);
+}/* Change the color of link on hover */
+
+
+
+/* Add an active class to highlight the current page */
+.active {
+  background-color: #4CAF50;
+  color: white;
 }
 
-.topnav {
-    margin-left: 30px!important;
-}   
-
-.write-notice {
+/* .write-notice {
     position: fixed;
     bottom: 0;
     right: 0;
     width: auto;
     border: 1px solid #ddd8d8;
-}
+} */
 
 .main-notice {
   border: 1px solid #ddd;
@@ -63,7 +80,7 @@
 .ant-carousel .slick-slide h3 {
   color: #fff;
 }
-/* Main Page MainPosts*/
+/* Main Page MainPosts block*/
 .mainPostsContainer {
   height: 100%!important;
 }
