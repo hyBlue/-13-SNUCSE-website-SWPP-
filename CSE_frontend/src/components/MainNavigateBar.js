@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Divider, Button, Menu, Dropdown, Icon, Row, Col, Popover } from 'antd';
-const SubMenu = Menu.SubMenu;
-const menu = (
-    <Menu>
-        <Menu.Item key="1">1st menu item</Menu.Item>
-        <Menu.Item key="2">2nd memu item</Menu.Item>
-        <Menu.Item key="3">3rd menu item</Menu.Item>
-    </Menu>
-);
+import {  Divider, Button, Menu, Dropdown, Icon, Row, Col, Popover } from 'antd';
 
 export default class MainNavigateBar extends Component {
 
@@ -23,8 +15,6 @@ export default class MainNavigateBar extends Component {
         );
     }
     renderSubMenu2(itemGroup1, itemGroup2) {
-        console.log(itemGroup1);
-        console.log(itemGroup2);
         return (
             <Menu
                 theme="dark"

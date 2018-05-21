@@ -48,7 +48,7 @@ class MainPage extends Component {
     })
 
     return (
-      <Carousel effect="fade">
+      <Carousel autoplay effect="fade">
         <div>
           <Card title={new_arr[0].title}  style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[0].image} />}>
           </Card>
