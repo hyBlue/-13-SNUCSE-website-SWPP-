@@ -48,21 +48,21 @@ class MainPage extends Component {
     })
 
     return (
-      <Carousel autoplay>
+      <Carousel effect="fade">
         <div>
-          <Card title={new_arr[0].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[0].image} />}>
+          <Card title={new_arr[0].title}  style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[0].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[1].image} />}>
+          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[1].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[2].image} />}>
+          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[2].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={new_arr[3].image} />}>
+          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[3].image} />}>
           </Card>
         </div>
       </Carousel>
@@ -161,7 +161,7 @@ class MainPage extends Component {
     return (
 
       <div>
-        {this.renderImgSlider()}
+        <Row>{this.renderImgSlider()}</Row>
         <Row style={{height: '650px'}}>
           <Col className='mainPostsContainer' span={8}>
             {/* 링크변경 */}

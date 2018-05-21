@@ -16,12 +16,6 @@
 }/* Change the color of link on hover */
 
 
-/* Add an active class to highlight the current page */
-.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
 /* .write-notice {
     position: fixed;
     bottom: 0;
@@ -73,12 +67,16 @@
   height: 160px;
   line-height: 160px;
   background: #364d79;
-  overflow: hidden;
+  overflow: hidden!important;
+}
+.ant-carousel .slick-dots {
+  height: 30px!important;
+  
+}
+.ant-carousel .slick-dots button {
+  background-color: #364d79!important;
 }
 
-.ant-carousel .slick-slide h3 {
-  color: #fff;
-}
 /* Main Page MainPosts block*/
 .mainPostsContainer {
   height: 100%!important;
