@@ -13,12 +13,19 @@ class Notice(Post) :
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
     author = models.CharField(max_length = 30, default = 'anonymous')
-    image = models.ImageField(null = True, upload_to = 'notice/')
-    attached = models.FileField(null = True, upload_to = 'notice/')
     view = models.IntegerField(default = 0)
     tag_set = models.ManyToManyField('Tag', related_name = 'notices', blank = True)
+    image = models.ManyToManyField('Image', related_name = 'notice', null = True, blank = True)
+    # attached = models.ManyToManyField('Attached', related_name = 'notice', null = True, blank = True)
+    attached=  models.FileField(blank = True)
     def __str__(self) :
-        return self.title
+        return str(self.id) + " " + self.title
+
+class Image(models.Model) :
+    image = models.ImageField(null = True, upload_to = 'notice/')
+
+class Attached(models.Model) :
+    attached = models.FileField(null = True, upload_to = 'notice/')
 
 class News(Post) :
     user = models.ForeignKey('auth.User', related_name = 'news', on_delete = models.CASCADE, null = True)

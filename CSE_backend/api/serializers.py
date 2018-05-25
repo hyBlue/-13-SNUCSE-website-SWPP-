@@ -2,6 +2,7 @@ from rest_framework import serializers
 from api.models import *
 from django.contrib.auth.models import User
 class NoticeSerializer(serializers.ModelSerializer) :
+    tag_set =  serializers.StringRelatedField(many = True)
     class Meta :
         model = Notice
         fields = ('id',
@@ -13,7 +14,8 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'image',
          'attached',
          'view',
-         'tag_set')
+         'tag_set',
+         )
 class UserSerializer(serializers.ModelSerializer):
     notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
 
@@ -37,7 +39,8 @@ class ProfessorSerializer(serializers.ModelSerializer) :
          'biography',
          'photo',)
 class TagSerializer(serializers.ModelSerializer) :
-    notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
+    notices = serializers.StringRelatedField(many = True)
+    # notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
     class Meta :
         model = Tag
-        fields = ('id', 'name', 'notices')
+        fields = ('id', 'name', 'notices', )
