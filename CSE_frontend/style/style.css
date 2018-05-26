@@ -84,3 +84,11 @@
 .mainPostsList {
   height: 100%!important;
 }
+
+.flright {
+  float: right;
+}
+
+.flcenter {
+    text-align: center;
+}
