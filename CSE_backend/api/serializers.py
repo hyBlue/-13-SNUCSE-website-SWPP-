@@ -30,14 +30,25 @@ class NewsSerializer(serializers.ModelSerializer) :
          'created_at',
          'image', )
 class ProfessorSerializer(serializers.ModelSerializer) :
+    education =  serializers.StringRelatedField(many = True)
+    research =  serializers.StringRelatedField(many = True)
+    biography =  serializers.StringRelatedField(many = True)
+
     class Meta :
         model = Professor
-        fields = ('id', 'name',
-         'contact',
-         'education' ,
-         'research' ,
-         'biography',
-         'photo',)
+        fields = ('id',
+        'name' ,
+        'position',
+        'lab' ,
+        'location' ,
+        'phone',
+        'fax' ,
+        'email' ,
+        'website',
+        'education' ,
+        'research' ,
+        'biography' ,
+        'image')
 class TagSerializer(serializers.ModelSerializer) :
     notices = serializers.StringRelatedField(many = True)
     # notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
