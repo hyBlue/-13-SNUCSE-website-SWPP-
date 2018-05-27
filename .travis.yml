@@ -1,4 +1,3 @@
 language: python
-python: 3.6
-before_script: - cd CSE_backend
+python: - "3.6"
 script: - python backend_test.py
