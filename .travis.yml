@@ -1,5 +1,9 @@
 language: python
 python:
   - "3.6"
+
+install:
+  - pip install -r CSE_backend/requirements.txt
+
 script:
-  - python hello.py
+  - python CSE_backend/backend_test.py
