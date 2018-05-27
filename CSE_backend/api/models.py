@@ -55,7 +55,7 @@ class Professor(Post) :
 
 class Staff(Post) :
     name = models.CharField(max_length = 20)
-
+    position = models.CharField(max_length = 20, blank = True)
 class Education(models.Model) :
     education = models.CharField(max_length = 20, blank = True)
     def __str__(self) :
