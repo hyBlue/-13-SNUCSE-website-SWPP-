@@ -1,11 +1,5 @@
-language: node_js
-node_js:
-  - v6
-script:
-  - npm test -- --coverage
+language : python
+python : 3.6
+before_script : -cd CSE_backend
+script: - python backend_test.py
 sudo: false
-cache:
-  directories:
-    - "node_modules"
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
