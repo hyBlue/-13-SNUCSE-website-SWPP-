@@ -1,5 +1,5 @@
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: ['./src/index.js', 'babel-register'],
   output: {
     path: __dirname,
     publicPath: '/',
@@ -18,11 +18,8 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: '/node_modules/',
+        exclude: /node_modules/,
         loader: 'babel-loader',
-        query: {
-          presets: ['react', 'env', 'stage-1']
-        }
       },
       {
         test: /\.css$/,
