@@ -107,7 +107,10 @@ def check_key(json, key):
 
 
 print("******************************************************************************************************************")
-# create promises
+
+
+sleep(10)
+
 link = "http://localhost:8000/api/notice/"
 noticeN = 10
 print("1. Checking POST Notice http://localhost:8000/api/notice by creating {0} Notice.".format(noticeN))
