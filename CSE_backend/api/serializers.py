@@ -2,6 +2,7 @@ from rest_framework import serializers
 from api.models import *
 from django.contrib.auth.models import User
 class NoticeSerializer(serializers.ModelSerializer) :
+    tag_set =  serializers.StringRelatedField(many = True)
     class Meta :
         model = Notice
         fields = ('id',
@@ -13,7 +14,8 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'image',
          'attached',
          'view',
-         'tag_set')
+         'tag_set',
+         )
 class UserSerializer(serializers.ModelSerializer):
     notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
 
@@ -28,16 +30,28 @@ class NewsSerializer(serializers.ModelSerializer) :
          'created_at',
          'image', )
 class ProfessorSerializer(serializers.ModelSerializer) :
+    education =  serializers.StringRelatedField(many = True)
+    research =  serializers.StringRelatedField(many = True)
+    biography =  serializers.StringRelatedField(many = True)
+
     class Meta :
         model = Professor
-        fields = ('id', 'name',
-         'contact',
-         'education' ,
-         'research' ,
-         'biography',
-         'photo',)
+        fields = ('id',
+        'name' ,
+        'position',
+        'lab' ,
+        'location' ,
+        'phone',
+        'fax' ,
+        'email' ,
+        'website',
+        'education' ,
+        'research' ,
+        'biography' ,
+        'image')
 class TagSerializer(serializers.ModelSerializer) :
-    notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
+    notices = serializers.StringRelatedField(many = True)
+    # notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
     class Meta :
         model = Tag
-        fields = ('id', 'name', 'notices')
+        fields = ('id', 'name', 'notices', )
