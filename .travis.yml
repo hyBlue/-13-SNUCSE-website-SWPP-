@@ -1,11 +1,5 @@
-language: node_js
-node_js:
-  - v6
+language: python
+python:
+  - "3.6"
 script:
-  - npm test -- --coverage
-sudo: false
-cache:
-  directories:
-    - "node_modules"
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - python hello.py
