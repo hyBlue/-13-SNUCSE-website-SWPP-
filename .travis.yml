@@ -6,4 +6,6 @@ install:
   - pip install -r CSE_backend/requirements.txt
 
 script:
-  - python CSE_backend/backend_test.py
+  - cd CSE_backend
+  - python manage.py runserver
+  - python backend_test.py
