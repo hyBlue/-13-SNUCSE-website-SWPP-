@@ -18,10 +18,7 @@ matrix:
         - npm install
         - npm install -g mocha
         - npm install --save-dev babel-core
-        - yarn add babel-core@6 --dev
-        - yarn add @babel/core@^7.0.0-0 --dev
       before_script:
-        - cd CSE_frontend
         - npm start & sleep 7
       script:
         - npm test
