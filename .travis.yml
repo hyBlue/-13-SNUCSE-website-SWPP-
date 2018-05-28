@@ -12,7 +12,7 @@ matrix:
         - python backend_test.py
     - language: node_js
       node_js:
-        - v6
+        - v10
       install:
         - npm install
       before_script:
