@@ -15,7 +15,7 @@ matrix:
         - v10
       install:
         - npm install
-        - npm install mocha --save-dev
+        - npm install -g mocha
       before_script:
         - cd CSE_frontend
         - npm start & sleep 7
