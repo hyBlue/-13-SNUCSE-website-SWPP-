@@ -12,10 +12,14 @@ matrix:
         - python backend_test.py
     - language: node_js
       node_js:
-        - v6
+        - v10
       install:
-        - npm install
-      before_script:
         - cd CSE_frontend
-        - npm start &
+        - npm install
+        - npm install -g mocha
+        - npm install --save-dev babel-core
+      before_script:
+        - npm start & sleep 7
+      script:
+        - npm test
 
