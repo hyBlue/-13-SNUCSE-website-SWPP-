@@ -9,11 +9,14 @@ class NoticeList extends Component {
     constructor() {
         super();
         this.state = {
+            displayedNotices: {},
             currentTag: ''
         }
     }
     componentDidMount() {
-        this.props.fetchNotices();
+        this.props.fetchNotices().then(() => {
+            this.setState({ displayedNotices: this.props.notices });
+        });
         // this.props.fetchTags();
         // this.props.fetchTagNotices();
         // console.log('notice list mounted');
@@ -24,17 +27,17 @@ class NoticeList extends Component {
     }
 
     renderNotice() {
-        return _.map(this.props.notices, notice => {
+        return _.map(this.state.displayedNotices, notice => {
             return (
                 <tr key={notice.id}>
-                    <td>{notice.id}</td>
+                    <td style={{ textAlign: 'center' }}>{notice.id}</td>
                     <td>
                         <Link to={`/notice/${notice.id}`}>
                             {notice.title}
                         </Link>
                     </td>
                     <td>{notice.created_at.substring(0, 10)}</td>
-                    <td></td>
+                    <td style={{ textAlign: 'center' }}>{notice.view}</td>
                 </tr>
             );
         });
@@ -51,6 +54,15 @@ class NoticeList extends Component {
         })
     }
 
+    //Search notices by title and content
+    showSearchResult(value) {
+        let filteredNotices;
+        filteredNotices = _.filter(this.props.notices, notice => 
+            notice.title.includes(value) || notice.content.includes(value) 
+        )
+        this.setState({displayedNotices: filteredNotices});
+    }
+
     render() {
         const { notices, tags } = this.props;
         // if (!notices || !tags[1] || !tags[2]) {
@@ -61,22 +73,22 @@ class NoticeList extends Component {
             <div>
                 <h5>공지사항</h5>
                 <table>
-                <thead><tr>
-                    {this.renderTags()}
-                </tr></thead>
+                    <thead><tr>
+                        {this.renderTags()}
+                    </tr></thead>
                 </table>
                 <Search
                     placeholder="input search text"
-                    onSearch={value => console.log(value)}
+                    onSearch={value => this.showSearchResult(value)}
                     enterButton
                 />
                 <table className="table table-hover">
                     <thead>
                         <tr>
-                            <th>번호</th>
+                            <th style={{ textAlign: 'center' }}>번호</th>
                             <th>제목</th>
                             <th>날짜</th>
-                            <th>조회수</th>
+                            <th style={{ textAlign: 'center' }}>조회수</th>
                         </tr>
                     </thead>
                     <tbody>
