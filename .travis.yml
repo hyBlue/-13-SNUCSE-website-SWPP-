@@ -17,8 +17,9 @@ matrix:
         - npm install
         - npm install -g mocha
         - npm install --save-dev babel-core
-        - npm i gulp-babel
       before_script:
         - cd CSE_frontend
-        - npm start & sleep 20
+        - npm start
+      script:
+        - npm test
 
