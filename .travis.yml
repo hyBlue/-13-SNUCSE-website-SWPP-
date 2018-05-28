@@ -17,5 +17,5 @@ matrix:
         - npm install
       before_script:
         - cd CSE_frontend
-        - npm start &
+        - npm start & sleep 7
 
