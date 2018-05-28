@@ -22,4 +22,3 @@ matrix:
         - npm start & sleep 7
       script:
         - npm test
-
