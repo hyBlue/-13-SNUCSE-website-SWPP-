@@ -31,24 +31,8 @@ class ProfessorsList extends Component {
         })
         console.log(this.state);    
     }
-    renderProfessor() {
-        return _.map(this.props.professors, professor => {
-            return (
-                <Card key={professor.id} style={{ width: '100%', height: '100px' }} onClick={() => this.showDetail(professor)}>
-                    <Meta
-                        title={professor.name}
-                        avatar={<Avatar src={professor.photo} size="large" />}
-                        description="정교수"
-                    />
-                    {/* <p>{professor.contact}</p>
-                    <p>{professor.education}</p>
-                    <p>{professor.research}</p>
-                    <p>{professor.biography}</p> */}
-                </Card>
-            );
-        });
-    }
-    renderProfessor2(whichHalf) {
+   
+    renderProfessor(whichHalf) {
         const size = _.size(this.props.professors);
         const set = _.keys(this.props.professors)[0];
         const halfList = 
@@ -83,11 +67,11 @@ class ProfessorsList extends Component {
             <Row>
                 <Col span={12}>
                     <Collapse style={{borderRight: '0px'}}>
-                        {this.renderProfessor2('first')}
+                        {this.renderProfessor('first')}
                     </Collapse></Col>
                 <Col span={12}>
                     <Collapse>
-                        {this.renderProfessor2('second')}
+                        {this.renderProfessor('second')}
                     </Collapse></Col>
             </Row>
             {/* <Row>

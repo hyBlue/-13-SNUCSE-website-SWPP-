@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
-import { Button, Input } from 'antd';
+import { Button, Input, Tabs } from 'antd';
+import NoticeListTable from './NoticeListTable';
 const Search = Input.Search;
+const TabPane = Tabs.TabPane;
 
 class NoticeList extends Component {
     constructor() {
@@ -17,8 +19,8 @@ class NoticeList extends Component {
         this.props.fetchNotices().then(() => {
             this.setState({ displayedNotices: this.props.notices });
         });
-        // this.props.fetchTags();
-        // this.props.fetchTagNotices();
+        this.props.fetchTags();
+        //this.props.fetchTagNotices();
         // console.log('notice list mounted');
         // this.props.notices.then(data=> {
         //     console.log(data);
@@ -57,15 +59,15 @@ class NoticeList extends Component {
     //Search notices by title and content
     showSearchResult(value) {
         let filteredNotices;
-        filteredNotices = _.filter(this.props.notices, notice => 
-            notice.title.includes(value) || notice.content.includes(value) 
+        filteredNotices = _.filter(this.props.notices, notice =>
+            notice.title.includes(value) || notice.content.includes(value)
         )
-        this.setState({displayedNotices: filteredNotices});
+        this.setState({ displayedNotices: filteredNotices });
     }
+    
 
     render() {
         const { notices, tags } = this.props;
-        // if (!notices || !tags[1] || !tags[2]) {
         if (!notices) {
             return <div>Loading...</div>;
         }
@@ -82,19 +84,27 @@ class NoticeList extends Component {
                     onSearch={value => this.showSearchResult(value)}
                     enterButton
                 />
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th style={{ textAlign: 'center' }}>번호</th>
-                            <th>제목</th>
-                            <th>날짜</th>
-                            <th style={{ textAlign: 'center' }}>조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderNotice()}
-                    </tbody>
-                </table>
+                <Tabs defaultActiveKey="1" type="card">
+                    <TabPane tab="전체" key="1">
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={false}/>
+                    </TabPane>
+                    <TabPane tab="고정 공지" key="2">
+                        {/* this list's option 0 is dummy */}
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[0]}/>
+                    </TabPane>
+                    <TabPane tab="학부 공지" key="3">
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[1,7,8,9,10]}/>
+                    </TabPane>
+                    <TabPane tab="학사 공지" key="4">
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[2,3,4,5,6]}/>
+                    </TabPane>
+                    <TabPane tab="취업/대외활동 공지" key="5">
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[13,14,15,16]}/>
+                    </TabPane>
+                    <TabPane tab="기타" key="6">
+                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[11,12,17]}/>
+                    </TabPane>
+                </Tabs>
                 <div className="write-notice text-xs-right">
                     <Button type="primary">
                         <Link className="btn" to="/notice/new">
@@ -107,7 +117,6 @@ class NoticeList extends Component {
 }
 
 function mapStateToProps({ notices, tags, }) {
-    //console.log(state.notices);
     return { notices, tags, }
 }
 
