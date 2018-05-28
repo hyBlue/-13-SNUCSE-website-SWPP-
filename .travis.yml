@@ -19,5 +19,5 @@ matrix:
         - npm install --save-dev babel-core
       before_script:
         - cd CSE_frontend
-        - npm start & sleep 7
+        - npm start & sleep 20
 
