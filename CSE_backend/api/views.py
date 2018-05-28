@@ -19,24 +19,18 @@ class NoticeList(generics.ListCreateAPIView):
 
     @csrf_exempt
     def perform_create(self, serializer) :
-        ## set image fields
-        # images = [Image()]
-        # for i in request.data['image'] :
-        #     image = Image(image = i)
-        #     image.save
-        #     images.append(image)
-
         serializer.save(author = self.request.user.username)
 
     # @csrf_exempt
     # def post(self, request, format = None) :
     #     print(request.data)
+    #     print()
     #     serializer = NoticeSerializer(data = request.data)
     #     if serializer.is_valid():
     #         serializer.save()
     #         return Response(serializer.data, status=status.HTTP_201_CREATED)
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #
+
 
 class NoticeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Notice.objects.all()
@@ -100,6 +94,17 @@ class ProfessorList(generics.ListCreateAPIView):
 class ProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
+
+class StaffList(generics.ListCreateAPIView):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
+
+    def perform_create(self, serializer) :
+        serializer.save()
+
+class StaffDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Staff.objects.all()
+    serializer_class = StaffSerializer
 
 class TagList(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
