@@ -18,4 +18,3 @@ matrix:
       before_script:
         - cd CSE_frontend
         - npm start &
-
