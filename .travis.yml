@@ -13,6 +13,8 @@ matrix:
     - language: node_js
       node_js:
         - v10
+      npm:
+        - v6
       install:
         - npm install
         - npm install -g mocha
