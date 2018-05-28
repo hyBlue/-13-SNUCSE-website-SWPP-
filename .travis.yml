@@ -14,6 +14,7 @@ matrix:
       node_js:
         - v10
       install:
+        - cd CSE_frontend
         - npm install
         - npm install -g mocha
         - npm install --save-dev babel-core
