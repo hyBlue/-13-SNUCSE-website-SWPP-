@@ -10,3 +10,12 @@ matrix:
         - python manage.py runserver &
       script:
         - python backend_test.py
+    - language: node_js
+      node_js:
+        - v6
+      install:
+        - npm install
+      before_script:
+        - cd CSE_frontend
+        - npm start &
+
