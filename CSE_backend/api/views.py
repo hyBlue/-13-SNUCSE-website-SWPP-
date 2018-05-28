@@ -6,13 +6,37 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.files import File
+from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import JSONParser
 
 class NoticeList(generics.ListCreateAPIView):
     queryset = Notice.objects.all()
     serializer_class = NoticeSerializer
+    # parser_classes = (JSONParser,)
 
+    @csrf_exempt
     def perform_create(self, serializer) :
+        ## set image fields
+        # images = [Image()]
+        # for i in request.data['image'] :
+        #     image = Image(image = i)
+        #     image.save
+        #     images.append(image)
+
         serializer.save(author = self.request.user.username)
+
+    # @csrf_exempt
+    # def post(self, request, format = None) :
+    #     print(request.data)
+    #     serializer = NoticeSerializer(data = request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #
 
 class NoticeDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Notice.objects.all()
@@ -87,5 +111,3 @@ class TagList(generics.ListCreateAPIView):
 class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
-
-    
