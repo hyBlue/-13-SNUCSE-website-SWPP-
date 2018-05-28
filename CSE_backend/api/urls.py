@@ -12,12 +12,12 @@ urlpatterns = [
     url(r'^api/professor/(?P<pk>[0-9]+)/$', views.ProfessorDetail.as_view()),
     url(r'^api/staff/$', views.StaffList.as_view()),
     url(r'^api/staff/(?P<pk>[0-9]+)/$', views.StaffDetail.as_view()),
+    url(r'^api/emeritus/$', views.EmeritusList.as_view()),
+    url(r'^api/emeritus/(?P<pk>[0-9]+)/$', views.EmeritusDetail.as_view()),
     url(r'^api/news/$', views.NewsList.as_view()),
     url(r'^api/news/(?P<pk>[0-9]+)/$', views.NewsDetail.as_view()),
     url(r'^api/tags/$', views.TagList.as_view()),
     url(r'^api/tags/(?P<pk>[0-9]+)/$', views.TagDetail.as_view()),
-
-
 ]
 
 

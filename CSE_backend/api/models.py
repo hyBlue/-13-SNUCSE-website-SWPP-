@@ -52,6 +52,13 @@ class Professor(Post) :
     biography = models.ManyToManyField('Biography',related_name = 'professor', blank = True)
     image = models.ImageField(blank = True,upload_to = 'professor/', null = True)
 
+class Emeritus(Post) :
+    name = models.CharField(max_length = 20)
+    role = models.CharField(max_length = 20)
+    term_of_service = models.CharField(max_length = 20)
+    education = models.ManyToManyField('Education',related_name = 'emeritus', blank = True)
+    image = models.ImageField(blank = True,upload_to = 'emeritus/', null = True)
+
 class Staff(Post) :
     name = models.CharField(max_length = 20)
     role = models.CharField(max_length = 20)

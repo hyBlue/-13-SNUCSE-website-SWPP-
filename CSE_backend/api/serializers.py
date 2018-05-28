@@ -50,6 +50,17 @@ class ProfessorSerializer(serializers.ModelSerializer) :
         'biography' ,
         'image')
 
+class EmeritusSerializer(serializers.ModelSerializer) :
+    education =  serializers.StringRelatedField(many = True)
+    class Meta :
+        model = Emeritus
+        fields = ('id',
+        'name' ,
+        'role',
+        'education',
+        'term_of_service' ,
+        'image')
+
 class StaffSerializer(serializers.ModelSerializer) :
     jobs =  serializers.StringRelatedField(many = True)
     class Meta :
