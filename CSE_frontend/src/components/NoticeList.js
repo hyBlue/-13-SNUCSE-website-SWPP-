@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
-import { Button, Input, Tabs } from 'antd';
+import { Button, Input, Tabs, Select, Row, Col } from 'antd';
 import NoticeListRender from './NoticeListRender';
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
+const Option = Select.Option;
 
 class NoticeList extends Component {
     constructor() {
@@ -15,6 +16,9 @@ class NoticeList extends Component {
             showAll: true,
             categoryNotices: [],
             displayedCategoryNotices: [],
+            tagNotices: [],
+            displayedTagNotices: [],
+            isTagShow: false,
             currentTab: "all"
         }
     }
@@ -63,6 +67,11 @@ class NoticeList extends Component {
         categoryItems.forEach(element => {
             list = list.concat(this.props.tags[element].notices)
         });
+        list.sort((a, b) => {
+            let ap = parseInt(a.substring(0, a.indexOf(" ")));
+            let bp = parseInt(b.substring(0, b.indexOf(" ")));
+            return ap === bp ? 0 : ap < bp ? -1 : 1;
+        });
         return list;
     }
     //태그 가져오기
@@ -77,20 +86,28 @@ class NoticeList extends Component {
         this.setState({ currentTab: activeKey });
     }
     //Search notices by title and content
-    showSearchResult(value) {
-        if (this.state.currentTab === "all") {
+    showSearchResult(searchValue) {
+        let value = searchValue.toLowerCase();
+        if(this.state.isTagShow){//태그별 리스트 내에서 검색
+            let filteredNotices;
+            filteredNotices = _.filter(this.state.tagNotices, notice =>
+                notice.substring(notice.indexOf(" ")).toLowerCase().includes(value)
+            )
+            this.setState({ displayedTagNotices: filteredNotices });
+        }
+        else if (this.state.currentTab === "all" ) {//전체에서 검색
             let filteredNotices;
             filteredNotices = _.filter(this.props.notices, notice =>
-                notice.title.includes(value) || notice.content.includes(value)
+                notice.title.toLowerCase().includes(value) || notice.content.toLowerCase().includes(value)
             )
             this.setState({ displayedNotices: filteredNotices });
         }
-        else {
+        else {//카테고리별 검색
             let filteredNotices;
             const currentTab = parseInt(this.state.currentTab);
-            filteredNotices = this.state.categoryNotices;
-            filteredNotices[currentTab] = _.filter(this.state.categoryNotices[currentTab], notice =>
-                    notice && notice.substring(notice.indexOf(" ")).includes(value)
+            filteredNotices = this.state.categoryNotices.slice();//copy
+            filteredNotices[currentTab] = _.filter(filteredNotices[currentTab], notice =>
+                notice.substring(notice.indexOf(" ")).toLowerCase().includes(value)
                 //태그 notices가 string으로 넘어오기 때문에 내용 검색이 안됨
                 //|| notice.content.includes(value)
             )
@@ -99,26 +116,52 @@ class NoticeList extends Component {
     }
 
 
+
+
+    handleChange(value) {
+        this.setState({isTagShow: value.length!==0});
+        console.log(value);
+        console.log(this.getCategoryNotices(value));
+        this.setState({tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value)});        
+    }
     render() {
         const { notices, tags } = this.props;
         if (!notices) {
             return <div>Loading...</div>;
         }
+        const tagOptions = [];
+        _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
         return (
             <div>
-                <h5>공지사항</h5>
-                <table>
+                <div className="pageTitle">공지사항</div>
+                {/* <table>
                     <thead><tr>
                         {this.renderTags()}
                     </tr></thead>
-                </table>
-                <Search
-                    placeholder="input search text"
-                    onSearch={value => this.showSearchResult(value)}
-                    enterButton
-                />
+                </table> */}
+                <Row>
+                    <Col span={12}> <Search
+                        placeholder="제목+내용 검색하기"
+                        onSearch={value => this.showSearchResult(value)}
+                        enterButton
+                    /></Col>
+                    <Col span={12}>
+                        <Select
+                            mode="multiple"
+                            style={{ width: '100%' }}
+                            placeholder="태그 검색하기"
+                            defaultValue={[]}
+                            onChange={this.handleChange.bind(this)}
+                            allowClear={true}
+                            disabled={this.state.currentTab!=="all"}
+                        >
+                            {tagOptions}
+                        </Select>
+                    </Col>
+                </Row>
+
                 <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
-                    <TabPane tab="전체" key="all"><NoticeListRender notices={this.state.displayedNotices} isAll={true} /></TabPane>
+                    <TabPane tab="전체" key="all"><NoticeListRender notices={!this.state.isTagShow? this.state.displayedNotices : this.state.displayedTagNotices} isAll={!this.state.isTagShow} /></TabPane>
                     <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} isAll={false} /></TabPane>
                     <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} isAll={false} /></TabPane>
                     <TabPane tab="학사 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} isAll={false} /></TabPane>

@@ -94,6 +94,13 @@
 }
 
 /* Notice List UI*/
+.pageTitle {
+  font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
+  color: rgb(73, 145, 226)!important;
+  font-size: 1.67em!important;
+  padding: 5px 5px 5px 10px!important;
+  border: 1px outset #ced1d72b!important;
+}
 .ant-tabs-bar {
   margin-bottom: 2px!important;
 }
