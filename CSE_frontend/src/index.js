@@ -56,7 +56,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <div style={{height: '100%'}}>
+      <div>
         <Layout style={{height: '100%', width: '100%'}}>
           <Header>
             <MainNavigateBar />

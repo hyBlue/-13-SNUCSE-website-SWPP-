@@ -115,9 +115,6 @@ class NoticeList extends Component {
         }
     }
 
-
-
-
     handleChange(value) {
         this.setState({isTagShow: value.length!==0});
         console.log(value);
@@ -164,8 +161,8 @@ class NoticeList extends Component {
                     <TabPane tab="전체" key="all"><NoticeListRender notices={!this.state.isTagShow? this.state.displayedNotices : this.state.displayedTagNotices} isAll={!this.state.isTagShow} /></TabPane>
                     <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} isAll={false} /></TabPane>
                     <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} isAll={false} /></TabPane>
-                    <TabPane tab="학사 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} isAll={false} /></TabPane>
-                    <TabPane tab="학사 공지" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} isAll={false} /></TabPane>
+                    <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} isAll={false} /></TabPane>
+                    <TabPane tab="기타" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} isAll={false} /></TabPane>
                 </Tabs>
                 <div className="write-notice text-xs-right">
                     <Button type="primary">
