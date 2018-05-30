@@ -10,3 +10,15 @@ matrix:
         - python manage.py runserver &
       script:
         - python backend_test.py
+    - language: node_js
+      node_js:
+        - v10
+      install:
+        - cd CSE_frontend
+        - npm install
+        - npm install -g mocha
+        - npm install --save-dev babel-core
+      before_script:
+        - npm start & sleep 7
+      script:
+        - npm test
