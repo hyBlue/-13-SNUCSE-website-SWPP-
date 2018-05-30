@@ -19,59 +19,45 @@ class ProfessorsList extends Component {
     constructor() {
         super();
         this.state = {
-            currentShowProfessor: '',
+            showingProfessors: {},
         }
     }
     componentDidMount() {
         this.props.fetchProfessors();
     }
     showDetail(professor) {
-        console.log(this.props.professors);
         this.setState({
-            currentShowProfessor: professor.name
+            showingProfessors: {...this.state.showingProfessors, [professor.id]: professor }
         })
+        console.log(this.state);    
     }
-    renderProfessor() {
-        return _.map(this.props.professors, professor => {
-            return (
-                <Card key={professor.id} style={{ width: '100%', height: '100px' }} onClick={() => this.showDetail(professor)}>
-                    <Meta
-                        title={professor.name}
-                        avatar={<Avatar src={professor.photo} size="large" />}
-                        description="정교수"
-                    />
-                    {/* <p>{professor.contact}</p>
-                    <p>{professor.education}</p>
-                    <p>{professor.research}</p>
-                    <p>{professor.biography}</p> */}
-                </Card>
-            );
-        });
-    }
-    renderProfessor2(whichHalf) {
+   
+    renderProfessor(whichHalf) {
         const size = _.size(this.props.professors);
+        const set = _.keys(this.props.professors)[0];
         const halfList = 
-            whichHalf==='first' ? _.filter(this.props.professors, professor => professor.id <= size/2+1) :
-                        _.filter(this.props.professors, professor => professor.id > size/2+1)
+            whichHalf==='first' ? _.filter(this.props.professors, professor => professor.id <= (parseInt(set) + Math.floor(size/2))) :
+                        _.filter(this.props.professors, professor => professor.id > (parseInt(set) + Math.floor(size/2)))
         return _.map(halfList, professor => {
+            const replacer = { "[at]": "@", "[dot]": ".", " ": ""}; //replace [] and space to correct cha
+            const professor_email = professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched]});
             const professorCard = (<Card key={professor.id} style={{ width: '100%', height: '100px' }} onClick={() => this.showDetail(professor)}>
                 <Meta
                     title={professor.name}
-                    avatar={<Avatar src={professor.photo} size="large" />}
-                    description="정교수"
+                    avatar={<Avatar src={professor.image} size="large" />}
+                    description={professor.position}
                 />
-                {/* <p>{professor.contact}</p>
-                    <p>{professor.education}</p>
-                    <p>{professor.research}</p>
-                    <p>{professor.biography}</p> */}
+                <div>
+                <Row style={{paddingTop: "10px"}}> 
+                    <Col span={9}>{professor.lab}</Col>
+                    <Col span={7}>{professor.phone}</Col>
+                    <Col span={8}>{professor_email}</Col>
+                </Row>
+                </div>
             </Card>);
             return (
                 <Panel header={professorCard} key={professor.id} style={{paddingRight: '10px'}}>
-                    <ProfessorDetail name={this.state.currentShowProfessor}></ProfessorDetail>
-                     {professor.contact}
-                    {professor.education}
-                    {professor.research}
-                    {professor.biography}
+                    {this.state.showingProfessors[professor.id] && <ProfessorDetail professor={this.state.showingProfessors[professor.id]}></ProfessorDetail>}
                 </Panel>
             )
         })
@@ -81,11 +67,11 @@ class ProfessorsList extends Component {
             <Row>
                 <Col span={12}>
                     <Collapse style={{borderRight: '0px'}}>
-                        {this.renderProfessor2('first')}
+                        {this.renderProfessor('first')}
                     </Collapse></Col>
                 <Col span={12}>
                     <Collapse>
-                        {this.renderProfessor2('second')}
+                        {this.renderProfessor('second')}
                     </Collapse></Col>
             </Row>
             {/* <Row>
