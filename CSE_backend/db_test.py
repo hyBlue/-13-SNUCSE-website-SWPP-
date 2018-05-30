@@ -190,8 +190,8 @@ for i in emeritus_list :
     role = section.find('div', class_ = 'field-name-field-title').text
     education = section.select('.field-name-field-education li.field-item')
     educations = []
-    for i in education :
-        edu = Education(education = i.text)
+    for j in education :
+        edu = Education(education = j.text)
         edu.save()
         educations.append(edu)
     term_of_service = section.select('.field-name-field-term-of-service .field-item')[0].text
