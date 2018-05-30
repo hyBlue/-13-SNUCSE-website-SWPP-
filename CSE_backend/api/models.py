@@ -21,6 +21,7 @@ class Notice(Post) :
         return str(self.id) + " " + self.title
 
 class Image(models.Model) :
+    # notice = models.ForeignKey(Notice, related_name='images')
     image = models.ImageField(blank = True, upload_to = 'notice/',null = True)
 
 class Attached(models.Model) :
@@ -46,25 +47,47 @@ class Professor(Post) :
     fax = models.CharField(max_length = 20, blank = True)
     email = models.EmailField(blank = True)
     website = models.CharField(max_length = 20, blank = True)
-
     education = models.ManyToManyField('Education',related_name = 'professor', blank = True)
     research = models.ManyToManyField('Research',related_name = 'professor', blank = True)
     biography = models.ManyToManyField('Biography',related_name = 'professor', blank = True)
-
     image = models.ImageField(blank = True,upload_to = 'professor/', null = True)
+
+class Emeritus(Post) :
+    name = models.CharField(max_length = 20)
+    role = models.CharField(max_length = 20)
+    term_of_service = models.CharField(max_length = 20)
+    education = models.ManyToManyField('Education',related_name = 'emeritus', blank = True)
+    image = models.ImageField(blank = True,upload_to = 'emeritus/', null = True)
+
+class Staff(Post) :
+    name = models.CharField(max_length = 20)
+    role = models.CharField(max_length = 20)
+    office = models.CharField(max_length = 20)
+    phone = models.CharField(max_length = 20)
+    email = models.CharField(max_length =  20)
+    jobs = models.ManyToManyField('job', related_name = 'staff', blank = True)
+    image = models.ImageField(blank= True, upload_to = 'staff/', null = True)
+
+class Job(models.Model) :
+    job = models.CharField(max_length = 20)
+    def __str__(self) :
+        return self.job
 
 class Education(models.Model) :
     education = models.CharField(max_length = 20, blank = True)
     def __str__(self) :
         return self.education
+
 class Research(models.Model) :
     research = models.CharField(max_length = 20, blank = True)
     def __str__(self) :
         return self.research
+
 class Biography(models.Model) :
     biography =  models.CharField(max_length = 20, blank = True)
     def __str__(self) :
         return self.biography
+
 class Tag(models.Model) :
     name = models.CharField(max_length = 50, unique = True)
     def __str__(self) :

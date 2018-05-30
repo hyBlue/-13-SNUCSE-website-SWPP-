@@ -53,11 +53,11 @@ def post_or_error(link, data):
         exit(1)
 
 
-def get_json_or_error(link):
+def get_json_or_error(link, number):
     sleep(0.05)
     try:
         res = requests.get(link).json()
-        return res
+        return res[-number:]
     except Exception:
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
@@ -107,7 +107,10 @@ def check_key(json, key):
 
 
 print("******************************************************************************************************************")
-# create promises
+
+
+sleep(10)
+
 link = "http://localhost:8000/api/notice/"
 noticeN = 10
 print("1. Checking POST Notice http://localhost:8000/api/notice by creating {0} Notice.".format(noticeN))
@@ -123,7 +126,7 @@ for i in range(0, noticeN):
 
 print("2. Checking GET http://localhost:8000/api/notice/")
 
-notices_json = get_json_or_error("http://localhost:8000/api/notice/")
+notices_json = get_json_or_error("http://localhost:8000/api/notice/", noticeN)
 print(notices_json)
 print(notices)
 if len(notices_json) != len(notices):

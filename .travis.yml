@@ -1,11 +1,24 @@
-language: node_js
-node_js:
-  - v6
-script:
-  - npm test -- --coverage
-sudo: false
-cache:
-  directories:
-    - "node_modules"
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+matrix:
+  include:
+    - language: python
+      python:
+        - "3.6"
+      install:
+        - pip install -r CSE_backend/requirements.txt
+      before_script:
+        - cd CSE_backend
+        - python manage.py runserver &
+      script:
+        - python backend_test.py
+    - language: node_js
+      node_js:
+        - v10
+      install:
+        - cd CSE_frontend
+        - npm install
+        - npm install -g mocha
+        - npm install --save-dev babel-core
+      before_script:
+        - npm start & sleep 7
+      script:
+        - npm test
