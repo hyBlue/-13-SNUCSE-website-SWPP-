@@ -92,3 +92,8 @@
 .flcenter {
     text-align: center;
 }
+
+/* Notice List UI*/
+.ant-tabs-bar {
+  margin-bottom: 2px!important;
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
 import { Button, Input, Tabs } from 'antd';
-import NoticeListTable from './NoticeListTable';
+import NoticeListRender from './NoticeListRender';
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
 
@@ -12,14 +12,24 @@ class NoticeList extends Component {
         super();
         this.state = {
             displayedNotices: {},
-            currentTag: ''
+            showAll: true,
+            categoryNotices: [],
+            displayedCategoryNotices: [],
+            currentTab: "all"
         }
     }
     componentDidMount() {
         this.props.fetchNotices().then(() => {
             this.setState({ displayedNotices: this.props.notices });
         });
-        this.props.fetchTags();
+        this.props.fetchTags().then(() => {
+            let categoryItems = [];
+            categoryItems[0] = this.getCategoryNotices([1, 7, 8, 9, 10]);
+            categoryItems[1] = this.getCategoryNotices([2, 3, 4, 5, 6]);
+            categoryItems[2] = this.getCategoryNotices([13, 14, 15, 16]);
+            categoryItems[3] = this.getCategoryNotices([11, 12, 17]);
+            this.setState({ categoryNotices: categoryItems, displayedCategoryNotices: categoryItems })
+        });
         //this.props.fetchTagNotices();
         // console.log('notice list mounted');
         // this.props.notices.then(data=> {
@@ -44,10 +54,18 @@ class NoticeList extends Component {
             );
         });
     }
-
-    //TEST for getting notices by tag
-    filterNotice(id) {
+    //카테고리 공지 리스트 만들기
+    getCategoryNotices(categoryItems) {
+        /* 고정고지 tag not ready */
+        if (categoryItems[0] === 0) { return (<h5>고정 공지 준비중</h5>); }
+        //Make category from tags. 현재 여러 태그들을 소수의 카테고리로 합치는 과정.
+        let list = [];
+        categoryItems.forEach(element => {
+            list = list.concat(this.props.tags[element].notices)
+        });
+        return list;
     }
+    //태그 가져오기
     renderTags() {
         return _.map(this.props.tags, tag => {
             return (
@@ -55,16 +73,31 @@ class NoticeList extends Component {
             )
         })
     }
-
+    getCurrentTab(activeKey) {
+        this.setState({ currentTab: activeKey });
+    }
     //Search notices by title and content
     showSearchResult(value) {
-        let filteredNotices;
-        filteredNotices = _.filter(this.props.notices, notice =>
-            notice.title.includes(value) || notice.content.includes(value)
-        )
-        this.setState({ displayedNotices: filteredNotices });
+        if (this.state.currentTab === "all") {
+            let filteredNotices;
+            filteredNotices = _.filter(this.props.notices, notice =>
+                notice.title.includes(value) || notice.content.includes(value)
+            )
+            this.setState({ displayedNotices: filteredNotices });
+        }
+        else {
+            let filteredNotices;
+            const currentTab = parseInt(this.state.currentTab);
+            filteredNotices = this.state.categoryNotices;
+            filteredNotices[currentTab] = _.filter(this.state.categoryNotices[currentTab], notice =>
+                    notice && notice.substring(notice.indexOf(" ")).includes(value)
+                //태그 notices가 string으로 넘어오기 때문에 내용 검색이 안됨
+                //|| notice.content.includes(value)
+            )
+            this.setState({ displayedCategoryNotices: filteredNotices });
+        }
     }
-    
+
 
     render() {
         const { notices, tags } = this.props;
@@ -84,26 +117,12 @@ class NoticeList extends Component {
                     onSearch={value => this.showSearchResult(value)}
                     enterButton
                 />
-                <Tabs defaultActiveKey="1" type="card">
-                    <TabPane tab="전체" key="1">
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={false}/>
-                    </TabPane>
-                    <TabPane tab="고정 공지" key="2">
-                        {/* this list's option 0 is dummy */}
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[0]}/>
-                    </TabPane>
-                    <TabPane tab="학부 공지" key="3">
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[1,7,8,9,10]}/>
-                    </TabPane>
-                    <TabPane tab="학사 공지" key="4">
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[2,3,4,5,6]}/>
-                    </TabPane>
-                    <TabPane tab="취업/대외활동 공지" key="5">
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[13,14,15,16]}/>
-                    </TabPane>
-                    <TabPane tab="기타" key="6">
-                        <NoticeListTable notices={this.state.displayedNotices} isSub={true} tags={this.props.tags} option={[11,12,17]}/>
-                    </TabPane>
+                <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
+                    <TabPane tab="전체" key="all"><NoticeListRender notices={this.state.displayedNotices} isAll={true} /></TabPane>
+                    <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} isAll={false} /></TabPane>
+                    <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} isAll={false} /></TabPane>
+                    <TabPane tab="학사 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} isAll={false} /></TabPane>
+                    <TabPane tab="학사 공지" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} isAll={false} /></TabPane>
                 </Tabs>
                 <div className="write-notice text-xs-right">
                     <Button type="primary">

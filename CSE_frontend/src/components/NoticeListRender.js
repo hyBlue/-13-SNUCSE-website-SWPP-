@@ -5,16 +5,8 @@ import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
 import { Button, Input, Tabs } from 'antd';
 const Search = Input.Search;
 
-export default class NoticeListTable extends Component {
-
-    // constructor(){
-    //     super();
-    //     this.state = {
-    //         noticeList: {},
-    //         subList: []
-    //     }
-    // }
-    
+export default class NoticeListRender extends Component {
+  
     constructor(props){
         super(props);
         this.state = {
@@ -23,7 +15,6 @@ export default class NoticeListTable extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.props);
         if(!this.props.isSub){
             this.setState({noticeList: this.props.notices});
         }
@@ -38,7 +29,7 @@ export default class NoticeListTable extends Component {
 
     //전체 공지 리스트 만들기
     renderNotice() {
-        return _.map(this.state.noticeList, notice => {
+        return _.map(this.props.notices, notice => {
             return (
                 <tr key={notice.id}>
                     <td style={{ textAlign: 'center' }}>{notice.id}</td>
@@ -55,9 +46,7 @@ export default class NoticeListTable extends Component {
     }
     //카테고리 공지 리스트 만들기
     renderSubNotice() {
-        /* !this.props.option[0]===0 is temporary. 고정고지 not ready */
-        if(this.props.option[0]===0) { return (<h5>고정 공지 준비중</h5>); }
-        const noticeList = this.state.subList.map((notice) => 
+        const noticeList = this.props.notices.map((notice) => 
             <tr key={notice.substring(0, notice.indexOf(" "))}>
                 <td style={{ textAlign: 'center' }}>{notice.substring(0, notice.indexOf(" "))}</td>
                 <td>
@@ -85,11 +74,6 @@ export default class NoticeListTable extends Component {
         }
         return (
             <div>
-                <Search
-                    placeholder="input search text"
-                    onSearch={value => this.showSearchResult(value)}
-                    enterButton
-                />
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -99,7 +83,7 @@ export default class NoticeListTable extends Component {
                             <th style={{ textAlign: 'center' }}>조회수</th>
                         </tr>
                     </thead>
-                    {!this.props.isSub ? (<tbody>{this.renderNotice()}</tbody>) : this.renderSubNotice()}
+                    {this.props.isAll ? (<tbody>{this.renderNotice()}</tbody>) : this.renderSubNotice()}
                 </table>
             </div>
         );
