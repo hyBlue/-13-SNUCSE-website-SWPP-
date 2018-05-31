@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchNewses, fetchNews } from '../actions';
 import { Carousel, Row, Col, Card } from 'antd';
-
+import forSlider1 from '../../icons/forSlider1.jpg';
+import forSlider2 from '../../icons/forSlider2.jpg';
+import forSlider3 from '../../icons/forSlider3.jpg';
+import forSlider4 from '../../icons/forSlider4.jpg';
 
 class MainPage extends Component {
 
@@ -18,8 +21,8 @@ class MainPage extends Component {
   componentDidMount() {
     this.props.fetchNotices();
     this.props.fetchNewses();
-//    const { id } = this.props.match.parms;
- //   this.props.fetchNews(id);
+    //    const { id } = this.props.match.parms;
+    //   this.props.fetchNews(id);
     this.props.fetchNews(1);
   }
 
@@ -28,6 +31,26 @@ class MainPage extends Component {
       this.setState(() => ({ ntag: tag }));
     }
   */
+  renderRealImgSlider(){
+
+    return (
+      <Carousel autoplay effect="fade">
+        <div>
+          <img src={forSlider1}/>
+        </div>
+        <div>
+        <img src={forSlider2}/>
+        </div>
+        <div>
+        <img src={forSlider3}/>
+        </div>
+        <div>
+        <img src={forSlider4}/>
+        </div>
+      </Carousel>
+    );
+  }
+  
   renderImgSlider() {
     const size = _.size(this.props.news)
     const rev = _.reject(this.props.news, New => { return New.id <= size - 4; })
@@ -50,48 +73,23 @@ class MainPage extends Component {
     return (
       <Carousel autoplay effect="fade">
         <div>
-          <Card title={new_arr[0].title}  style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[0].image} />}>
+          <Card title={new_arr[0].title} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[0].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[1].image} />}>
+          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[1].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[2].image} />}>
+          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[2].image} />}>
           </Card>
         </div>
         <div>
-          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{width: '100%', height: '600px'}} src={new_arr[3].image} />}>
+          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[3].image} />}>
           </Card>
         </div>
       </Carousel>
     );
-
-/*
-    return (
-      _.map(rrev, New => {
-      return (
-        <div key={New.id}>
-          <Card title={New.title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" src={New.image} />}>
-          </Card>
-        </div>
-      );
-      })
-    );
-*/
-/*
-    return (
-      <Carousel autoplay>
-        <div>
-          1
-        </div>
-        <div><h3>2</h3></div>
-        <div><h3>3</h3></div>
-        <div><h3>4</h3></div>
-      </Carousel>
-    );
-*/
   }
   renderNotice() {
     const size = _.size(this.props.notices)
@@ -110,7 +108,7 @@ class MainPage extends Component {
           <Row>
             <Col span={16}>
               <Link to={`/notice/${notice.id}`}>
-                {notice.title.length > 10 ? notice.title.substring(0,10) : notice.title}
+                {notice.title.length > 10 ? notice.title.substring(0, 10) : notice.title}
               </Link>
             </Col>
             <Col span={8}>
@@ -140,7 +138,7 @@ class MainPage extends Component {
           <Row>
             <Col span={16}>
               <Link to={`/News/${New.id}`}>
-                {New.title.length > 10 ? New.title.substring(0,10) : New.title}
+                {New.title.length > 10 ? New.title.substring(0, 10) : New.title}
               </Link>
             </Col>
             <Col span={8}>
@@ -155,29 +153,23 @@ class MainPage extends Component {
 
   render() {
     const { notices, news } = this.props;
-    if( !notices || !news ) {
+    if (!notices || !news) {
       return <div>Loading...</div>;
     }
     return (
 
       <div>
-        <Row>{this.renderImgSlider()}</Row>
-        <Row style={{height: '650px'}}>
-          <Col className='mainPostsContainer' span={8}>
-            {/* 링크변경 */}
+        <Row>{this.renderRealImgSlider()}</Row>
+        <Row style={{ height: '650px' }}>
+          <Col className='mainPostsContainer' span={16}>
             <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">More</Link>} >
-              {this.renderNews()}
+            {this.renderImgSlider()}
             </Card>
           </Col>
           <Col className='mainPostsContainer' span={8}>
             <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice">More</Link>} >
               {this.renderNotice()}
             </Card>
-          </Col>
-          <Col className='mainPostsContainer' span={8}>
-            <Card className='mainPostsList' title="준비중" extra={<Link to="/">More</Link>} >
-              기다려주세요!
-          </Card>
           </Col>
         </Row>
         <div className='main-login'>

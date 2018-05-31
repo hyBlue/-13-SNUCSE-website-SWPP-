@@ -117,8 +117,6 @@ class NoticeList extends Component {
 
     handleChange(value) {
         this.setState({isTagShow: value.length!==0});
-        console.log(value);
-        console.log(this.getCategoryNotices(value));
         this.setState({tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value)});        
     }
     render() {

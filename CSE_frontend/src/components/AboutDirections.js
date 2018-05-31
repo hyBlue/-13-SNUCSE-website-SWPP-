@@ -16,9 +16,9 @@ class AboutContact extends Component {
                     <font size="4" color="#6a7eff">
                         <br /><br />찾아오는 길<br />
                     </font>
-                    &middot;&nbsp;<Link to={`/directions/by-public-transit`}>대중교통<br /></Link>
-                    &middot;&nbsp;<Link to={`/directions/by-car`}>승용차<br /></Link>
-                    &middot;&nbsp;<Link to={`/directions/from-far-away`}>지방 및 해외</Link>
+                    &middot;&nbsp;<Link to={`/about/directions/by-public-transit`}>대중교통<br /></Link>
+                    &middot;&nbsp;<Link to={`/about/directions/by-car`}>승용차<br /></Link>
+                    &middot;&nbsp;<Link to={`/about/directions/from-far-away`}>지방 및 해외</Link>
                 </div>
 
             </div>
