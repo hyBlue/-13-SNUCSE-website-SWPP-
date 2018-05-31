@@ -7,7 +7,7 @@ class AboutCareer extends Component {
         return (
             <div>
                 <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>학부 소개</h5>
+                    <h5>졸업생 진로</h5>
                 </Row>
                 <div>
                 

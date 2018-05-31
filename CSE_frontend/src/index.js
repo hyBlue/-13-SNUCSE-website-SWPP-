@@ -56,9 +56,9 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <div style={{height: '100%'}}>
+      <div>
         <Layout style={{height: '100%', width: '100%'}}>
-          <Header>
+          <Header style={{height: '120px', lineHeight: '120px'}}>
             <MainNavigateBar />
           </Header>
           <Content>
@@ -87,7 +87,6 @@ ReactDOM.render(
               <Route path="/about/facility/서버실" component={AboutFacilityServerroom} />
               <Route path="/about/contact-us" component={AboutContact} />
               <Route path="/about/directions" component={AboutDirections} />
-              <Route path="/undergraduate" component={UnderGraduate} />
               <Route path="/undergraduate/courses" component={UnderCourses} />
               <Route path="/undergraduate/course-dependency-graph" component={UnderDependency} />
               <Route path="/undergraduate/recommended-tracks" component={UnderRecommended} />
@@ -95,6 +94,7 @@ ReactDOM.render(
               <Route path="/undergraduate/degree-requirements" component={UnderDegreeReq} />
               <Route path="/undergraduate/course-changes" component={UnderCourseChanges} />
               <Route path="/undergraduate/scholarships" component={UnderScholarships} />
+              <Route path="/undergraduate" component={UnderGraduate} />
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
               {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}

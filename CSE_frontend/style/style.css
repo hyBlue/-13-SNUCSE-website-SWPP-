@@ -1,6 +1,19 @@
+@font-face{
+	font-family:"Nanum Gothic";
+	src:url('../fonts/NanumGothic.eot');
+	src:url('../fonts/NanumGothic.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/NanumGothic.woff') format('woff'),
+	url('../fonts/NanumGothic.ttf') format('truetype'),
+	url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
+	src:local(※), url('../fonts/NanumGothic.woff') format('woff');
+}
+
+* {
+  font-family: 'NanumGothic', 'serif'!important;
+} 
 /* MainNavigateBar */
 .catBlock:hover {
-  background-color: rgb(255, 255, 255)!important;
+  /* background-color: rgb(255, 255, 255)!important; */
   text-align:center!important;
 }/* Change the color of link block on hover */
 .MainCategories {
@@ -9,12 +22,15 @@
   color:#6b9a79;
   text-align: center;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.3rem;
 }/* Link css */
 .MainCategories:hover {
   color: rgb(52, 110, 255);
 }/* Change the color of link on hover */
-
+/*Remove underline from LINK tag */
+a, u {
+  text-decoration: none!important;
+}
 
 /* .write-notice {
     position: fixed;
@@ -62,19 +78,23 @@
   float: right;
 }
 /* Main Page Img Slider */
+.ant-carousel {
+  height: 300px;
+}
+.ant-carousel img {
+  height: 300px;
+}
 .ant-carousel .slick-slide {
   text-align: center;
-  height: 160px;
-  line-height: 160px;
-  background: #364d79;
+  height: 200px;
+  line-height: 200px;
   overflow: hidden!important;
 }
 .ant-carousel .slick-dots {
-  height: 30px!important;
-  
+  height: 50px!important;
 }
 .ant-carousel .slick-dots button {
-  background-color: #364d79!important;
+  background-color: #ffffff!important;
 }
 
 /* Main Page MainPosts block*/
@@ -91,4 +111,16 @@
 
 .flcenter {
     text-align: center;
+}
+
+/* Notice List UI*/
+.pageTitle {
+  font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
+  color: rgb(73, 145, 226)!important;
+  font-size: 1.67em!important;
+  padding: 5px 5px 5px 10px!important;
+  border: 1px outset #ced1d72b!important;
+}
+.ant-tabs-bar {
+  margin-bottom: 2px!important;
 }
