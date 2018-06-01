@@ -31,27 +31,27 @@ class MainPage extends Component {
       this.setState(() => ({ ntag: tag }));
     }
   */
-  renderRealImgSlider(){
+  renderBackgrounImgSlider() {
 
     return (
       <Carousel autoplay effect="fade">
         <div>
-          <img src={forSlider1}/>
+          <img src={forSlider1} style={{ width: '100%' }} />
         </div>
         <div>
-        <img src={forSlider2}/>
+          <img src={forSlider2} style={{ width: '100%' }} />
         </div>
         <div>
-        <img src={forSlider3}/>
+          <img src={forSlider3} style={{ width: '100%' }} />
         </div>
         <div>
-        <img src={forSlider4}/>
+          <img src={forSlider4} style={{ width: '100%' }} />
         </div>
       </Carousel>
     );
   }
-  
-  renderImgSlider() {
+
+  renderGridCardNews() {
     const size = _.size(this.props.news)
     const rev = _.reject(this.props.news, New => { return New.id <= size - 4; })
     const rrev = _.chain(rev).reverse().value()
@@ -64,36 +64,51 @@ class MainPage extends Component {
         "Loading... Maybe no enough Imgs..."
       );
     }
-
     _.map(rrev, New => {
       new_arr[i] = New
       i = i + 1
     })
-
-    return (
-      <Carousel autoplay effect="fade">
-        <div>
-          <Card title={new_arr[0].title} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[0].image} />}>
-          </Card>
-        </div>
-        <div>
-          <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[1].image} />}>
-          </Card>
-        </div>
-        <div>
-          <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[2].image} />}>
-          </Card>
-        </div>
-        <div>
-          <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[3].image} />}>
-          </Card>
-        </div>
-      </Carousel>
-    );
+    const gridStyle = {
+      width: '50%',
+      height: '50%',
+      textAlign: 'center',
+      padding: '0 0 45px 0',
+      borderBottom: '1px solid #001529'
+    };
+    return _.map(new_arr, news => {
+      console.log(news);
+      return (
+        <Card.Grid key={news.id} style={gridStyle}>
+          <img src={news.image} style={{width:'100%', height:'100%'}}/>
+          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal'}}>{news.title}</div>
+        </Card.Grid>
+      )
+    }) 
   }
+    // return (
+    //   <Carousel autoplay effect="fade">
+    //     <div>
+    //       <Card title={new_arr[0].title} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[0].image} />}>
+    //       </Card>
+    //     </div>
+    //     <div>
+    //       <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[1].image} />}>
+    //       </Card>
+    //     </div>
+    //     <div>
+    //       <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[2].image} />}>
+    //       </Card>
+    //     </div>
+    //     <div>
+    //       <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[3].image} />}>
+    //       </Card>
+    //     </div>
+    //   </Carousel>
+    // );
+  
   renderNotice() {
     const size = _.size(this.props.notices)
-    const rev = _.reject(this.props.notices, notice => { return notice.id <= size - 10; })
+    const rev = _.reject(this.props.notices, notice => { return notice.id <= size - 12  ; })
     const rrev = _.chain(rev).reverse().value()
 
     if (size == 0) {
@@ -105,14 +120,14 @@ class MainPage extends Component {
     return _.map(rrev, notice => {
       return (
         <div key={notice.id}>
-          <Row>
-            <Col span={16}>
+          <Row style={{padding: '5px'}}>
+            <Col span={16} style={{paddingLeft: '15px', fontSize: '1.2rem'}}>
               <Link to={`/notice/${notice.id}`}>
                 {notice.title.length > 10 ? notice.title.substring(0, 10) : notice.title}
               </Link>
             </Col>
             <Col span={8}>
-              <p>{notice.created_at.substring(0, 10)}</p>
+              <p  style={{textAlign: 'right'}}>{notice.created_at.substring(0, 10)}</p>
             </Col>
           </Row>
         </div>
@@ -141,7 +156,7 @@ class MainPage extends Component {
                 {New.title.length > 10 ? New.title.substring(0, 10) : New.title}
               </Link>
             </Col>
-            <Col span={8}>
+            <Col span={8} >
               <p>{New.created_at.substring(0, 10)}</p>
             </Col>
           </Row>
@@ -156,18 +171,18 @@ class MainPage extends Component {
     if (!notices || !news) {
       return <div>Loading...</div>;
     }
+    
     return (
-
       <div>
-        <Row>{this.renderRealImgSlider()}</Row>
+        <Row>{this.renderBackgrounImgSlider()}</Row>
         <Row style={{ height: '650px' }}>
-          <Col className='mainPostsContainer' span={16}>
-            <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">More</Link>} >
-            {this.renderImgSlider()}
+          <Col className='mainPostsContainer' span={14}>
+            <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">더보기</Link>} >
+              {this.renderGridCardNews()} 
             </Card>
           </Col>
-          <Col className='mainPostsContainer' span={8}>
-            <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice">More</Link>} >
+          <Col className='mainPostsContainer' span={10}>
+            <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice">더보기</Link>} >
               {this.renderNotice()}
             </Card>
           </Col>

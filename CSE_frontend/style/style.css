@@ -104,6 +104,25 @@ a, u {
 .mainPostsList {
   height: 100%!important;
 }
+.mainPostsList .ant-card-head {
+  height: 7%!important;
+}
+
+.mainPostsList .ant-card-head-title {
+  font-size: 23px!important;
+  line-height: 1.2rem!important;
+  font-family: 'Noto Sans','Noto Sans KR','NanumGothic','Arial','sans-serif';
+}
+.mainPostsList .ant-card-body {
+  height: 93%!important;
+}
+/*그리드형 카드 두드러짐 방지 */
+.ant-card-contain-grid:not(.ant-card-loading) {
+  margin: 0!important;
+}
+.ant-card-bordered {
+  border: none!important;
+}
 
 .flright {
   float: right;
