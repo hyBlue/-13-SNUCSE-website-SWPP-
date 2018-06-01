@@ -12,19 +12,28 @@ export default class ProfessorDetail extends Component {
             );
         })
     }
+
+    ProfList(){
+      const prof = this.props.professor;
+      let contact_infor = ["교수실 : " + prof.location,"전화 : " + prof.phone,"이메일 : " + prof.email,"웹사이트 : " + prof.website];
+      // const contact_infor = [1,2,3,4,5]
+      if(prof.fax){
+        contact_infor.push("팩스 : " + prof.fax)
+      }
+      const listItems = contact_infor.map((x) =>
+    <li key={x.toString()}>
+      {x}
+    </li>
+  );
+  return (
+    <ul>{listItems}</ul>
+  );
+}
     render() {
-        const replacer = { "[at]": "@", "[dot]": ".", " ": ""}; //replace [] and space to correct cha
-        const professor_email = this.props.professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched]});
-        return (
+    return (
             <div>
                 <h5>연락처 정보</h5>
-                <ul>
-                    <li>{this.props.professor.location}</li>
-                    <li>{this.props.professor.phone}</li>
-                    <li>{this.props.professor.fax}</li>
-                    <li>{professor_email}</li>
-                    <li>{this.props.professor.website}</li>
-                </ul>
+                {this.ProfList()}
                 <h5>학력</h5>
                 <ul>
                     {this.renderList(this.props.professor.education)}
@@ -33,7 +42,7 @@ export default class ProfessorDetail extends Component {
                 <ul>
                     {this.renderList(this.props.professor.research)}
                 </ul>
-                {this.props.professor.biography.length !==0 && 
+                {this.props.professor.biography.length !==0 &&
                 <div>
                 <h5>경력</h5>
                 <ul>

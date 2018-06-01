@@ -93,6 +93,8 @@ for i, j in enumerate(prof_list) :
     phone = text_return(section.select(".field-name-field-phone .field-item" ))
     fax = text_return(section.select(".field-name-field-fax .field-item" ))
     email =text_return(section.select(".field-name-field-email .field-item" ))
+    email = email.replace(' [at] ', '@')
+    email = email.replace(' [dot] ', '.')
     website = text_return(section.select(".field-name-field-website .field-item" ))
     education = field_return(section.select("div.field-name-field-education .field-item"))
     research = field_return(section.select("div.field-name-field-research-area .field-item"))
@@ -149,6 +151,8 @@ for i in staff_list :
     office  = section.select('div.field-name-field-office .even')[0].text
     phone = section.select('div.field-name-field-phone .even')[0].text
     email = section.select('div.field-name-field-email .even')[0].text
+    email = email.replace(' [at] ', '@')
+    email = email.replace(' [dot] ', '.')
     job_temp = section.select('div.field-name-field-responsibility .field-item')
     job = [i.text for i in job_temp]
     image_url = section.select(".field-name-field-profile-picture img")[0]['src']
