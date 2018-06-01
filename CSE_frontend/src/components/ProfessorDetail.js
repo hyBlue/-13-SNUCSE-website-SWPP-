@@ -15,9 +15,7 @@ export default class ProfessorDetail extends Component {
 
     ProfList(){
       const prof = this.props.professor;
-      const replacer = { "[at]": "@", "[dot]": ".", " ": ""}; //replace [] and space to correct cha
-      const prof_email = this.props.professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched]});
-      let contact_infor = ["교수실 : " + prof.location,"전화 : " + prof.phone,"이메일 : " + prof_email,"웹사이트 : " + prof.website];
+      let contact_infor = ["교수실 : " + prof.location,"전화 : " + prof.phone,"이메일 : " + prof.email,"웹사이트 : " + prof.website];
       // const contact_infor = [1,2,3,4,5]
       if(prof.fax){
         contact_infor.push("팩스 : " + prof.fax)
