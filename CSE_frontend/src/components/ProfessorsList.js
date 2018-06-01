@@ -49,9 +49,9 @@ class ProfessorsList extends Component {
                 />
                 <div>
                 <Row style={{paddingTop: "10px"}}> 
-                    <Col span={9}>{professor.lab}</Col>
-                    <Col span={7}>{professor.phone}</Col>
-                    <Col span={8}>{professor_email}</Col>
+                    <Col span={9} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor.lab}</Col>
+                    <Col span={7} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor.phone}</Col>
+                    <Col span={8} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor_email}</Col>
                 </Row>
                 </div>
             </Card>);
@@ -63,7 +63,8 @@ class ProfessorsList extends Component {
         })
     }
     render() {
-        return (<div>
+        return (<div id="professorList">
+            <div className="pageTitle">공지사항</div>
             <Row>
                 <Col span={12}>
                     <Collapse style={{borderRight: '0px'}}>

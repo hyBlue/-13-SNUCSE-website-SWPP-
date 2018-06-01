@@ -32,6 +32,7 @@ a, u {
   text-decoration: none!important;
 }
 
+
 /* .write-notice {
     position: fixed;
     bottom: 0;
@@ -142,4 +143,10 @@ a, u {
 }
 .ant-tabs-bar {
   margin-bottom: 2px!important;
+}
+
+
+/* Professor List UI */
+#professorList * {
+  border: none!important;
 }
