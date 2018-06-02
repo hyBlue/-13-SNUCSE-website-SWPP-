@@ -79,8 +79,10 @@ class MainPage extends Component {
       console.log(news);
       return (
         <Card.Grid key={news.id} style={gridStyle}>
+          <Link to={`/News/${news.id}`}>
           <img src={news.image} style={{width:'100%', height:'100%'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal'}}>{news.title}</div>
+          </Link>
         </Card.Grid>
       )
     }) 

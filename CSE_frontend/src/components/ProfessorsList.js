@@ -64,7 +64,7 @@ class ProfessorsList extends Component {
     }
     render() {
         return (<div id="professorList">
-            <div className="pageTitle">공지사항</div>
+            <h2>교수</h2>
             <Row>
                 <Col span={12}>
                     <Collapse style={{borderRight: '0px'}}>

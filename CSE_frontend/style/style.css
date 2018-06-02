@@ -133,6 +133,15 @@ a, u {
     text-align: center;
 }
 
+/*Page Layout UI */
+.menuGroup .ant-menu-item-group-title {
+  font-size: 35px!important;
+  font-style: oblique!important;
+}
+.menuGroup li {
+  font-size: 20px!important;
+  font-style: oblique!important;
+}
 /* Notice List UI*/
 .pageTitle {
   font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
