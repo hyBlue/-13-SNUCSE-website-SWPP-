@@ -95,6 +95,13 @@ class ProfessorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Professor.objects.all()
     serializer_class = ProfessorSerializer
 
+class LabList(generics.ListCreateAPIView):
+    queryset = Lab.objects.all()
+    serializer_class = LabSerializer
+
+    def perform_create(self, serializer) :
+        serializer.save()
+        
 class EmeritusList(generics.ListCreateAPIView):
     queryset = Emeritus.objects.all()
     serializer_class = EmeritusSerializer

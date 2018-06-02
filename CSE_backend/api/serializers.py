@@ -33,23 +33,36 @@ class ProfessorSerializer(serializers.ModelSerializer) :
     education =  serializers.StringRelatedField(many = True)
     research =  serializers.StringRelatedField(many = True)
     biography =  serializers.StringRelatedField(many = True)
+    lab = serializers.StringRelatedField(many = True)
 
     class Meta :
         model = Professor
         fields = ('id',
         'name' ,
         'position',
-        'lab' ,
-        'location' ,
-        'phone',
+        'lab',
         'fax' ,
         'email' ,
         'website',
         'education' ,
         'research' ,
         'biography' ,
-        'image')
+        'image',
+        )
 
+class LabSerializer(serializers.ModelSerializer) :
+    professors =  serializers.StringRelatedField(many = True)
+
+    class Meta :
+        model = Lab
+        fields =('id',
+        'name',
+        'professors',
+        'location',
+        'phone',
+        'abbreviation')
+
+    depth = 1
 class EmeritusSerializer(serializers.ModelSerializer) :
     education =  serializers.StringRelatedField(many = True)
     class Meta :

@@ -18,6 +18,8 @@ urlpatterns = [
     url(r'^api/news/(?P<pk>[0-9]+)/$', views.NewsDetail.as_view()),
     url(r'^api/tags/$', views.TagList.as_view()),
     url(r'^api/tags/(?P<pk>[0-9]+)/$', views.TagDetail.as_view()),
+    url(r'^api/lab/', views.LabList.as_view()),
+
 ]
 
 
