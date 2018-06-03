@@ -40,6 +40,37 @@ for i in notice_list :
     notice.tag_set.set([Tag.objects.get(name = tag)])
     notice.save()
 
+# Lab created
+import requests
+from bs4 import BeautifulSoup
+
+lab_url = "https://cse.snu.ac.kr/research/labs"
+
+html = requests.get(lab_url).text
+
+soup = BeautifulSoup(html, 'html.parser')
+section = soup.find('tbody')
+table = section.select('tr')
+# print(table)
+
+for i in table :
+    name = i.select('.views-field-title a')[0].text
+    professors = []
+    for j in i.select('.views-field-field-faculty a') :
+        professors.append(Professor.objects.get(name = j.text.replace(' ', '-')))
+    abbre = i.select('.views-field-field-abbreviation')[0].text.strip()
+    temp = i.select('.views-field-field-office')[0].text.strip().split("(")
+    location = temp[0]
+    data = {'name' : name,  'abbreviation' : abbre, 'location' : location}
+    if len(temp) > 1 :
+        phone = temp[1]
+        data['phone'] = phone
+    lab = Lab(**data)
+    lab.save()
+    lab.professors.set(professors)
+    lab.save()
+
+
 # professor create
 import requests
 import os
@@ -106,20 +137,20 @@ for i, j in enumerate(prof_list) :
     image = File(open('./media/professor/' + filename, 'rb'))
     educations = []
     for i in education :
-        edu = Education(education = i)
+        edu = StringModel(content = i)
         edu.save()
         educations.append(edu)
     researches = []
     for i in research :
-        res = Research(research = i)
+        res = StringModel(content = i)
         res.save()
         researches.append(res)
     biographies = []
     for i in biography :
-        bio = Biography(biography = i)
+        bio = StringModel(content = i)
         bio.save()
         biographies.append(bio)
-    data = {'name' : j['name'], 'position' : position, 'lab' : lab, 'location' :location, 'phone' : phone,'fax' : fax, 'email' : email, 'website' : website,'image' : image}
+    data = {'name' : j['name'], 'position' : position,  'location' :location, 'phone' : phone,'fax' : fax, 'email' : email, 'website' : website,'image' : image}
     prof = Professor(**data)
     prof.save()
     prof.education.set(educations)
@@ -166,7 +197,7 @@ for i in staff_list :
     staff.save()
     jobs = []
     for i in job :
-        job_ = Job(job = i)
+        job_ = StringModel(content = i)
         job_.save()
         jobs.append(job_)
         staff.jobs.set(jobs)
@@ -195,7 +226,7 @@ for i in emeritus_list :
     education = section.select('.field-name-field-education li.field-item')
     educations = []
     for j in education :
-        edu = Education(education = j.text)
+        edu = StringModel(content = j.text)
         edu.save()
         educations.append(edu)
     term_of_service = section.select('.field-name-field-term-of-service .field-item')[0].text

@@ -33,23 +33,36 @@ class ProfessorSerializer(serializers.ModelSerializer) :
     education =  serializers.StringRelatedField(many = True)
     research =  serializers.StringRelatedField(many = True)
     biography =  serializers.StringRelatedField(many = True)
+    lab = serializers.StringRelatedField(many = True)
 
     class Meta :
         model = Professor
         fields = ('id',
         'name' ,
         'position',
-        'lab' ,
-        'location' ,
-        'phone',
+        'lab',
         'fax' ,
         'email' ,
         'website',
         'education' ,
         'research' ,
         'biography' ,
-        'image')
+        'image',
+        )
 
+class LabSerializer(serializers.ModelSerializer) :
+    professors =  serializers.StringRelatedField(many = True)
+
+    class Meta :
+        model = Lab
+        fields =('id',
+        'name',
+        'professors',
+        'location',
+        'phone',
+        'abbreviation')
+
+        
 class EmeritusSerializer(serializers.ModelSerializer) :
     education =  serializers.StringRelatedField(many = True)
     class Meta :
@@ -76,8 +89,9 @@ class StaffSerializer(serializers.ModelSerializer) :
         )
 
 class TagSerializer(serializers.ModelSerializer) :
-    notices = serializers.StringRelatedField(many = True)
+    # = serializers.StringRelatedField(many = True)
     # notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
     class Meta :
         model = Tag
         fields = ('id', 'name', 'notices', )
+        depth = 1
