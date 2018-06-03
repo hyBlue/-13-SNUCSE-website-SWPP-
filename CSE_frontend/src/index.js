@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
 
+import PageLayOut from './components/PageLayOut';
 import MainNavigateBar from './components/MainNavigateBar';
 import MainPage from './components/MainPage';
 import AboutCSE from './components/AboutCSE';
@@ -101,7 +102,7 @@ ReactDOM.render(
               <Route path="/notice" component={NoticeList} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
-              <Route path="/members" component={ProfessorsList} />
+              <Route path="/members" component={PageLayOut} />
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>

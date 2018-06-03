@@ -30,7 +30,6 @@ export default class MainNavigateBar extends Component {
     }
     renderSubMenuItem(items) {
         return _.map(items, item => {
-            console.log(item.to);
             return (
                 <Menu.Item key={item.key}><Link className="MainCategories" to={`${item.to}`}>{item.title}</Link></Menu.Item>
             )
