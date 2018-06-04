@@ -133,6 +133,9 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
-class UnderCourse(generics.ListAPIView):
+class UnderCourseList(generics.ListAPIView):
     queryset = UnderCourse.objects.all()
-    serializer_class = UnderCourseSerializer
+    serializer_class = UnderCourseListSerializer
+class UnderCourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UnderCourse.objects.all()
+    serializer_class = UnderCourseDetailSerializer

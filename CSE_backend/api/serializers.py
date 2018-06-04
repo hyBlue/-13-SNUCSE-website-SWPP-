@@ -87,7 +87,19 @@ class StaffSerializer(serializers.ModelSerializer) :
          'jobs',
          'image'
         )
-class UnderCourseSerializer(serializers.ModelSerializer) :
+class UnderCourseListSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = UnderCourse
+        fields = ('id',
+        'name',
+        'number',
+        'credit',
+        'year',
+        'classification',
+        'link',)
+        depth = 1
+
+class UnderCourseDetailSerializer(serializers.ModelSerializer) :
     class Meta :
         model = UnderCourse
         fields = ('id',
@@ -97,7 +109,7 @@ class UnderCourseSerializer(serializers.ModelSerializer) :
         'year',
         'classification',
         'link',
-        'content')
+        'content',)
         depth = 1
 class TagSerializer(serializers.ModelSerializer) :
     # = serializers.StringRelatedField(many = True)
