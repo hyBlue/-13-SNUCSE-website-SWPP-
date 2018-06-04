@@ -62,7 +62,7 @@ class LabSerializer(serializers.ModelSerializer) :
         'phone',
         'abbreviation')
 
-        
+
 class EmeritusSerializer(serializers.ModelSerializer) :
     education =  serializers.StringRelatedField(many = True)
     class Meta :
@@ -87,7 +87,18 @@ class StaffSerializer(serializers.ModelSerializer) :
          'jobs',
          'image'
         )
-
+class UnderCourseSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = UnderCourse
+        fields = ('id',
+        'name',
+        'number',
+        'credit',
+        'year',
+        'classification',
+        'link',
+        'content')
+        depth = 1
 class TagSerializer(serializers.ModelSerializer) :
     # = serializers.StringRelatedField(many = True)
     # notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())

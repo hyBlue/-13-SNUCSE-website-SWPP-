@@ -101,7 +101,7 @@ class LabList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer) :
         serializer.save()
-        
+
 class EmeritusList(generics.ListCreateAPIView):
     queryset = Emeritus.objects.all()
     serializer_class = EmeritusSerializer
@@ -132,3 +132,7 @@ class TagList(generics.ListCreateAPIView):
 class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+class UnderCourse(generics.ListAPIView):
+    queryset = UnderCourse.objects.all()
+    serializer_class = UnderCourseSerializer
