@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchProfessors, fetchStaffs } from '../actions';
+import { fetchProfessors, } from '../../actions';
 import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
 import ProfessorDetail from './ProfessorDetail';
 const Meta = Card.Meta;
@@ -24,9 +24,6 @@ class ProfessorsList extends Component {
     }
     componentDidMount() {
         this.props.fetchProfessors();
-        this.props.fetchStaffs().then(() => {
-            this.renderStaff();
-        });
     }
     showDetail(professor) {
         this.setState({
@@ -39,12 +36,12 @@ class ProfessorsList extends Component {
         const size = _.size(this.props.professors);
         const set = _.keys(this.props.professors)[0];
         const halfList =
-            whichHalf === 'first' ? _.filter(this.props.professors, professor => professor.id <= (parseInt(set) + Math.floor(size / 2))) :
-                _.filter(this.props.professors, professor => professor.id > (parseInt(set) + Math.floor(size / 2)))
+            whichHalf === 'first' ? _.filter(this.props.professors, professor => professor.id < (parseInt(set) + (size / 2))) :
+                _.filter(this.props.professors, professor => professor.id >= (parseInt(set) + (size / 2)))
         return _.map(halfList, professor => {
             const replacer = { "[at]": "@", "[dot]": ".", " ": "" }; //replace [] and space to correct cha
             const professor_email = professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched] });
-            const professorCard = (<Card className='professorCard' key={professor.id} style={{ width: '100%', height: '130px' }} onClick={() => this.showDetail(professor)}>
+            const professorCard = (<Card className='memberCard' key={professor.id} style={{ width: '100%', height: '130px' }} onClick={() => this.showDetail(professor)}>
                 <Row>
                     <Col span={12}>
                         <Meta
@@ -53,7 +50,7 @@ class ProfessorsList extends Component {
                             description={professor.position}
                         />
                     </Col>
-                    <Col span={12} style={{paddingTop: '15px', fontSize: '18px'}}>
+                    <Col span={12} style={{paddingTop: '4px', fontSize: '18px'}}>
                             <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.lab}</Row>
                             <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.phone}</Row>
                             <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor_email}</Row>
@@ -68,12 +65,8 @@ class ProfessorsList extends Component {
         })
     }
 
-    renderStaff() {
-        console.log(this.props.staffs);
-    }
-
     render() {
-        return (<div id="professorList">
+        return (<div className="memberList">
             <h2>교수</h2>
             <Row>
                 <Col span={12}>
@@ -95,7 +88,7 @@ class ProfessorsList extends Component {
 }
 
 function mapStateToProps({ members }) {
-    return { professors: members.professors, staffs: members.staffs }
+    return { professors: members.professors }
 }
 
-export default connect(mapStateToProps, { fetchProfessors, fetchStaffs })(ProfessorsList);
+export default connect(mapStateToProps, { fetchProfessors, })(ProfessorsList);

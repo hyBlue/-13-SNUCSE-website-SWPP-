@@ -156,22 +156,28 @@ a, u {
 
 
 /* Professor List UI */
-#professorList * {
+.memberList * {
   border: none!important;
 }
 
-#professorList .ant-avatar-lg {
+.memberList .ant-avatar-lg {
   width: 100px!important;
   height: 100px!important;
   border: 1px solid #ddd!important;
 }
 
-#professorList .professorCard .ant-card-meta-detail > div:not(:last-child){
+.memberList .memberCard .ant-card-meta-detail > div:not(:last-child){
   margin-top: 20px!important;
+  width: auto!important;
 }
-#professorList .professorCard .ant-card-meta-title {
-  font-size: 18px!important;  
+.memberList .memberCard .ant-card-meta-title {
+  font-size: 18px!important; 
+  width: auto!important; 
 }
-#professorList .ant-card-body {
+.memberList .ant-card-body {
   padding: 20px!important;
+}
+.memberList .ant-collapse-content > .ant-collapse-content-box {
+  padding-left:30px!important;
+  border: 1px groove #72b6ff!important;
 }

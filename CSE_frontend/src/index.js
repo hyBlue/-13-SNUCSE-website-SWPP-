@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
 
-import MembersPage from './components/MembersPage';
+import MembersPage from './components/MembersCategory/MembersPage';
 import MainNavigateBar from './components/MainNavigateBar';
 import MainPage from './components/MainPage';
 import AboutCSE from './components/AboutCSE';
@@ -45,7 +45,6 @@ import NoticeUpdate from './components/NoticeUpdate';
 import NoticeDetail from './components/NoticeDetail';
 import NoticeList from './components/NoticeList';
 import Login from './components/Login';
-import ProfessorsList from './components/ProfessorsList';
 import NewsList from './components/NewsList';
 import NewsDetail from './components/NewsDetail';
 

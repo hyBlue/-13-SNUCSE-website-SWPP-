@@ -76,7 +76,6 @@ class MainPage extends Component {
       borderBottom: '1px solid #001529'
     };
     return _.map(new_arr, news => {
-      console.log(news);
       return (
         <Card.Grid key={news.id} style={gridStyle}>
           <Link to={`/News/${news.id}`}>

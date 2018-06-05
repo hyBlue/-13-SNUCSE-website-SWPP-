@@ -8,6 +8,7 @@ export const FETCH_NEWSES = 'fetch_newses';
 export const FETCH_NEWS = 'fetch_new';
 export const FETCH_PROFESSORS = 'fetch_professors';
 export const FETCH_STAFFS = 'fetch_staffs';
+export const FETCH_HONOURPROFS = 'fetch_honourProfs';
 export const FETCH_TAGS = 'fetch_tags';
 export const CREATE_LOGIN = 'create_login';
 const ROOT_URL = 'http://127.0.0.1:8000/api';
@@ -60,6 +61,14 @@ export function fetchStaffs() {
     const request = axios.get(`${ROOT_URL}/staff${API_KEY}`);
     return {
         type: FETCH_STAFFS,
+        payload: request
+    }
+}
+
+export function fetchHonourProfs() {
+    const request = axios.get(`${ROOT_URL}/emeritus${API_KEY}`);
+    return {
+        type: FETCH_HONOURPROFS,
         payload: request
     }
 }

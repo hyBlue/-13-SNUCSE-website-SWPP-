@@ -8,7 +8,7 @@ export default class ProfessorDetail extends Component {
         let index = 0;
         return _.map(list, item => {
             return (
-                <li key={index++}>{item}</li>
+                <li key={index++} style={{fontSize: '17px'}}>{item}</li>
             );
         })
     }
@@ -21,7 +21,7 @@ export default class ProfessorDetail extends Component {
         contact_infor.push("팩스 : " + prof.fax)
       }
       const listItems = contact_infor.map((x) =>
-    <li key={x.toString()}>
+    <li key={x.toString()} style={{fontSize: '17px'}}>
       {x}
     </li>
   );

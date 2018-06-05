@@ -3,11 +3,13 @@ const { Header, Footer, Sider, Content } = Layout;
 const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 import React, { Component } from 'react';
-import forSlider3 from '../../icons/forSlider3.jpg';
+import forSlider3 from '../../../icons/forSlider3.jpg';
 import { Link } from 'react-router-dom';
 import ProfessorPage from './ProfessorsList';
+import StaffsPage from './StaffsList';
+import HonourProfessorPage from './HonourProfList';
 
-export default class PageLayOut extends Component {
+export default class MembersPage extends Component {
 
     constructor(props){
         super(props);
@@ -21,10 +23,10 @@ export default class PageLayOut extends Component {
                 return <ProfessorPage />;
             break;
             case "honourProfessor":
-                return <div> honor </div>;
+                return <HonourProfessorPage />;
             break;
             case "adminWorkers":
-                return <div> admin </div>;
+                return <StaffsPage />; 
             default:
                 return <ProfessorPage />;
         }
