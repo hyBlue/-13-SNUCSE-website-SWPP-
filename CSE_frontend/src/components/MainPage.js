@@ -72,7 +72,7 @@ class MainPage extends Component {
       width: '50%',
       height: '50%',
       textAlign: 'center',
-      padding: '0 0 45px 0',
+      padding: '5px 5px 45px 5px',
       borderBottom: '1px solid #001529'
     };
     return _.map(new_arr, news => {
@@ -81,7 +81,7 @@ class MainPage extends Component {
         <Card.Grid key={news.id} style={gridStyle}>
           <Link to={`/News/${news.id}`}>
           <img src={news.image} style={{width:'100%', height:'100%'}}/>
-          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal'}}>{news.title}</div>
+          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
           </Link>
         </Card.Grid>
       )

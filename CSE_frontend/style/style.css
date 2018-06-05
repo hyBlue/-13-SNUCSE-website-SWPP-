@@ -80,10 +80,10 @@ a, u {
 }
 /* Main Page Img Slider */
 .ant-carousel {
-  height: 300px;
+  height: 200px;
 }
 .ant-carousel img {
-  height: 300px;
+  height: 200px;
 }
 .ant-carousel .slick-slide {
   text-align: center;
@@ -117,7 +117,7 @@ a, u {
 .mainPostsList .ant-card-body {
   height: 93%!important;
 }
-/*그리드형 카드 두드러짐 방지 */
+/*그리드형 카드 보더 두드러짐 방지 */
 .ant-card-contain-grid:not(.ant-card-loading) {
   margin: 0!important;
 }
@@ -158,4 +158,20 @@ a, u {
 /* Professor List UI */
 #professorList * {
   border: none!important;
+}
+
+#professorList .ant-avatar-lg {
+  width: 100px!important;
+  height: 100px!important;
+  border: 1px solid #ddd!important;
+}
+
+#professorList .professorCard .ant-card-meta-detail > div:not(:last-child){
+  margin-top: 20px!important;
+}
+#professorList .professorCard .ant-card-meta-title {
+  font-size: 18px!important;  
+}
+#professorList .ant-card-body {
+  padding: 20px!important;
 }

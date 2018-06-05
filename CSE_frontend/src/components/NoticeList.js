@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
+import { fetchNotices, fetchTags } from '../actions';
 import { Button, Input, Tabs, Select, Row, Col } from 'antd';
 import NoticeListRender from './NoticeListRender';
 const Search = Input.Search;
@@ -34,12 +34,6 @@ class NoticeList extends Component {
             categoryItems[3] = this.getCategoryNotices([11, 12, 17]);
             this.setState({ categoryNotices: categoryItems, displayedCategoryNotices: categoryItems })
         });
-        //this.props.fetchTagNotices();
-        // console.log('notice list mounted');
-        // this.props.notices.then(data=> {
-        //     console.log(data);
-        // })
-        // console.log(this.props.notices);
     }
 
     renderNotice() {
@@ -177,4 +171,4 @@ function mapStateToProps({ notices, tags, }) {
     return { notices, tags, }
 }
 
-export default connect(mapStateToProps, { fetchNotices, fetchTags, fetchTagNotices })(NoticeList);
+export default connect(mapStateToProps, { fetchNotices, fetchTags })(NoticeList);

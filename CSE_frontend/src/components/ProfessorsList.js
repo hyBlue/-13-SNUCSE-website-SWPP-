@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchProfessors } from '../actions';
+import { fetchProfessors, fetchStaffs } from '../actions';
 import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
 import ProfessorDetail from './ProfessorDetail';
 const Meta = Card.Meta;
@@ -24,50 +24,60 @@ class ProfessorsList extends Component {
     }
     componentDidMount() {
         this.props.fetchProfessors();
+        this.props.fetchStaffs().then(() => {
+            this.renderStaff();
+        });
     }
     showDetail(professor) {
         this.setState({
-            showingProfessors: {...this.state.showingProfessors, [professor.id]: professor }
+            showingProfessors: { ...this.state.showingProfessors, [professor.id]: professor }
         })
-        console.log(this.state);    
+        console.log(this.state);
     }
-   
+
     renderProfessor(whichHalf) {
         const size = _.size(this.props.professors);
         const set = _.keys(this.props.professors)[0];
-        const halfList = 
-            whichHalf==='first' ? _.filter(this.props.professors, professor => professor.id <= (parseInt(set) + Math.floor(size/2))) :
-                        _.filter(this.props.professors, professor => professor.id > (parseInt(set) + Math.floor(size/2)))
+        const halfList =
+            whichHalf === 'first' ? _.filter(this.props.professors, professor => professor.id <= (parseInt(set) + Math.floor(size / 2))) :
+                _.filter(this.props.professors, professor => professor.id > (parseInt(set) + Math.floor(size / 2)))
         return _.map(halfList, professor => {
-            const replacer = { "[at]": "@", "[dot]": ".", " ": ""}; //replace [] and space to correct cha
-            const professor_email = professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched]});
-            const professorCard = (<Card key={professor.id} style={{ width: '100%', height: '100px' }} onClick={() => this.showDetail(professor)}>
-                <Meta
-                    title={professor.name}
-                    avatar={<Avatar src={professor.image} size="large" />}
-                    description={professor.position}
-                />
-                <div>
-                <Row style={{paddingTop: "10px"}}> 
-                    <Col span={9} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor.lab}</Col>
-                    <Col span={7} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor.phone}</Col>
-                    <Col span={8} style={{textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal'}}>{professor_email}</Col>
+            const replacer = { "[at]": "@", "[dot]": ".", " ": "" }; //replace [] and space to correct cha
+            const professor_email = professor.email.replace(/\[at\]|\[dot\]|(\s)/gi, matched => { return replacer[matched] });
+            const professorCard = (<Card className='professorCard' key={professor.id} style={{ width: '100%', height: '130px' }} onClick={() => this.showDetail(professor)}>
+                <Row>
+                    <Col span={12}>
+                        <Meta
+                            title={professor.name}
+                            avatar={<Avatar src={professor.image} size="large" />}
+                            description={professor.position}
+                        />
+                    </Col>
+                    <Col span={12} style={{paddingTop: '15px', fontSize: '18px'}}>
+                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.lab}</Row>
+                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.phone}</Row>
+                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor_email}</Row>
+                    </Col>
                 </Row>
-                </div>
             </Card>);
             return (
-                <Panel header={professorCard} key={professor.id} style={{paddingRight: '10px'}}>
+                <Panel header={professorCard} key={professor.id} style={{ paddingRight: '10px' }}>
                     {this.state.showingProfessors[professor.id] && <ProfessorDetail professor={this.state.showingProfessors[professor.id]}></ProfessorDetail>}
                 </Panel>
             )
         })
     }
+
+    renderStaff() {
+        console.log(this.props.staffs);
+    }
+
     render() {
         return (<div id="professorList">
             <h2>교수</h2>
             <Row>
                 <Col span={12}>
-                    <Collapse style={{borderRight: '0px'}}>
+                    <Collapse style={{ borderRight: '0px' }}>
                         {this.renderProfessor('first')}
                     </Collapse></Col>
                 <Col span={12}>
@@ -84,8 +94,8 @@ class ProfessorsList extends Component {
 
 }
 
-function mapStateToProps({ professors }) {
-    return { professors }
+function mapStateToProps({ members }) {
+    return { professors: members.professors, staffs: members.staffs }
 }
 
-export default connect(mapStateToProps, { fetchProfessors })(ProfessorsList);
+export default connect(mapStateToProps, { fetchProfessors, fetchStaffs })(ProfessorsList);
