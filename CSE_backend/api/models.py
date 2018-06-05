@@ -78,26 +78,6 @@ class Staff(Post) :
     jobs = models.ManyToManyField('StringModel', related_name = 'job_staff', blank = True)
     image = models.ImageField(blank= True, upload_to = 'staff/', null = True)
 
-# class Job(models.Model) :
-#     job = models.CharField(max_length = 20)
-#     def __str__(self) :
-#         return self.job
-#
-# class Education(models.Model) :
-#     education = models.CharField(max_length = 20, blank = True)
-#     def __str__(self) :
-#         return self.education
-#
-# class Research(models.Model) :
-#     research = models.CharField(max_length = 20, blank = True)
-#     def __str__(self) :
-#         return self.research
-#
-# class Biography(models.Model) :
-#     biography =  models.CharField(max_length = 20, blank = True)
-#     def __str__(self) :
-#         return self.biography
-
 class StringModel(models.Model) :
     content = models.CharField(max_length = 20)
     def __str__(self) :
@@ -107,3 +87,19 @@ class Tag(models.Model) :
     name = models.CharField(max_length = 50, unique = True)
     def __str__(self) :
         return self.name
+
+class UnderCourse(Post) :
+    name = models.CharField(max_length = 20)
+    number = models.CharField(max_length = 20)
+    credit = models.IntegerField()
+    year = models.CharField(max_length = 20)
+    classification = models.CharField(max_length = 20)
+    link = models.ManyToManyField('CourseLink', related_name = 'under_course', blank = True )
+    content = models.TextField()
+
+    def __str__(self) :
+        return self.name
+
+class CourseLink(models.Model) :
+    name = models.CharField(max_length = 20)
+    url = models.CharField(max_length = 20)
