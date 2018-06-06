@@ -27,6 +27,7 @@ export default class MembersPage extends Component {
             break;
             case "adminWorkers":
                 return <StaffsPage />; 
+            break;
             default:
                 return <ProfessorPage />;
         }

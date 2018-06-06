@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchTags } from '../actions';
+import { fetchNotices, fetchTags } from '../../actions';
 import { Button, Input, Tabs, Select, Row, Col } from 'antd';
 import NoticeListRender from './NoticeListRender';
 const Search = Input.Search;

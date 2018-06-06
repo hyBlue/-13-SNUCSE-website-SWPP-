@@ -7,6 +7,7 @@
 	url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
 	src:local(※), url('../fonts/NanumGothic.woff') format('woff');
 }
+@import 'react-week-calendar/dist/style.css';
 
 * {
   font-family: 'NanumGothic', 'serif'!important;
@@ -117,6 +118,10 @@ a, u {
 .mainPostsList .ant-card-body {
   height: 93%!important;
 }
+.mainPostsList .ant-card-head-title {
+  font-family: 'NanumGothic', 'serif'!important;
+  font-weight: bold!important;
+}
 /*그리드형 카드 보더 두드러짐 방지 */
 .ant-card-contain-grid:not(.ant-card-loading) {
   margin: 0!important;
@@ -139,6 +144,10 @@ a, u {
   font-style: oblique!important;
 }
 .menuGroup li {
+  font-size: 20px!important;
+  font-style: oblique!important;
+}
+.ant-menu-submenu-title {
   font-size: 20px!important;
   font-style: oblique!important;
 }
@@ -166,6 +175,9 @@ a, u {
   border: 1px solid #ddd!important;
 }
 
+.memberCard {
+  border-radius: 20px!important;
+}
 .memberList .memberCard .ant-card-meta-detail > div:not(:last-child){
   margin-top: 20px!important;
   width: auto!important;
@@ -181,3 +193,7 @@ a, u {
   padding-left:30px!important;
   border: 1px groove #72b6ff!important;
 }
+.memberList .ant-collapse {
+  border-radius: 20px!important;
+}
+
