@@ -197,3 +197,34 @@ a, u {
   border-radius: 20px!important;
 }
 
+
+/*Reservation Page */
+.customModal__text span {
+  font-size: 20px!important;
+}
+.customModal input {
+  height: 40px!important;
+  font-size: 20px!important;
+}
+.customModal button {
+  background: #6b9a79!important;
+  border: none!important;
+} 
+.customModal .weekCalendar__overlay {
+  width: 100px!important;
+  padding: 2px!important;
+}
+.weekCalendar__overlay .event {
+  color: royalblue!important;
+  font-size:calc(10px + 0.5rem)!important;
+}
+.weekCalendar__headerColumn {
+  color: white!important;
+  background: #6b9a79!important;
+  font-weight: 400!important;
+}
+.weekCalendar__scaleHeader {
+  color: white!important;
+  background: #6b9a79!important;
+  font-weight: 400!important;
+}
