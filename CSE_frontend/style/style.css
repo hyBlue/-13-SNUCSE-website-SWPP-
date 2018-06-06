@@ -20,7 +20,7 @@
 .MainCategories {
   margin:auto!important;
   display: block;
-  color:#6b9a79;
+  color:#cbf7d8;
   text-align: center;
   text-decoration: none;
   font-size: 1.3rem;
@@ -199,6 +199,9 @@ a, u {
 
 
 /*Reservation Page */
+.reservationCategory > :only-child {
+  border-radius: 20px!important;  
+}
 .customModal__text span {
   font-size: 20px!important;
 }
@@ -210,13 +213,17 @@ a, u {
   background: #6b9a79!important;
   border: none!important;
 } 
-.customModal .weekCalendar__overlay {
-  width: 100px!important;
-  padding: 2px!important;
+.weekCalendar__overlay {
+  padding-top: 5px!important;
+  padding-left: 15px!important;
+}
+.weekCalendar {
+  border-radius: 20px!important;
 }
 .weekCalendar__overlay .event {
   color: royalblue!important;
   font-size:calc(10px + 0.5rem)!important;
+  text-align: center!important;
 }
 .weekCalendar__headerColumn {
   color: white!important;

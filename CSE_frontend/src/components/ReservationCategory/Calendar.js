@@ -12,18 +12,6 @@ export default class StandardCalendar extends React.Component {
       lastUid: 4,
       selectedIntervals: [
         {
-          uid: 1,
-          start: moment({h: 10, m: 5}),
-          end: moment({h: 12, m: 5}),
-          value: "Booked by Smith"
-        },
-        {
-          uid: 2,
-          start: moment({h: 13, m: 0}).add(2,'d'),
-          end: moment({h: 13, m: 45}).add(2,'d'),
-          value: "Closed"
-        },
-        {
           uid: 3,
           start: moment({h: 11, m: 0}),
           end: moment({h: 14, m: 0}),

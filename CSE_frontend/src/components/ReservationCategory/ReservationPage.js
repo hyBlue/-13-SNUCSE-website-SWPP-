@@ -8,6 +8,10 @@ import { Link } from 'react-router-dom';
 import SeminarRoomReservePage from './SeminarRoomReserve';
 // import LabReservePage from '';
 
+//여기서 특정 세미나실 시간표를 선택하면
+//fetch해서 value로 넘겨주기.
+
+
 export default class ReservationPage extends Component {
 
     constructor(props) {
