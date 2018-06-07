@@ -103,3 +103,15 @@ class UnderCourse(Post) :
 class CourseLink(models.Model) :
     name = models.CharField(max_length = 20)
     url = models.CharField(max_length = 20)
+
+class Reservation(models.Model) :
+    uid = models.IntegerField()
+    start_h = models.IntegerField()
+    start_m = models.IntegerField()
+    end_h = models.IntegerField()
+    end_m = models.IntegerField()
+    roomkey = models.CharField(max_length = 20)
+    value = models.CharField(max_length= 20)
+    category = models.CharField(max_length = 20)
+    def __str__(self):
+        return self.value
