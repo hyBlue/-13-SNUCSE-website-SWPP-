@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from api import views
 from django.conf.urls import include
+from rest_framework.authtoken import views as drf_views
 
 urlpatterns = [
     url(r'^api/notice/$', views.NoticeList.as_view()),
@@ -21,6 +22,7 @@ urlpatterns = [
     url(r'^api/lab/', views.LabList.as_view()),
     url(r'^api/undercourse/$', views.UnderCourseList.as_view()),
     url(r'^api/undercourse/(?P<pk>[0-9]+)/$', views.UnderCourseDetail.as_view()),
+    url(r'^api/token-auth/', views.CustomAuthToken.as_view())
 
 ]
 
