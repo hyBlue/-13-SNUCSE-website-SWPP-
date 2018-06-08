@@ -1,15 +1,17 @@
 import { combineReducers } from 'redux';
 import NoticesReducer from './reducer_notices';
 import NewsReducer from './reducer_news';
-import ProfessorsReducer from './reducer_professors';
+import MembersReducer from './reducer_members';
 import TagsReducer from './reducer_tags';
+import ReservationReducer from './reducer_reservatoin';
 import { reducer as formReducer } from 'redux-form';
 
 
 const rootReducer = combineReducers({
   notices: NoticesReducer,
   news: NewsReducer,
-  professors: ProfessorsReducer,
+  members: MembersReducer,
+  reservation: ReservationReducer,
   form: formReducer,
   tags: TagsReducer,
 });

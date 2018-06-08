@@ -72,42 +72,19 @@ class MainPage extends Component {
       width: '50%',
       height: '50%',
       textAlign: 'center',
-      padding: '0 0 45px 0',
-      borderBottom: '1px solid #001529'
+      padding: '5px 5px 45px 5px',
     };
     return _.map(new_arr, news => {
-      console.log(news);
       return (
         <Card.Grid key={news.id} style={gridStyle}>
           <Link to={`/News/${news.id}`}>
           <img src={news.image} style={{width:'100%', height:'100%'}}/>
-          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal'}}>{news.title}</div>
+          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
           </Link>
         </Card.Grid>
       )
     }) 
   }
-    // return (
-    //   <Carousel autoplay effect="fade">
-    //     <div>
-    //       <Card title={new_arr[0].title} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[0].image} />}>
-    //       </Card>
-    //     </div>
-    //     <div>
-    //       <Card title={new_arr[1].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[1].image} />}>
-    //       </Card>
-    //     </div>
-    //     <div>
-    //       <Card title={new_arr[2].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[2].image} />}>
-    //       </Card>
-    //     </div>
-    //     <div>
-    //       <Card title={new_arr[3].title} bordered={false} style={{ width: '100%', padding: '10px' }} cover={<img alt="example" style={{ width: '100%' }} src={new_arr[3].image} />}>
-    //       </Card>
-    //     </div>
-    //   </Carousel>
-    // );
-  
   renderNotice() {
     const size = _.size(this.props.notices)
     const rev = _.reject(this.props.notices, notice => { return notice.id <= size - 12  ; })
@@ -180,12 +157,12 @@ class MainPage extends Component {
         <Row style={{ height: '650px' }}>
           <Col className='mainPostsContainer' span={14}>
             <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">더보기</Link>} >
-              {this.renderGridCardNews()} 
+               {this.renderGridCardNews()}
             </Card>
           </Col>
           <Col className='mainPostsContainer' span={10}>
             <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice">더보기</Link>} >
-              {this.renderNotice()}
+              {this.renderNotice()} 
             </Card>
           </Col>
         </Row>

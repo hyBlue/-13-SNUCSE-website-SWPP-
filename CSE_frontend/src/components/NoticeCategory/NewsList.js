@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNewses } from '../actions';
+import { fetchNewses } from '../../actions';
 import { Button } from 'antd';
 
 class NewsList extends Component {

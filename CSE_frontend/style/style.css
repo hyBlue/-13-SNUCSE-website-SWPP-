@@ -7,6 +7,7 @@
 	url('../fonts/NanumGothic.svg#NanumGothic') format('svg');
 	src:local(※), url('../fonts/NanumGothic.woff') format('woff');
 }
+@import 'react-week-calendar/dist/style.css';
 
 * {
   font-family: 'NanumGothic', 'serif'!important;
@@ -19,7 +20,7 @@
 .MainCategories {
   margin:auto!important;
   display: block;
-  color:#6b9a79;
+  color:#cbf7d8;
   text-align: center;
   text-decoration: none;
   font-size: 1.3rem;
@@ -80,10 +81,10 @@ a, u {
 }
 /* Main Page Img Slider */
 .ant-carousel {
-  height: 300px;
+  height: 200px;
 }
 .ant-carousel img {
-  height: 300px;
+  height: 200px;
 }
 .ant-carousel .slick-slide {
   text-align: center;
@@ -117,7 +118,11 @@ a, u {
 .mainPostsList .ant-card-body {
   height: 93%!important;
 }
-/*그리드형 카드 두드러짐 방지 */
+.mainPostsList .ant-card-head-title {
+  font-family: 'NanumGothic', 'serif'!important;
+  font-weight: bold!important;
+}
+/*그리드형 카드 보더 두드러짐 방지 */
 .ant-card-contain-grid:not(.ant-card-loading) {
   margin: 0!important;
 }
@@ -142,6 +147,10 @@ a, u {
   font-size: 20px!important;
   font-style: oblique!important;
 }
+.ant-menu-submenu-title {
+  font-size: 20px!important;
+  font-style: oblique!important;
+}
 /* Notice List UI*/
 .pageTitle {
   font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
@@ -156,6 +165,73 @@ a, u {
 
 
 /* Professor List UI */
-#professorList * {
+.memberList * {
   border: none!important;
+}
+
+.memberList .ant-avatar-lg {
+  width: 100px!important;
+  height: 100px!important;
+  border: 1px solid #ddd!important;
+}
+
+.memberCard {
+  border-radius: 20px!important;
+}
+.memberList .memberCard .ant-card-meta-detail > div:not(:last-child){
+  margin-top: 20px!important;
+  width: auto!important;
+}
+.memberList .memberCard .ant-card-meta-title {
+  font-size: 18px!important; 
+  width: auto!important; 
+}
+.memberList .ant-card-body {
+  padding: 20px!important;
+}
+.memberList .ant-collapse-content > .ant-collapse-content-box {
+  padding-left:30px!important;
+  border: 1px groove #72b6ff!important;
+}
+.memberList .ant-collapse {
+  border-radius: 20px!important;
+}
+
+
+/*Reservation Page */
+.reservationCategory > :only-child {
+  border-radius: 20px!important;  
+}
+.customModal__text span {
+  font-size: 20px!important;
+}
+.customModal input {
+  height: 40px!important;
+  font-size: 20px!important;
+}
+.customModal button {
+  background: #6b9a79!important;
+  border: none!important;
+} 
+.weekCalendar__overlay {
+  padding-top: 5px!important;
+  padding-left: 15px!important;
+}
+.weekCalendar {
+  border-radius: 20px!important;
+}
+.weekCalendar__overlay .event {
+  color: royalblue!important;
+  font-size:calc(10px + 0.5rem)!important;
+  text-align: center!important;
+}
+.weekCalendar__headerColumn {
+  color: white!important;
+  background: #6b9a79!important;
+  font-weight: 400!important;
+}
+.weekCalendar__scaleHeader {
+  color: white!important;
+  background: #6b9a79!important;
+  font-weight: 400!important;
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchTags, fetchTagNotices } from '../actions';
+import { fetchNotices, fetchTags, fetchTagNotices } from '../../actions';
 import { Button, Input, Tabs, List, Row, Col, Table, Spin } from 'antd';
 const Search = Input.Search;
 

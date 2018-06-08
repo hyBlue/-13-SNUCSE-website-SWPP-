@@ -1,34 +1,44 @@
 {
-  "presets": ["react",[
-    "env",
-    {
-      "modules": false,
-      "targets": {
-        "node": "current"
-      }
-    }
-  ], "stage-1"
-],
-"env": {
-  "test": {
-    "presets": ["react",
-      [
-        "env",
-        {
-          "modules": false,
-          "debug": true
+  "presets": [
+    "react",
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "node": "current"
         }
-      ],
-      "stage-1"
-    ]
-  }
- },
+      }
+    ],
+    "stage-1"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        "react",
+        [
+          "env",
+          {
+            "modules": false,
+            "debug": true
+          }
+        ],
+        "stage-1"
+      ]
+    }
+  },
   "plugins": [
-    ["import",
-      { "libraryName": "antd",  "libraryDirectory": "es", "style": "css" }],
-      "transform-decorators-legacy",
-        "transform-class-properties",
-        "transform-async-to-generator",
-        "transform-runtime"
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": "css"
+      }
+    ],
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-async-to-generator",
+    "transform-runtime"
   ]
 }
