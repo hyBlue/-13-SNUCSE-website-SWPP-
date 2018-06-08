@@ -120,3 +120,18 @@ class TagSerializer(serializers.ModelSerializer) :
         model = Tag
         fields = ('id', 'name', 'notices', )
         depth = 1
+
+class ReservationSerializer(serializers.ModelSerializer) :
+
+    class Meta :
+        model = Reservation
+        fields = ('id',
+                  'user',
+                  'uid',
+                  'start_h',
+                  'start_m',
+                  'end_h',
+                  'end_m',
+                  'roomkey',
+                  'value',
+                  'category',)

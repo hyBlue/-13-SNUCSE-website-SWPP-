@@ -150,9 +150,21 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
-class UnderCourseList(generics.ListAPIView):
+class UnderCourseList(generics.ListCreateAPIView):
     queryset = UnderCourse.objects.all()
     serializer_class = UnderCourseListSerializer
+
 class UnderCourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UnderCourse.objects.all()
     serializer_class = UnderCourseDetailSerializer
+
+class ReservationList(generics.ListCreateAPIView) :
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
+
+    def get_queryset(self):
+        queryset = Reservation.objects.all()
+        category = self.request.query_params.get('category', None)
+        roomkey = self.request.query_params.get('roomkey', None)
+        queryset = queryset.filter(category = category).filter(roomkey = roomkey)
+        return queryset
