@@ -5,6 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
+import 'draft-js/dist/Draft.css';
+import 'babel-polyfill';
 
 import MembersPage from './components/MembersCategory/MembersPage';
 import ReservationPage from './components/ReservationCategory/ReservationPage';
