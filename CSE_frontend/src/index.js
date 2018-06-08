@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
 
-import PageLayOut from './components/PageLayOut';
+import MembersPage from './components/MembersCategory/MembersPage';
+import ReservationPage from './components/ReservationCategory/ReservationPage';
 import MainNavigateBar from './components/MainNavigateBar';
 import MainPage from './components/MainPage';
 import AboutCSE from './components/AboutCSE';
@@ -42,12 +43,12 @@ import UnderCourseChanges from './components/undergraduate/UnderCourseChanges';
 import UnderScholarships from './components/undergraduate/UnderScholarships';
 import NoticeCreate from './components/NoticeCreate';
 import NoticeUpdate from './components/NoticeUpdate';
-import NoticeDetail from './components/NoticeDetail';
-import NoticeList from './components/NoticeList';
+
+import NoticeDetail from './components/NoticeCategory/NoticeDetail';
+import NoticeList from './components/NoticeCategory/NoticeList';
 import Login from './components/Login';
-import ProfessorsList from './components/ProfessorsList';
-import NewsList from './components/NewsList';
-import NewsDetail from './components/NewsDetail';
+import NewsList from './components/NoticeCategory/NewsList';
+import NewsDetail from './components/NoticeCategory/NewsDetail';
 
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
@@ -102,7 +103,8 @@ ReactDOM.render(
               <Route path="/notice" component={NoticeList} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
-              <Route path="/members" component={PageLayOut} />
+              <Route path="/members" component={MembersPage} />
+              <Route path="/reservation" component={ReservationPage} />
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>
