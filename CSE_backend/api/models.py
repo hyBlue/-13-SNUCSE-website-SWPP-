@@ -106,11 +106,9 @@ class CourseLink(models.Model) :
 
 class Reservation(models.Model) :
     user = models.ForeignKey('auth.User', related_name = 'reservation', on_delete = models.CASCADE, null = True)
-    uid = models.IntegerField()
-    start_h = models.IntegerField()
-    start_m = models.IntegerField()
-    end_h = models.IntegerField()
-    end_m = models.IntegerField()
+    uid = models.IntegerField(null = True)
+    start = models.DateTimeField(blank = True, null = True)
+    end = models.DateTimeField(blank = True, null = True)
     roomkey = models.CharField(max_length = 20, blank = True)
     value = models.CharField(max_length= 20, blank = True)
     category = models.CharField(max_length = 20, blank = True)

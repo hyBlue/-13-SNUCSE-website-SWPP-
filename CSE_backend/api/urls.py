@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^api/undercourse/(?P<pk>[0-9]+)/$', views.UnderCourseDetail.as_view()),
     url(r'^api/token-auth/', views.CustomAuthToken.as_view()),
     url(r'^api/reservation/$', views.ReservationList.as_view()),
+    url(r'^api/reservation/(?P<pk>[0-9]+)/$', views.ReservationDetail.as_view()),
 
 ]
 

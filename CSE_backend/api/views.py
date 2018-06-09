@@ -161,10 +161,18 @@ class UnderCourseDetail(generics.RetrieveUpdateDestroyAPIView):
 class ReservationList(generics.ListCreateAPIView) :
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-
     def get_queryset(self):
         queryset = Reservation.objects.all()
         category = self.request.query_params.get('category', None)
         roomkey = self.request.query_params.get('roomkey', None)
-        queryset = queryset.filter(category = category).filter(roomkey = roomkey)
+        if category and roomkey :
+            queryset = queryset.filter(category = category).filter(roomkey = roomkey)
+        elif category :
+            queryset = queryset.filter(category = category)
+        elif roomkey :
+            queryset = queryset.filter(roomkey = roomkey)
         return queryset
+
+class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer

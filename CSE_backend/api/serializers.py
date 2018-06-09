@@ -128,10 +128,8 @@ class ReservationSerializer(serializers.ModelSerializer) :
         fields = ('id',
                   'user',
                   'uid',
-                  'start_h',
-                  'start_m',
-                  'end_h',
-                  'end_m',
+                  'start',
+                  'end',
                   'roomkey',
                   'value',
                   'category',)
