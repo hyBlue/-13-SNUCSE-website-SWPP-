@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Row } from 'antd';
-
+import forSlider3 from '../../icons/forSlider3.jpg';
 
 class AboutCSE extends Component {
     render() {
@@ -14,7 +14,7 @@ class AboutCSE extends Component {
                     <a className="download" download="./image-about1.jpg" target="_blank">
                         <img className="about" src="./image-about2.jpg" width="100" alt="thumbnail" />
                     </a>
-                    <img src="./image-about3.jpg'" />
+                    <img src={forSlider3} />
                 </div>
                 <div style={{ background: '#E8E8E8', padding: '30px', fontFamily: 'Nanum Gothic, sans-serif'}}>
 서울대학교 컴퓨터공학부(이하 컴퓨터공학부)는 컴퓨터 공학의 기초를 이루는 컴퓨터 구조 및 설계, 소프트웨어시스템, 네트워크, 컴퓨터 이론은 물론 모바일 컴퓨팅, 멀티미디어, 컴퓨터게임, 그래픽스, 내장형 시스템, 바이오 컴퓨팅, 유비쿼터스 컴퓨팅, 전자상거래, 암호 및 보안 등과 같은 첨단의 영역까지 컴퓨터 공학의 <Link to={`/research/groups`}>다양한 분야</Link>를 선도적으로 개척해 나가고 있다.<br /><br />

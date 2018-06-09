@@ -213,6 +213,9 @@ a, u {
   background: #6b9a79!important;
   border: none!important;
 } 
+.weekPicker {
+  margin: 5px!important;
+}
 .weekCalendar__overlay {
   padding-top: 5px!important;
   padding-left: 15px!important;
