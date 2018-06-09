@@ -5,7 +5,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import promise from 'redux-promise';
 import reducers from './reducers';
+import 'draft-js/dist/Draft.css';
+import 'babel-polyfill';
 
+import Draft_test from './components/draft_test';
+import MembersPage from './components/MembersCategory/MembersPage';
+import ReservationPage from './components/ReservationCategory/ReservationPage';
 import MainNavigateBar from './components/MainNavigateBar';
 import MainPage from './components/MainPage';
 import AboutCSE from './components/AboutCSE';
@@ -41,12 +46,12 @@ import UnderCourseChanges from './components/undergraduate/UnderCourseChanges';
 import UnderScholarships from './components/undergraduate/UnderScholarships';
 import NoticeCreate from './components/NoticeCreate';
 import NoticeUpdate from './components/NoticeUpdate';
-import NoticeDetail from './components/NoticeDetail';
-import NoticeList from './components/NoticeList';
+
+import NoticeDetail from './components/NoticeCategory/NoticeDetail';
+import NoticeList from './components/NoticeCategory/NoticeList';
 import Login from './components/Login';
-import ProfessorsList from './components/ProfessorsList';
-import NewsList from './components/NewsList';
-import NewsDetail from './components/NewsDetail';
+import NewsList from './components/NoticeCategory/NewsList';
+import NewsDetail from './components/NoticeCategory/NewsDetail';
 
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
@@ -56,8 +61,8 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <div>
-        <Layout style={{height: '100%', width: '100%'}}>
+      <div style={{height: '100%', width: '100%'}}>
+        <Layout style={{height: "100vh", width: '100%'}}>
           <Header style={{height: '120px', lineHeight: '120px'}}>
             <MainNavigateBar />
           </Header>
@@ -95,13 +100,14 @@ ReactDOM.render(
               <Route path="/undergraduate/course-changes" component={UnderCourseChanges} />
               <Route path="/undergraduate/scholarships" component={UnderScholarships} />
               <Route path="/undergraduate" component={UnderGraduate} />
-              <Route path="/notice/new" component={NoticeCreate} />
+              <Route path="/notice/new" component={Draft_test} />
               <Route path="/notice/:id" component={NoticeDetail} />
               {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
               <Route path="/notice" component={NoticeList} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
-              <Route path="/members" component={ProfessorsList} />
+              <Route path="/members" component={MembersPage} />
+              <Route path="/reservation" component={ReservationPage} />
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>

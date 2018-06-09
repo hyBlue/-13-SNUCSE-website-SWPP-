@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchNotice, deleteNotice } from '../actions';
+import { fetchNotice, deleteNotice } from '../../actions';
 import { Row, Col, Card, Button } from 'antd';
 
 class NoticeDetail extends Component {

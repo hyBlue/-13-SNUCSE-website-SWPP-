@@ -2,18 +2,22 @@ import axios from 'axios';
 
 export const FETCH_NOTICES = 'fetch_notices';
 export const FETCH_NOTICE = 'fetch_notice';
-export const CREATE_NOTICE = 'create_notice';
-export const DELETE_NOTICE = 'delete_notice';
 export const FETCH_NEWSES = 'fetch_newses';
 export const FETCH_NEWS = 'fetch_new';
 export const FETCH_PROFESSORS = 'fetch_professors';
+export const FETCH_STAFFS = 'fetch_staffs';
+export const FETCH_HONOURPROFS = 'fetch_honourProfs';
 export const FETCH_TAGS = 'fetch_tags';
+export const FETCH_RESERVATION = 'fetch_reservation';
+
+export const CREATE_NOTICE = 'create_notice';
+export const CREATE_RESERVATION = 'create_reservation';
 export const CREATE_LOGIN = 'create_login';
+
+export const DELETE_NOTICE = 'delete_notice';
+export const DELETE_RESERVATION = 'delete_reservation';
 const ROOT_URL = 'http://127.0.0.1:8000/api';
 const API_KEY = '?key=TEMPORARY1234';
-
-export const TagTest = 'test_fetch';
-
 
 export function fetchNotices() {
     const request = axios.get(`${ROOT_URL}/notice${API_KEY}`)
@@ -48,9 +52,25 @@ export function fetchNews(id) {
 }
 
 export function fetchProfessors() {
-    const request = axios.get(`${ROOT_URL}/professor${API_KEY}`)
+    const request = axios.get(`${ROOT_URL}/professor${API_KEY}`);
     return {
         type: FETCH_PROFESSORS,
+        payload: request
+    }
+}
+
+export function fetchStaffs() {
+    const request = axios.get(`${ROOT_URL}/staff${API_KEY}`);
+    return {
+        type: FETCH_STAFFS,
+        payload: request
+    }
+}
+
+export function fetchHonourProfs() {
+    const request = axios.get(`${ROOT_URL}/emeritus${API_KEY}`);
+    return {
+        type: FETCH_HONOURPROFS,
         payload: request
     }
 }
@@ -63,30 +83,34 @@ export function fetchTags() {
     }
 }
 
-//TEST for getting notices by tag
-export function fetchTagNotices(tagId) {
-    return new Promise((resolve, reject) => {
-        const request = axios.get(`${ROOT_URL}/tags/13${API_KEY}`)
-        let notice_ids;
-        const promise = request.then(value => {
-            notice_ids = value.data.notices;
-            console.log(notice_ids);
-            let request_notices = [];
-            _.map(notice_ids, id => {
-                request_notices.push(axios.get(`${ROOT_URL}/notice/${id}${API_KEY}`))
-                fetchNotice(id);
-            })
-            resolve({ type: TagTest, payload: request_notices});
-        });
-    })
+export function fetchReservation(subCategory, RoomKey) {
+    const request = axios.get(`${ROOT_URL}/reservation/${API_KEY}`, {
+        params: {
+            subCategory: subCategory,
+            RoomKey: RoomKey
+        }
+    });
+    return {
+        type: FETCH_RESERVATION,
+        payload: request,
+        subCategory,
+        RoomKey
+    }
 }
 
 export function createNotice(values, callback) {
-    //파일, 이미지 여러개 처리 필요.
+    console.log(values);
     var formData = new FormData();
     Object.keys(values).map(key => {
-        console.log(values[key]);
-        formData.append(key, values[key]);
+        console.log(key);
+        if(key==='attached'){
+            let i=0;
+            _.map(values[key], value => {
+                formData.append(`attached${i++}`, value);
+            })
+        } else {
+            formData.append(key, values[key]);
+        }   
     })
     console.log(formData);
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
@@ -99,6 +123,28 @@ export function createNotice(values, callback) {
 
     return {
         type: CREATE_NOTICE,
+        payload: request
+    }
+}
+
+export function createReservation(intervals) {
+    //intervals: 여러 요일을 겹쳐 예약하지 않는 이상 길이 1의 배열
+    //Map intervals to Transform interval.start,end from moment type to date type
+    const newIntervals = _.map(intervals, interval => {
+        let newValue = {};
+        _.mapKeys(interval, (value, key) => {
+            if (key === 'start' || key === 'end') {
+                newValue[key] = value.toDate();
+            } else {
+                newValue[key] = value;
+            }
+        });
+        console.log(newValue);
+        return newValue;
+    })
+    const request = axios.post(`${ROOT_URL}/reservation${API_KEY}`, newIntervals)
+    return {
+        type: CREATE_RESERVATION,
         payload: request
     }
 }
@@ -119,5 +165,16 @@ export function deleteNotice(id, callback) {
     return {
         type: DELETE_NOTICE,
         payload: id
+    }
+}
+
+export function deleteReservation(uid, subCategory) {
+    console.log(uid);
+    console.log(subCategory);
+    console.log(RoomKey);
+    const request = axios.delete(`${ROOT_URL}/reservation/${subCategory}/${uid}${API_KEY}`);
+    return {
+        type: DELETE_RESERVATION,
+        payload: uid
     }
 }
