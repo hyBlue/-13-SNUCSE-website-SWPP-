@@ -103,13 +103,11 @@ export function createNotice(values, callback) {
     var formData = new FormData();
     Object.keys(values).map(key => {
         console.log(key);
-        let fileFormData = new FormData();
         if(key==='attached'){
-            // let i=0;
-            // _.map(values[key], value => {
-            //     fileFormData.append(i++, value);
-            // })
-            // formData.append(key, fileFormData);
+            let i=0;
+            _.map(values[key], value => {
+                formData.append(`attached${i++}`, value);
+            })
         } else {
             formData.append(key, values[key]);
         }   
