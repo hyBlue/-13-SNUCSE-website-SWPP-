@@ -18,9 +18,14 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.authtoken import views as drf_views
+from django.views import generic
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^auth$', drf_views.obtain_auth_token, name='auth'),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^', include('api.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
