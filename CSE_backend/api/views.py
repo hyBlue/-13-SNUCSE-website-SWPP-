@@ -25,15 +25,30 @@ class NoticeList(generics.ListCreateAPIView):
     def perform_create(self, serializer) :
         serializer.save(author = self.request.user.username)
 
-    # @csrf_exempt
-    # def post(self, request, format = None) :
-    #     print(request.data)
-    #     print()
-    #     serializer = NoticeSerializer(data = request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @csrf_exempt
+    def post(self, request, format = None) :
+        data = request.data
+        attached_list = []
+        i = 0
+        while True:
+            if "attached" + str(i) in data:
+                attached = Attached(attached=data["attached" + str(i)])
+                attached.save()
+                attached_list.append(attached)
+                i+=1
+            else:
+                break
+
+
+        serializer = NoticeSerializer(data = request.data)
+        if serializer.is_valid():
+            if attached_list :
+                serializer.save(attached = attached_list)
+            else :
+                serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomAuthToken( ObtainAuthToken):
 

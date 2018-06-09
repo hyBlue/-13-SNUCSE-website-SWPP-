@@ -11,11 +11,11 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'content',
          'created_at',
          'author',
-         'image',
          'attached',
          'view',
          'tag_set',
          )
+        depth = 1
 class UserSerializer(serializers.ModelSerializer):
     notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
 
