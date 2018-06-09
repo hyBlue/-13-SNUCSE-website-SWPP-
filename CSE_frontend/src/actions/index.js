@@ -99,11 +99,20 @@ export function fetchReservation(subCategory, RoomKey) {
 }
 
 export function createNotice(values, callback) {
-    //파일, 이미지 여러개 처리 필요.
+    console.log(values);
     var formData = new FormData();
     Object.keys(values).map(key => {
-        console.log(values[key]);
-        formData.append(key, values[key]);
+        console.log(key);
+        let fileFormData = new FormData();
+        if(key==='attached'){
+            // let i=0;
+            // _.map(values[key], value => {
+            //     fileFormData.append(i++, value);
+            // })
+            // formData.append(key, fileFormData);
+        } else {
+            formData.append(key, values[key]);
+        }   
     })
     console.log(formData);
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,

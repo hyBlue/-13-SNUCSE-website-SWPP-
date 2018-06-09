@@ -3,14 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createNotice } from '../actions';
-import 'babel-polyfill';
-import { Editor, EditorState, RichUtils } from 'draft-js';
-
-//This part is the problem.
-//import { DatePicker } from 'antd';
-
-//import Button from 'antd/lib/button';  // for js
-import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Dropzone from 'react-dropzone';
 
@@ -18,12 +10,10 @@ class NoticeCreate extends Component {
     constructor() {
         super();
         this.state = {
-            editorState: EditorState.createEmpty(),
             accepted: [],
             rejected: [],
             acceptedImages: []
         }
-        this.onChange = (editorState) => this.setState({ editorState })
     }
 
     renderTextField(field) {
@@ -160,61 +150,57 @@ class NoticeCreate extends Component {
             this.props.history.push('/notice');
         });
     }
+    
     render() {
+        const { handleSubmit } = this.props;
+
         return (
-            <Editor editorState={this.state.editorState} onChange={this.onChange} />
+            <div>
+                <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                    <Field
+                        label="제목"
+                        name="title"
+                        component={this.renderTextField}
+                    />
+                    {/* <Field 
+                    label="분류"
+                    name="categories"
+                    component={this.renderField}
+                /> */}
+                    <Field
+                        label="내용"
+                        name="content"
+                        component={this.renderTextAreaField}
+                    />
+                    <Field
+                        label="첨부파일"
+                        name="attached"
+                        component={this.renderFileInput}
+                        type="file"
+                    />
+                    {/* <Field
+                        label="드랍존"
+                        name="attached"
+                        component={this.renderDropZoneField.bind(this)}
+                    /> */}
+                    <Field
+                        label="이미지"
+                        name="image"
+                        component={this.renderImageDropField.bind(this)}
+                    />
+                    <div>{this.state.rejected.length !== 0 ? '--잘못된 파일 형식입니다--' : ''}</div>
+                    <ul>
+                        {
+                            this.state.rejected ? this.state.rejected.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                        }
+                    </ul>
+                    <button type="submit" className="btn btn-primary">
+                        작성완료</button>
+                    <Link to="/notice" className="btn btn-danger">취소</Link>
+                </form>
+            </div>
         );
     }
-    // render() {
-    //     const { handleSubmit } = this.props;
-
-    //     return (
-    //         <div>
-    //             <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-    //                 <Field
-    //                     label="제목"
-    //                     name="title"
-    //                     component={this.renderTextField}
-    //                 />
-    //                 {/* <Field 
-    //                 label="분류"
-    //                 name="categories"
-    //                 component={this.renderField}
-    //             /> */}
-    //                 <Field
-    //                     label="내용"
-    //                     name="content"
-    //                     component={this.renderTextAreaField}
-    //                 />
-    //                 <Field
-    //                     label="첨부파일"
-    //                     name="attached"
-    //                     component={this.renderFileInput}
-    //                     type="file"
-    //                 />
-    //                 {/* <Field
-    //                     label="드랍존"
-    //                     name="attached"
-    //                     component={this.renderDropZoneField.bind(this)}
-    //                 /> */}
-    //                 <Field
-    //                     label="이미지"
-    //                     name="image"
-    //                     component={this.renderImageDropField.bind(this)}
-    //                 />
-    //                 <div>{this.state.rejected.length !== 0 ? '--잘못된 파일 형식입니다--' : ''}</div>
-    //                 <ul>
-    //                     {
-    //                         this.state.rejected ? this.state.rejected.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
-    //                     }
-    //                 </ul>
-    //                 <button type="submit" className="btn btn-primary">
-    //                     작성완료</button>
-    //                 <Link to="/notice" className="btn btn-danger">취소</Link>
-    //             </form>
-    //         </div>
-    //     );
-    // }
 }
 
 function validate(values) {
