@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import promise from 'redux-promise';
 import reducers from './reducers';
 import 'draft-js/dist/Draft.css';
@@ -53,10 +54,27 @@ import Login from './components/Login';
 import NewsList from './components/NoticeCategory/NewsList';
 import NewsDetail from './components/NoticeCategory/NewsDetail';
 
+import App from './components/App/App';
+import Temp from './components/Temp';
+import store from './redux/configureStore';
+import { history } from './redux/configureStore';
+
 import { Layout } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
+class Main extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
+      </Provider>
+    );
+  }
+}
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
@@ -68,6 +86,7 @@ ReactDOM.render(
           </Header>
           <Content>
             <Switch>
+              <Route path="/login" component={Main} />
               <Route path="/sign_in" component={Login} />
               <Route path="/about/CSE" component={AboutCSE} />
               <Route path="/about/greetings" component={AboutGreetings} />
@@ -108,13 +127,12 @@ ReactDOM.render(
               <Route path="/news" component={NewsList} />
               <Route path="/members" component={MembersPage} />
               <Route path="/reservation" component={ReservationPage} />
+              {/*<Route path="/login" component={App} />*/}
               <Route path="/" component={MainPage} />
             </Switch>
           </Content>
           <Footer>Footer</Footer>
         </Layout>
-
-
       </div>
     </BrowserRouter>
   </Provider>

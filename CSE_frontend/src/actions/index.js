@@ -5,8 +5,10 @@ export const FETCH_NOTICE = 'fetch_notice';
 export const FETCH_NEWSES = 'fetch_newses';
 export const FETCH_NEWS = 'fetch_new';
 export const FETCH_PROFESSORS = 'fetch_professors';
-export const FETCH_STAFFS = 'fetch_staffs';
-export const FETCH_HONOURPROFS = 'fetch_honourProfs';
+export const FETCH_UNDERCOURSES = 'fetch_undercourses';
+export const FETCH_UNDERCOURSE = 'fetch_undercourse';
+export const FETCH_RESEARCHLABS = 'fetch_researchlabs';
+export const FETCH_RESEARCHLAB = 'fetch_researchlab';
 export const FETCH_TAGS = 'fetch_tags';
 export const FETCH_RESERVATION = 'fetch_reservation';
 
@@ -52,25 +54,25 @@ export function fetchNews(id) {
 }
 
 export function fetchProfessors() {
-    const request = axios.get(`${ROOT_URL}/professor${API_KEY}`);
+    const request = axios.get(`${ROOT_URL}/professor${API_KEY}`)
     return {
         type: FETCH_PROFESSORS,
         payload: request
     }
 }
 
-export function fetchStaffs() {
-    const request = axios.get(`${ROOT_URL}/staff${API_KEY}`);
+export function fetchUndercourses() {
+    const request = axios.get(`${ROOT_URL}/undercourse${API_KEY}`)
     return {
-        type: FETCH_STAFFS,
+        type: FETCH_UNDERCOURSES,
         payload: request
     }
 }
 
-export function fetchHonourProfs() {
-    const request = axios.get(`${ROOT_URL}/emeritus${API_KEY}`);
+export function fetchResearchlabs() {
+    const request = axios.get(`${ROOT_URL}/lab${API_KEY}`)
     return {
-        type: FETCH_HONOURPROFS,
+        type: FETCH_RESEARCHLABS,
         payload: request
     }
 }
@@ -82,6 +84,7 @@ export function fetchTags() {
         payload: request
     }
 }
+
 
 export function fetchReservation(subCategory, RoomKey) {
     const request = axios.get(`${ROOT_URL}/reservation/${API_KEY}`, {

@@ -27,7 +27,8 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 ALLOWED_HOSTS = []
-
+SITE_ID = 1
+REST_USE_JWT = True
 
 # Application definition
 
@@ -40,6 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
     'corsheaders',
 ]
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from  'react-redux';
 
-class App extends Component {
+class Temp extends Component {
   render() {
     return (
       <div className="App">
@@ -10,4 +11,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Temp;
