@@ -4,6 +4,7 @@ import { FETCH_RESERVATION, DELETE_RESERVATION } from '../actions';
 export default (state = {}, action) => {
     if (action.type === FETCH_RESERVATION) {
         //transform start, end datetype to moment object
+        console.log(action.payload.data);
         const newData = _.map(action.payload.data, interval => {
             let newValue = {};
             _.mapKeys(interval, (value, key) => {

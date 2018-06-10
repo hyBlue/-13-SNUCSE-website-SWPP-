@@ -22,10 +22,14 @@ class StandardCalendar extends React.Component {
           value: "Reserved by White"
         },
       ],
-      reservingInterval: {}
     }
+    
+  }
+
+  componentDidMount() {
     //backend에서 subCategory(세미나실, 랩)과 reserveRoomKey(301-317)
     //에 맞는 interval들을 가져왔을 때 state로 옮기는 작업 필요. last uid 처리 주의
+    this.props.fetchReservation(this.props.subCategory, this.props.reserveRoomKey);
   }
 
   handleEventRemove = (event) => {
@@ -67,9 +71,8 @@ class StandardCalendar extends React.Component {
       return {
         ...newI,
         uid: lastUid + index,
-        roomKey: this.props.reserveRoomKey,
-        subCategory: this.props.subCategory,
-
+        roomkey: this.props.reserveRoomKey,
+        category: this.props.subCategory,
       }
     });
     if(isFalse) {

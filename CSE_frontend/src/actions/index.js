@@ -86,8 +86,8 @@ export function fetchTags() {
 export function fetchReservation(subCategory, RoomKey) {
     const request = axios.get(`${ROOT_URL}/reservation/${API_KEY}`, {
         params: {
-            subCategory: subCategory,
-            RoomKey: RoomKey
+            category: 'seminar',
+            roomkey: '305'
         }
     });
     return {
