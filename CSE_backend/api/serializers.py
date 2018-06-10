@@ -11,11 +11,11 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'content',
          'created_at',
          'author',
-         'image',
          'attached',
          'view',
          'tag_set',
          )
+        depth = 1
 class UserSerializer(serializers.ModelSerializer):
     notices = serializers.PrimaryKeyRelatedField(many = True, queryset = Notice.objects.all())
 
@@ -120,3 +120,16 @@ class TagSerializer(serializers.ModelSerializer) :
         model = Tag
         fields = ('id', 'name', 'notices', )
         depth = 1
+
+class ReservationSerializer(serializers.ModelSerializer) :
+
+    class Meta :
+        model = Reservation
+        fields = ('id',
+                  'user',
+                  'uid',
+                  'start',
+                  'end',
+                  'roomkey',
+                  'value',
+                  'category',)

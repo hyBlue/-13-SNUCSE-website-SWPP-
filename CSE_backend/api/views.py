@@ -12,6 +12,10 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import MultiPartParser
 from rest_framework.parsers import JSONParser
 
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+
 class NoticeList(generics.ListCreateAPIView):
     queryset = Notice.objects.all()
     serializer_class = NoticeSerializer
@@ -21,15 +25,43 @@ class NoticeList(generics.ListCreateAPIView):
     def perform_create(self, serializer) :
         serializer.save(author = self.request.user.username)
 
-    # @csrf_exempt
-    # def post(self, request, format = None) :
-    #     print(request.data)
-    #     print()
-    #     serializer = NoticeSerializer(data = request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @csrf_exempt
+    def post(self, request, format = None) :
+        data = request.data
+        attached_list = []
+        i = 0
+        while True:
+            if "attached" + str(i) in data:
+                attached = Attached(attached=data["attached" + str(i)])
+                attached.save()
+                attached_list.append(attached)
+                i+=1
+            else:
+                break
+
+
+        serializer = NoticeSerializer(data = request.data)
+        if serializer.is_valid():
+            if attached_list :
+                serializer.save(attached = attached_list)
+            else :
+                serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CustomAuthToken( ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            'user_id': user.pk,
+        })
 
 
 class NoticeDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -133,9 +165,29 @@ class TagDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
-class UnderCourseList(generics.ListAPIView):
+class UnderCourseList(generics.ListCreateAPIView):
     queryset = UnderCourse.objects.all()
     serializer_class = UnderCourseListSerializer
+
 class UnderCourseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = UnderCourse.objects.all()
     serializer_class = UnderCourseDetailSerializer
+
+class ReservationList(generics.ListCreateAPIView) :
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
+    def get_queryset(self):
+        queryset = Reservation.objects.all()
+        category = self.request.query_params.get('category', None)
+        roomkey = self.request.query_params.get('roomkey', None)
+        if category and roomkey :
+            queryset = queryset.filter(category = category).filter(roomkey = roomkey)
+        elif category :
+            queryset = queryset.filter(category = category)
+        elif roomkey :
+            queryset = queryset.filter(roomkey = roomkey)
+        return queryset
+
+class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
