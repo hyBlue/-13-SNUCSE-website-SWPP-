@@ -6,7 +6,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import promise from 'redux-promise';
 import reducers from './reducers';
+import 'draft-js/dist/Draft.css';
+import 'babel-polyfill';
 
+import Draft_test from './components/draft_test';
 import MembersPage from './components/MembersCategory/MembersPage';
 import ReservationPage from './components/ReservationCategory/ReservationPage';
 import MainNavigateBar from './components/MainNavigateBar';
@@ -76,8 +79,8 @@ class Main extends Component {
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
-      <div>
-        <Layout style={{height: '100%', width: '100%'}}>
+      <div style={{height: '100%', width: '100%'}}>
+        <Layout style={{height: "100vh", width: '100%'}}>
           <Header style={{height: '120px', lineHeight: '120px'}}>
             <MainNavigateBar />
           </Header>
@@ -116,7 +119,7 @@ ReactDOM.render(
               <Route path="/undergraduate/course-changes" component={UnderCourseChanges} />
               <Route path="/undergraduate/scholarships" component={UnderScholarships} />
               <Route path="/undergraduate" component={UnderGraduate} />
-              <Route path="/notice/new" component={NoticeCreate} />
+              <Route path="/notice/new" component={Draft_test} />
               <Route path="/notice/:id" component={NoticeDetail} />
               {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
               <Route path="/notice" component={NoticeList} />

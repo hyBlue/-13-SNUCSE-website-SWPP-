@@ -88,7 +88,7 @@ class ProfessorsList extends Component {
 }
 
 function mapStateToProps({ members }) {
-    return { professors: members.professors }
+    return { professors: members['professors'] }
 }
 
 export default connect(mapStateToProps, { fetchProfessors, })(ProfessorsList);

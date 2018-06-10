@@ -11,7 +11,8 @@ import { reducer as formReducer } from 'redux-form';
 const rootReducer = combineReducers({
   notices: NoticesReducer,
   news: NewsReducer,
-  professors: ProfessorsReducer,
+  members: MembersReducer,
+  reservation: null,
   form: formReducer,
   tags: TagsReducer,
   undercourses: UndercoursesReducer,

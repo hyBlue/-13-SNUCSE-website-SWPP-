@@ -3,12 +3,6 @@ import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createNotice } from '../actions';
-
-//This part is the problem.
-//import { DatePicker } from 'antd';
-
-//import Button from 'antd/lib/button';  // for js
-import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import Dropzone from 'react-dropzone';
 
@@ -156,6 +150,7 @@ class NoticeCreate extends Component {
             this.props.history.push('/notice');
         });
     }
+    
     render() {
         const { handleSubmit } = this.props;
 

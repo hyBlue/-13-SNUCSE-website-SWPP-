@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import WeekCalendar from 'react-week-calendar';
 import 'react-week-calendar/dist/style.css';
+import { fetchReservation, createReservation, deleteReservation } from '../../actions';
 
-export default class StandardCalendar extends React.Component {
+class StandardCalendar extends React.Component {
 
   constructor(props) {
     super(props);
@@ -13,12 +15,17 @@ export default class StandardCalendar extends React.Component {
       selectedIntervals: [
         {
           uid: 3,
-          start: moment({h: 11, m: 0}),
-          end: moment({h: 14, m: 0}),
+          start: moment("2013-02-08 14:00:00.000"),
+          end: moment("2013-02-08 18:00:00.000"),
+          subCategory: 'seminar',
+          roomKey: '301-317',
           value: "Reserved by White"
         },
-      ]
+      ],
+      reservingInterval: {}
     }
+    //backend에서 subCategory(세미나실, 랩)과 reserveRoomKey(301-317)
+    //에 맞는 interval들을 가져왔을 때 state로 옮기는 작업 필요. last uid 처리 주의
   }
 
   handleEventRemove = (event) => {
@@ -27,8 +34,9 @@ export default class StandardCalendar extends React.Component {
     if (index > -1) {
       selectedIntervals.splice(index, 1);
       this.setState({selectedIntervals});
+      //DELETE EVENT from backend
+      this.props.deleteReservation(event.uid);
     }
-
   }
 
   handleEventUpdate = (event) => {
@@ -42,14 +50,12 @@ export default class StandardCalendar extends React.Component {
 
   handleSelect = (newIntervals) => {
     const {lastUid, selectedIntervals} = this.state;
-    console.log(newIntervals);
     let isFalse = false;
     const intervals = newIntervals.map( (newI, index) => {
         this.state.selectedIntervals.map(oldI => {
             if( (oldI.start._d > newI.start._d && newI.end._d > oldI.start._d) ||
                 (oldI.start._d < newI.start._d && newI.start._d < oldI.end._d)
             ) {
-                console.log('nope');
                 isFalse = true;
                 return;
             }
@@ -57,10 +63,13 @@ export default class StandardCalendar extends React.Component {
         if(isFalse) {
             alert('해당 시간대에 다른 예약이 있습니다.')
             return;
-        };
+        }
       return {
         ...newI,
-        uid: lastUid + index
+        uid: lastUid + index,
+        roomKey: this.props.reserveRoomKey,
+        subCategory: this.props.subCategory,
+
       }
     });
     if(isFalse) {
@@ -70,22 +79,31 @@ export default class StandardCalendar extends React.Component {
       selectedIntervals: selectedIntervals.concat(intervals),
       lastUid: lastUid + newIntervals.length
     })
+    //POST EVENT to backend
+    this.props.createReservation(intervals);
   }
 
   render() {
     return <WeekCalendar
       className="weekCalendar"
+      firstDay = {this.props.date}
       startTime = {moment({h: 9, m: 0})}
       endTime = {moment({h: 23, m: 0})}
-      scaleUnit ={30}
+      scaleUnit ={60}     
       scaleHeaderTitle="예약현황"
-      cellHeight = {40}
+      cellHeight = {80}
       dayFormat = "dddd MM/DD"
       numberOfDays= {7}
       selectedIntervals = {this.state.selectedIntervals}
-      onIntervalSelect = {this.handleSelect}
+      onIntervalSelect = {value => this.handleSelect(value)}
       onIntervalUpdate = {this.handleEventUpdate}
       onIntervalRemove = {this.handleEventRemove}
     />
   }
 }
+
+function mapStateToProps({ reservation }, ownProps) {
+  return { selectedIntervals: reservation };
+    // selectedIntervals: reservation[ownProps.subCategory] };
+}
+export default connect(mapStateToProps, { createReservation, fetchReservation, deleteReservation })(StandardCalendar);
