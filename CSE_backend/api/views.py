@@ -188,6 +188,9 @@ class ReservationList(generics.ListCreateAPIView) :
             queryset = queryset.filter(roomkey = roomkey)
         return queryset
 
+    def perform_create(self, serializer) :
+        serializer.save(user = self.request.user.username)
+
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
