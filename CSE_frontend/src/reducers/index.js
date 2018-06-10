@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   notices: NoticesReducer,
   news: NewsReducer,
   members: MembersReducer,
-  reservation: null,
+  reservation: ReservationReducer,
   form: formReducer,
   tags: TagsReducer,
 });

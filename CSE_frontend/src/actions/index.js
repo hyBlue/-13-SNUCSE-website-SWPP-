@@ -76,7 +76,7 @@ export function fetchHonourProfs() {
 }
 
 export function fetchTags() {
-    const request = axios.get(`${ROOT_URL}/tags${API_KEY}`)
+    const request = axios.get(`${ROOT_URL}/tags/${API_KEY}`)
     return {
         type: FETCH_TAGS,
         payload: request
@@ -86,15 +86,15 @@ export function fetchTags() {
 export function fetchReservation(subCategory, RoomKey) {
     const request = axios.get(`${ROOT_URL}/reservation/${API_KEY}`, {
         params: {
-            category: 'seminar',
-            roomkey: '305'
+            category: subCategory,
+            roomkey: RoomKey
         }
     });
     return {
         type: FETCH_RESERVATION,
         payload: request,
-        subCategory,
-        RoomKey
+        // subCategory: subCategory,
+        // RoomKey: RoomKey
     }
 }
 
@@ -127,22 +127,18 @@ export function createNotice(values, callback) {
     }
 }
 
-export function createReservation(intervals) {
+export function createReservation(interval) {
     //intervals: 여러 요일을 겹쳐 예약하지 않는 이상 길이 1의 배열
     //Map intervals to Transform interval.start,end from moment type to date type
-    const newIntervals = _.map(intervals, interval => {
         let newValue = {};
         _.mapKeys(interval, (value, key) => {
             if (key === 'start' || key === 'end') {
-                newValue[key] = value.toDate();
+                newValue[key] = value.toISOString();
             } else {
                 newValue[key] = value;
             }
         });
-        console.log(newValue);
-        return newValue;
-    })
-    const request = axios.post(`${ROOT_URL}/reservation${API_KEY}`, newIntervals)
+    const request = axios.post(`${ROOT_URL}/reservation/${API_KEY}`, newValue)
     return {
         type: CREATE_RESERVATION,
         payload: request
@@ -168,13 +164,11 @@ export function deleteNotice(id, callback) {
     }
 }
 
-export function deleteReservation(uid, subCategory) {
-    console.log(uid);
-    console.log(subCategory);
-    console.log(RoomKey);
-    const request = axios.delete(`${ROOT_URL}/reservation/${subCategory}/${uid}${API_KEY}`);
+export function deleteReservation(event) {
+    console.log(event.id);
+    const request = axios.delete(`${ROOT_URL}/reservation/${event.id}${API_KEY}`);
     return {
         type: DELETE_RESERVATION,
-        payload: uid
+        payload: event
     }
 }
