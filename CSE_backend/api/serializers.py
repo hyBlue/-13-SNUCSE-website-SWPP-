@@ -2,7 +2,7 @@ from rest_framework import serializers
 from api.models import *
 from django.contrib.auth.models import User
 class NoticeSerializer(serializers.ModelSerializer) :
-    tag_set =  serializers.StringRelatedField(many = True)
+    tags =  serializers.StringRelatedField(many = True)
     class Meta :
         model = Notice
         fields = ('id',
@@ -13,7 +13,7 @@ class NoticeSerializer(serializers.ModelSerializer) :
          'author',
          'attached',
          'view',
-         'tag_set',
+         'tags',
          )
         depth = 1
 class UserSerializer(serializers.ModelSerializer):
