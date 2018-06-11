@@ -67,7 +67,7 @@ export default class MainNavigateBar extends Component {
                     </Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
-                    <Link className="MainCategories" to={'/notice'}>공지사항</Link></Col>
+                    <Link className="MainCategories" to={'/reservation'}>예약</Link></Col>
             </Row>
         )
     }

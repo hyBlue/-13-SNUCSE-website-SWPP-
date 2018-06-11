@@ -43,7 +43,7 @@ import UnderGeneralReq from './components/undergraduate/UnderGeneralReq';
 import UnderDegreeReq from './components/undergraduate/UnderDegreeReq';
 import UnderCourseChanges from './components/undergraduate/UnderCourseChanges';
 import UnderScholarships from './components/undergraduate/UnderScholarships';
-import NoticeCreate from './components/NoticeCreate';
+import NoticeCreate from './components/NoticeCategory/NoticeCreate';
 import Admissions from './components/admissions/Admissions';
 import AdmissionsUnder from './components/admissions/AdmissionsUnder';
 import AdmissionsUnderSusi from './components/admissions/AdmissionsUnderSusi';
@@ -55,8 +55,8 @@ import Research from './components/research/Research';
 import ResearchGroups from './components/research/ResearchGroups';
 import ResearchCenters from './components/research/ResearchCenters';
 import ResearchLabs from './components/research/ResearchLabs';
+import NoticeNewsPage from './components/NoticeCategory/NoticeNewsLayOut';
 import NoticeDetail from './components/NoticeCategory/NoticeDetail';
-import NoticeList from './components/NoticeCategory/NoticeList';
 import Login from './components/Login';
 import NewsList from './components/NoticeCategory/NewsList';
 import NewsDetail from './components/NoticeCategory/NewsDetail';
@@ -121,7 +121,7 @@ ReactDOM.render(
               <Route path="/research" component={Research} />
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
-              <Route path="/notice" component={NoticeList} />
+              <Route path="/notice" component={NoticeNewsPage} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
               <Route path="/members" component={MembersPage} />

@@ -58,7 +58,7 @@ class StandardCalendar extends React.Component {
   }
 
   handleSelect = (newIntervals) => {
-    if (newIntervals.length > 1) { alert('세로로만 선택해주세요!'); return; }
+    if (newIntervals && newIntervals.length > 1) { alert('세로로만 선택해주세요!'); return; }
 
     const { lastUid, selectedIntervals } = this.state;
     let newI = newIntervals[0];
@@ -91,7 +91,9 @@ class StandardCalendar extends React.Component {
       lastUid: lastUid + 1
     })
     //POST EVENT to backend
-    this.props.createReservation(newI);
+    this.props.createReservation(newI).then(() => 
+      //To delete with no error by passing id to intervals
+      this.props.fetchReservation(this.props.subCategory, this.props.reserveRoomKey));
   }
 
   render() {

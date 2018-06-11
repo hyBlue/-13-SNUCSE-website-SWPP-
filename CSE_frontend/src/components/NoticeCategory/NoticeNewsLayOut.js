@@ -1,6 +1,5 @@
 import { Affix, Layout, Row, Col, Menu, Icon } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
-const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
 import React, { Component } from 'react';
 import forSlider3 from '../../../icons/forSlider3.jpg';
@@ -19,7 +18,7 @@ export default class MembersPage extends Component {
         switch(subCategory){
             case "noticeList":
                 return <NoticeList />;
-            case "newList":
+            case "newsList":
                 return <NewsList />;
             default:
                 return <NoticeList />;
