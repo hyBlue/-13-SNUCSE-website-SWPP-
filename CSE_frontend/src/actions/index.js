@@ -9,7 +9,10 @@ export const FETCH_STAFFS = 'fetch_staffs';
 export const FETCH_HONOURPROFS = 'fetch_honourProfs';
 export const FETCH_TAGS = 'fetch_tags';
 export const FETCH_RESERVATION = 'fetch_reservation';
-
+export const FETCH_UNDERCOURSES = 'fetch_undercourses';
+export const FETCH_UNDERCOURSE = 'fetch_undercourse';
+export const FETCH_RESEARCHLABS = 'fetch_researchlabs';
+export const FETCH_RESEARCHLAB = 'fetch_researchlab';
 export const CREATE_NOTICE = 'create_notice';
 export const CREATE_RESERVATION = 'create_reservation';
 export const CREATE_LOGIN = 'create_login';
@@ -41,6 +44,22 @@ export function fetchNewses() {
         type: FETCH_NEWSES,
         payload: request
     };
+}
+
+export function fetchUndercourses() {
+    const request = axios.get(`${ROOT_URL}/undercourse${API_KEY}`)
+    return {
+        type: FETCH_UNDERCOURSES,
+        payload: request
+    }
+}
+
+export function fetchResearchlabs() {
+    const request = axios.get(`${ROOT_URL}/lab${API_KEY}`)
+    return {
+        type: FETCH_RESEARCHLABS,
+        payload: request
+    }
 }
 
 export function fetchNews(id) {
