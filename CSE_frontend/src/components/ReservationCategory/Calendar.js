@@ -12,18 +12,19 @@ class StandardCalendar extends React.Component {
     super(props);
     this.state = {
       lastUid: 4,
-      selectedIntervals: [
-        {
-          uid: 3,
-          start: moment("2013-02-08 14:00:00.000"),
-          end: moment("2013-02-08 18:00:00.000"),
-          subCategory: 'seminar',
-          roomKey: '301-317',
-          value: "Reserved by White"
-        },
-      ],
+      selectedIntervals: []
+      // selectedIntervals: [
+      //   {
+      //     uid: 3,
+      //     start: moment("2013-02-08 14:00:00.000"),
+      //     end: moment("2013-02-08 18:00:00.000"),
+      //     subCategory: 'seminar',
+      //     roomKey: '301-317',
+      //     value: "Reserved by White"
+      //   },
+      // ],
     }
-    
+
   }
 
   componentDidMount() {
@@ -31,82 +32,94 @@ class StandardCalendar extends React.Component {
     //에 맞는 interval들을 가져왔을 때 state로 옮기는 작업 필요. last uid 처리 주의
     this.props.fetchReservation(this.props.subCategory, this.props.reserveRoomKey);
   }
+  componentWillReceiveProps(newProps) {
+    // this.setState({selectedIntervals: this.state.selectedIntervals.concat(newProps.fetchedIntervals)});
+    this.setState({ selectedIntervals: newProps.fetchedIntervals });
+  }
 
   handleEventRemove = (event) => {
-    const {selectedIntervals} = this.state;
+    const { selectedIntervals } = this.state;
     const index = selectedIntervals.findIndex((interval) => interval.uid === event.uid);
     if (index > -1) {
       selectedIntervals.splice(index, 1);
-      this.setState({selectedIntervals});
+      this.setState({ selectedIntervals });
       //DELETE EVENT from backend
-      this.props.deleteReservation(event.uid);
+      this.props.deleteReservation(event);
     }
   }
 
   handleEventUpdate = (event) => {
-    const {selectedIntervals} = this.state;
+    const { selectedIntervals } = this.state;
     const index = selectedIntervals.findIndex((interval) => interval.uid === event.uid);
     if (index > -1) {
       selectedIntervals[index] = event;
-      this.setState({selectedIntervals});
+      this.setState({ selectedIntervals });
     }
   }
 
   handleSelect = (newIntervals) => {
-    const {lastUid, selectedIntervals} = this.state;
+    if (newIntervals && newIntervals.length > 1) { alert('세로로만 선택해주세요!'); return; }
+
+    const { lastUid, selectedIntervals } = this.state;
+    let newI = newIntervals[0];
+
     let isFalse = false;
-    const intervals = newIntervals.map( (newI, index) => {
-        this.state.selectedIntervals.map(oldI => {
-            if( (oldI.start._d > newI.start._d && newI.end._d > oldI.start._d) ||
-                (oldI.start._d < newI.start._d && newI.start._d < oldI.end._d)
-            ) {
-                isFalse = true;
-                return;
-            }
-        })
-        if(isFalse) {
-            alert('해당 시간대에 다른 예약이 있습니다.')
-            return;
+    if (this.state.selectedIntervals.length !== 0) {
+      this.state.selectedIntervals.map(oldI => {
+        if ((oldI.start._d > newI.start._d && newI.end._d > oldI.start._d) ||
+          (oldI.start._d < newI.start._d && newI.start._d < oldI.end._d)
+        ) {
+          isFalse = true;
+          return;
         }
-      return {
-        ...newI,
-        uid: lastUid + index,
-        roomkey: this.props.reserveRoomKey,
-        category: this.props.subCategory,
-      }
-    });
-    if(isFalse) {
-        return;
+      })
     }
+    if (isFalse) {
+      alert('해당 시간대에 다른 예약이 있습니다.')
+      return;
+    }
+
+    newI = {
+      ...newI,
+      uid: lastUid + 1,
+      roomkey: this.props.reserveRoomKey,
+      category: this.props.subCategory,
+    }
+
     this.setState({
-      selectedIntervals: selectedIntervals.concat(intervals),
-      lastUid: lastUid + newIntervals.length
+      selectedIntervals: selectedIntervals.concat(newI),
+      lastUid: lastUid + 1
     })
     //POST EVENT to backend
-    this.props.createReservation(intervals);
+    this.props.createReservation(newI).then(() => 
+      //To delete with no error by passing id to intervals
+      this.props.fetchReservation(this.props.subCategory, this.props.reserveRoomKey));
   }
 
   render() {
     return <WeekCalendar
       className="weekCalendar"
-      firstDay = {this.props.date}
-      startTime = {moment({h: 9, m: 0})}
-      endTime = {moment({h: 23, m: 0})}
-      scaleUnit ={60}     
+      firstDay={this.props.date}
+      startTime={moment({ h: 9, m: 0 })}
+      endTime={moment({ h: 23, m: 0 })}
+      scaleUnit={60}
       scaleHeaderTitle="예약현황"
-      cellHeight = {80}
-      dayFormat = "dddd MM/DD"
-      numberOfDays= {7}
-      selectedIntervals = {this.state.selectedIntervals}
-      onIntervalSelect = {value => this.handleSelect(value)}
-      onIntervalUpdate = {this.handleEventUpdate}
-      onIntervalRemove = {this.handleEventRemove}
+      cellHeight={80}
+      dayFormat="dddd MM/DD"
+      numberOfDays={7}
+      selectedIntervals={this.state.selectedIntervals}
+      onIntervalSelect={value => this.handleSelect(value)}
+      onIntervalUpdate={this.handleEventUpdate}
+      onIntervalRemove={this.handleEventRemove}
     />
   }
 }
 
 function mapStateToProps({ reservation }, ownProps) {
-  return { selectedIntervals: reservation };
-    // selectedIntervals: reservation[ownProps.subCategory] };
+  if (reservation[ownProps.subCategory]) {
+    const intervals = _.values(reservation[ownProps.subCategory][ownProps.reserveRoomKey]);
+    return { fetchedIntervals: intervals };
+  };
+  return {};
 }
 export default connect(mapStateToProps, { createReservation, fetchReservation, deleteReservation })(StandardCalendar);

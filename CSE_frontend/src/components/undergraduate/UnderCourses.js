@@ -1,9 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row } from 'antd';
+import { fetchUndercourses } from '../../actions';
+import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
 
 class UnderCourses extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showingUndercourses: {},
+    }
+  }
+
+  componentDidMount() {
+    this.props.fetchUndercourses();
+  }
+
+  renderUndercourses() {
+    return _.map(this.props.undercourses, undercourse => {
+      console.log(undercourse.link);
+      if (!undercourse.link.length)
+        return (
+          <tr key={undercourse.id}>
+            <td>{undercourse.classification}</td>
+            <td>{undercourse.number}</td>
+            <td>{undercourse.name}</td>
+            <td>{undercourse.credit}</td>
+            <td>{undercourse.year}</td>
+            <td></td>
+          </tr>
+        );
+      else
+        return (
+          <tr key={undercourse.id}>
+            <td>{undercourse.classification}</td>
+            <td>{undercourse.number}</td>
+            <td>{undercourse.name}</td>
+            <td>{undercourse.credit}</td>
+            <td>{undercourse.year}</td>
+            <td>
+              <a href={undercourse.link.url}>{undercourse.link.shift().name}</a>
+            </td>
+          </tr>
+        );
+    });
+  }
+
   render() {
     return (
         <div>
@@ -22,30 +64,7 @@ class UnderCourses extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <td>교양</td>
-                      <td>033.014</td>
-                      <td>공학수학1</td>
-                      <td>3</td>
-                      <td>1학년</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>교양</td>
-                      <td>033.015</td>
-                      <td>공학수학2</td>
-                      <td>3</td>
-                      <td>2학년</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>교양</td>
-                      <td>035.001</td>
-                      <td>컴퓨터의 개념 및 실습</td>
-                      <td>3</td>
-                      <td>1학년</td>
-                      <td>2015/2</td>
-                    </tr>
+                    {this.renderUndercourses()}
                 </tbody>
             </table>
         </div>
@@ -53,4 +72,8 @@ class UnderCourses extends Component {
   }
 }
 
-export default UnderCourses;
+function mapStateToProps({ undercourses }) {
+  return { undercourses };
+}
+
+export default connect(mapStateToProps, { fetchUndercourses })(UnderCourses);

@@ -5,7 +5,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import renderHTML from 'react-render-html';
 import Dropzone from 'react-dropzone';
-import { createNotice } from '../actions';
+import { createNotice, fetchTags } from '../../actions';
+import { Select, Row, Col } from 'antd';
+const Option = Select.Option;
 
 class Editor extends Component {
     constructor(props) {
@@ -13,15 +15,20 @@ class Editor extends Component {
         this.state = {
             title: '',
             content: '',
+            tags: [],
             posts: {},
             accepted: [],
             rejected: [],
         };
         // bind
-        this.onHandleChange = this.onHandleChange.bind(this);
+        this.onHandleContentChange = this.onHandleContentChange.bind(this);
         this.onHandleSubmit = this.onHandleSubmit.bind(this);
+        this.onHandleTagChange = this.onHandleTagChange.bind(this);
     }
 
+    componentDidMount() {
+        this.props.fetchTags();
+    }
     renderDropZoneField() {
         let dropzoneRef;
         return (
@@ -39,10 +46,6 @@ class Editor extends Component {
                         }}
                     >
                         <div>첨부파일들을 드래그앤드롭하세요</div>
-                        {/* {files && Array.isArray(files) && (
-              <ul>
-                { files.map((file, i) => <li key={i}>{file.name}</li>) }
-              </ul>  )}*/}
                         {
                             this.state.accepted ? this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
                         }
@@ -67,16 +70,28 @@ class Editor extends Component {
             title: this.state.title,
             content: this.state.content,
             attached: this.state.accepted,
+            tag_set: this.state.tags
         }
-        this.props.createNotice(post, ()=> {
+        this.props.createNotice(post, () => {
             this.props.history.push('/notice');
         });
     }
-
-    onHandleChange(e) {
+    //태그 추가 핸들
+    onHandleTagChange(tags) {
+        let tagArray = [];
+        _.map(tags, tag => {
+            tagArray.push(this.props.tags[tag].name);
+        });
+        this.setState({tags: tagArray});
+        console.log(this.state.tags)
+    }
+    //컨텐츠 변경 핸들
+    onHandleContentChange(e) {
         this.setState({ content: e });
     }
     render() {
+        const tagOptions = [];
+        _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
         return (
             <div style={{ height: "700px", margin: '10px' }}>
                 <h2> 공지사항 글쓰기 </h2>
@@ -94,6 +109,19 @@ class Editor extends Component {
                             className="form-control"
                         />
                     </div>
+                    <Row className="form-group">
+                        <Select
+                            mode="multiple"
+                            style={{ width: '100%' }}
+                            placeholder="태그 입력하기"
+                            defaultValue={[]}
+                            onChange={this.onHandleTagChange}
+                            allowClear={true}
+                            className="form-control"
+                        >
+                            {tagOptions}
+                        </Select>
+                    </Row>
                     <div className="form-group" style={{ height: '60%' }}>
                         <ReactQuill
                             style={{ height: '90%' }}
@@ -101,11 +129,11 @@ class Editor extends Component {
                             formats={Editor.formats}
                             value={this.state.content}
                             placeholder="내용을 입력하거나 이미지를 드래그하세요."
-                            onChange={this.onHandleChange}
+                            onChange={this.onHandleContentChange}
                         />
                     </div>
                     {this.renderDropZoneField()}
-                    <button className="btn btn-primary">Post</button>
+                    <button className="btn btn-primary">작성완료</button>
                 </form>
             </div>
         );
@@ -140,4 +168,8 @@ Editor.formats = [
     'video',
     'code-block'
 ];
-export default connect(null, { createNotice })(Editor);
+
+function mapStateToProps({ tags }) {
+    return { tags }
+}
+export default connect(mapStateToProps, { createNotice, fetchTags })(Editor);

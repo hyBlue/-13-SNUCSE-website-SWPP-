@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 import moment from 'moment';
 import StandardCalendar from './Calendar';
 import { DatePicker } from 'antd';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 moment.locale('ko-kr');
-const { MonthPicker, RangePicker, WeekPicker } = DatePicker;
+const { WeekPicker } = DatePicker;
 
 //무슨 세미나실을 선택했는지 넘어오면, 
 //넘어온 시간표데이터 중 그 세미나실 데이터만 넘기기
@@ -36,4 +35,5 @@ export default class RoomReserve extends Component {
         )
     }
 }
+
 
