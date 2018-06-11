@@ -40,7 +40,7 @@ class NoticeList(generics.ListCreateAPIView):
             else:
                 break
         tag_set = []
-        if data['tag_set'] :
+        if 'tag_set' in data :
             for i in data['tag_set'].split(',') :
                 tag = Tag.objects.get(name = i)
                 tag_set.append(tag)
