@@ -46,7 +46,17 @@ import UnderCourseChanges from './components/undergraduate/UnderCourseChanges';
 import UnderScholarships from './components/undergraduate/UnderScholarships';
 import NoticeCreate from './components/NoticeCreate';
 import NoticeUpdate from './components/NoticeUpdate';
-
+import Admissions from './components/admissions/Admissions';
+import AdmissionsUnder from './components/admissions/AdmissionsUnder';
+import AdmissionsUnderSusi from './components/admissions/AdmissionsUnderSusi';
+import AdmissionsUnderJeongsi from './components/admissions/AdmissionsUnderJeongsi';
+import AdmissionsUnderTransfer from './components/admissions/AdmissionsUnderTransfer';
+import AdmissionsGrad from './components/admissions/AdmissionsGrad';
+import AdmissionsGradRegular from './components/admissions/AdmissionsGradRegular';
+import Research from './components/research/Research';
+import ResearchGroups from './components/research/ResearchGroups';
+import ResearchCenters from './components/research/ResearchCenters';
+import ResearchLabs from './components/research/ResearchLabs';
 import NoticeDetail from './components/NoticeCategory/NoticeDetail';
 import NoticeList from './components/NoticeCategory/NoticeList';
 import Login from './components/Login';
@@ -100,6 +110,17 @@ ReactDOM.render(
               <Route path="/undergraduate/course-changes" component={UnderCourseChanges} />
               <Route path="/undergraduate/scholarships" component={UnderScholarships} />
               <Route path="/undergraduate" component={UnderGraduate} />
+              <Route path="/admissions/undergraduate/susi" component={AdmissionsUnderSusi} />
+              <Route path="/admissions/undergraduate/jeongsi" component={AdmissionsUnderJeongsi} />
+              <Route path="/admissions/undergraduate/transfer" component={AdmissionsUnderTransfer} />
+              <Route path="/admissions/undergraduate" component={AdmissionsUnder} />
+              <Route path="/admissions/graduate/regular" component={AdmissionsGradRegular} />
+              <Route path="/admissions/graduate" component={AdmissionsGrad} />
+              <Route path="/admissions" component={Admissions} />
+              <Route path="/research/groups" component={ResearchGroups} />
+              <Route path="/research/centers" component={ResearchCenters} />
+              <Route path="/research/labs" component={ResearchLabs} />
+              <Route path="/research" component={Research} />
               <Route path="/notice/new" component={Draft_test} />
               <Route path="/notice/:id" component={NoticeDetail} />
               {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
