@@ -36,22 +36,6 @@ class NoticeList extends Component {
         });
     }
 
-    renderNotice() {
-        return _.map(this.state.displayedNotices, notice => {
-            return (
-                <tr key={notice.id}>
-                    <td style={{ textAlign: 'center' }}>{notice.id}</td>
-                    <td>
-                        <Link to={`/notice/${notice.id}`}>
-                            {notice.title}
-                        </Link>
-                    </td>
-                    <td>{notice.created_at.substring(0, 10)}</td>
-                    <td style={{ textAlign: 'center' }}>{notice.view}</td>
-                </tr>
-            );
-        });
-    }
     //카테고리별(tags의 notice 수합) 공지 리스트 만들기
     getCategoryNotices(categoryItems) {
         /* 고정고지 tag not ready */
