@@ -121,7 +121,6 @@ export function createNotice(values, callback) {
     console.log(values);
     var formData = new FormData();
     Object.keys(values).map(key => {
-        console.log(key);
         if(key==='attached'){
             let i=0;
             _.map(values[key], value => {
@@ -131,7 +130,6 @@ export function createNotice(values, callback) {
             formData.append(key, values[key]);
         }   
     })
-    console.log(formData);
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
         {
             headers: {

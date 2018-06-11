@@ -52,7 +52,7 @@ class NoticeList extends Component {
             );
         });
     }
-    //카테고리 공지 리스트 만들기
+    //카테고리별(tags의 notice 수합) 공지 리스트 만들기
     getCategoryNotices(categoryItems) {
         /* 고정고지 tag not ready */
         if (categoryItems[0] === 0) { return (<h5>고정 공지 준비중</h5>); }
@@ -62,20 +62,11 @@ class NoticeList extends Component {
             list = list.concat(this.props.tags[element].notices)
         });
         list.sort((a, b) => {
-            let ap = parseInt(a.substring(0, a.indexOf(" ")));
-            let bp = parseInt(b.substring(0, b.indexOf(" ")));
-            return ap === bp ? 0 : ap < bp ? -1 : 1;
+            return a.created_at === b.created_at ? 0 : a.created_at < b.created_at ? -1 : 1;
         });
         return list;
     }
-    //태그 가져오기
-    renderTags() {
-        return _.map(this.props.tags, tag => {
-            return (
-                <td key={tag.id}><Button onClick={this.filterNotice}>{tag.name}</Button></td>
-            )
-        })
-    }
+    
     getCurrentTab(activeKey) {
         this.setState({ currentTab: activeKey });
     }
@@ -85,7 +76,7 @@ class NoticeList extends Component {
         if(this.state.isTagShow){//태그별 리스트 내에서 검색
             let filteredNotices;
             filteredNotices = _.filter(this.state.tagNotices, notice =>
-                notice.substring(notice.indexOf(" ")).toLowerCase().includes(value)
+                notice.title.toLowerCase().includes(value) || notice.content.toLowerCase().includes(value)
             )
             this.setState({ displayedTagNotices: filteredNotices });
         }
@@ -101,15 +92,13 @@ class NoticeList extends Component {
             const currentTab = parseInt(this.state.currentTab);
             filteredNotices = this.state.categoryNotices.slice();//copy
             filteredNotices[currentTab] = _.filter(filteredNotices[currentTab], notice =>
-                notice.substring(notice.indexOf(" ")).toLowerCase().includes(value)
-                //태그 notices가 string으로 넘어오기 때문에 내용 검색이 안됨
-                //|| notice.content.includes(value)
+                notice.title.toLowerCase().includes(value) || notice.content.toLowerCase().includes(value)
             )
             this.setState({ displayedCategoryNotices: filteredNotices });
         }
     }
 
-    handleChange(value) {
+    handleTagChange(value) {
         this.setState({isTagShow: value.length!==0});
         this.setState({tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value)});        
     }
@@ -123,11 +112,6 @@ class NoticeList extends Component {
         return (
             <div>
                 <div className="pageTitle">공지사항</div>
-                {/* <table>
-                    <thead><tr>
-                        {this.renderTags()}
-                    </tr></thead>
-                </table> */}
                 <Row>
                     <Col span={12}> <Search
                         placeholder="제목+내용 검색하기"
@@ -140,7 +124,7 @@ class NoticeList extends Component {
                             style={{ width: '100%' }}
                             placeholder="태그 검색하기"
                             defaultValue={[]}
-                            onChange={this.handleChange.bind(this)}
+                            onChange={this.handleTagChange.bind(this)}
                             allowClear={true}
                             disabled={this.state.currentTab!=="all"}
                         >
@@ -150,11 +134,11 @@ class NoticeList extends Component {
                 </Row>
 
                 <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
-                    <TabPane tab="전체" key="all"><NoticeListRender notices={!this.state.isTagShow? this.state.displayedNotices : this.state.displayedTagNotices} isAll={!this.state.isTagShow} /></TabPane>
-                    <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} isAll={false} /></TabPane>
-                    <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} isAll={false} /></TabPane>
-                    <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} isAll={false} /></TabPane>
-                    <TabPane tab="기타" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} isAll={false} /></TabPane>
+                    <TabPane tab="전체" key="all"><NoticeListRender notices={!this.state.isTagShow? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
+                    <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} /></TabPane>
+                    <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} /></TabPane>
+                    <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} /></TabPane>
+                    <TabPane tab="기타" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} /></TabPane>
                 </Tabs>
                 <div className="write-notice text-xs-right">
                     <Button type="primary">

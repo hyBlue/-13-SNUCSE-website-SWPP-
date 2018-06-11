@@ -8,7 +8,6 @@ import reducers from './reducers';
 import 'draft-js/dist/Draft.css';
 import 'babel-polyfill';
 
-import Draft_test from './components/draft_test';
 import MembersPage from './components/MembersCategory/MembersPage';
 import ReservationPage from './components/ReservationCategory/ReservationPage';
 import MainNavigateBar from './components/MainNavigateBar';
@@ -45,7 +44,6 @@ import UnderDegreeReq from './components/undergraduate/UnderDegreeReq';
 import UnderCourseChanges from './components/undergraduate/UnderCourseChanges';
 import UnderScholarships from './components/undergraduate/UnderScholarships';
 import NoticeCreate from './components/NoticeCreate';
-import NoticeUpdate from './components/NoticeUpdate';
 import Admissions from './components/admissions/Admissions';
 import AdmissionsUnder from './components/admissions/AdmissionsUnder';
 import AdmissionsUnderSusi from './components/admissions/AdmissionsUnderSusi';
@@ -121,9 +119,8 @@ ReactDOM.render(
               <Route path="/research/centers" component={ResearchCenters} />
               <Route path="/research/labs" component={ResearchLabs} />
               <Route path="/research" component={Research} />
-              <Route path="/notice/new" component={Draft_test} />
+              <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
-              {/* <Route path="/notice/:id/update" component={NoticeUpdate} /> */}
               <Route path="/notice" component={NoticeList} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
