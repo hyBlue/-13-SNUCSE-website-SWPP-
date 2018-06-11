@@ -182,6 +182,7 @@ export function deleteNotice(id, callback) {
 }
 
 export function deleteReservation(event) {
+    console.log(event);
     console.log(event.id);
     const request = axios.delete(`${ROOT_URL}/reservation/${event.id}${API_KEY}`);
     return {

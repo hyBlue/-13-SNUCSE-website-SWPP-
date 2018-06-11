@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import renderHTML from 'react-render-html';
 import Dropzone from 'react-dropzone';
-import { createNotice, fetchTags } from '../actions';
+import { createNotice, fetchTags } from '../../actions';
 import { Select, Row, Col } from 'antd';
 const Option = Select.Option;
 
