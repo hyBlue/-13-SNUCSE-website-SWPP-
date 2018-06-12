@@ -39,14 +39,15 @@ class NoticeList(generics.ListCreateAPIView):
                 i+=1
             else:
                 break
-
+        tag_set = []
+        if 'tag_set' in data :
+            for i in data['tag_set'].split(',') :
+                tag = Tag.objects.get(name = i)
+                tag_set.append(tag)
 
         serializer = NoticeSerializer(data = request.data)
         if serializer.is_valid():
-            if attached_list :
-                serializer.save(attached = attached_list)
-            else :
-                serializer.save()
+            serializer.save(attached=attached_list, tags = tag_set)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -187,6 +188,9 @@ class ReservationList(generics.ListCreateAPIView) :
         elif roomkey :
             queryset = queryset.filter(roomkey = roomkey)
         return queryset
+
+    def perform_create(self, serializer) :
+        serializer.save(user = self.request.user.username)
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()

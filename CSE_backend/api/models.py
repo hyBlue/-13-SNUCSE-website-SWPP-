@@ -16,7 +16,7 @@ class Notice(Post) :
     created_at = models.DateTimeField(auto_now_add = True)
     author = models.CharField(max_length = 30, default = 'anonymous')
     view = models.IntegerField(default = 0)
-    tag_set = models.ManyToManyField('Tag', related_name = 'notices', blank = True)
+    tags = models.ManyToManyField('Tag', related_name = 'notices', blank = True)
     attached =  models.ManyToManyField('Attached', related_name = 'notice', blank = True)
     def __str__(self) :
         return str(self.id) + " " + self.title
@@ -109,8 +109,8 @@ class CourseLink(models.Model) :
 class Reservation(models.Model) :
     user = models.ForeignKey('auth.User', related_name = 'reservation', on_delete = models.CASCADE, null = True)
     uid = models.IntegerField(null = True)
-    start = models.DateTimeField(blank = True, null = True)
-    end = models.DateTimeField(blank = True, null = True)
+    start = models.CharField(max_length = 100, blank = True)
+    end = models.CharField(max_length = 100, blank = True)
     roomkey = models.CharField(max_length = 20, blank = True)
     value = models.CharField(max_length= 20, blank = True)
     category = models.CharField(max_length = 20, blank = True)
