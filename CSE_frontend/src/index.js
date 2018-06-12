@@ -124,6 +124,7 @@ ReactDOM.render(
               <Route path="/notice" component={NoticeNewsPage} />
               <Route path="/news/:id" component={NewsDetail} />
               <Route path="/news" component={NewsList} />
+              <Route path="/members/:category" component={MembersPage} />
               <Route path="/members" component={MembersPage} />
               <Route path="/reservation" component={ReservationPage} />
               <Route path="/" component={MainPage} />

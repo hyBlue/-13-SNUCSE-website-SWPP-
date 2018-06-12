@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { fetchProfessors, } from '../../actions';
-import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
+import { Collapse, Card, Icon, Avatar, Row, Col, Spin } from 'antd';
 import ProfessorDetail from './ProfessorDetail';
+
 const Meta = Card.Meta;
 const Panel = Collapse.Panel;
 
@@ -20,16 +20,17 @@ class ProfessorsList extends Component {
         super();
         this.state = {
             showingProfessors: {},
+            loading: true
         }
     }
     componentDidMount() {
-        this.props.fetchProfessors();
+        // this.props.history.push('/professor');
+        this.props.fetchProfessors().then(()=> this.setState({loading: false}));
     }
     showDetail(professor) {
         this.setState({
             showingProfessors: { ...this.state.showingProfessors, [professor.id]: professor }
         })
-        console.log(this.state);
     }
 
     renderProfessor(whichHalf) {
@@ -50,10 +51,10 @@ class ProfessorsList extends Component {
                             description={professor.position}
                         />
                     </Col>
-                    <Col span={12} style={{paddingTop: '4px', fontSize: '18px'}}>
-                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.lab}</Row>
-                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.phone}</Row>
-                            <Row style={{padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor_email}</Row>
+                    <Col span={12} style={{ paddingTop: '4px', fontSize: '18px' }}>
+                        <Row style={{ padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.lab}</Row>
+                        <Row style={{ padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor.phone}</Row>
+                        <Row style={{ padding: '2px', textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap', wordWrap: 'normal' }}>{professor_email}</Row>
                     </Col>
                 </Row>
             </Card>);
@@ -68,6 +69,7 @@ class ProfessorsList extends Component {
     render() {
         return (<div className="memberList">
             <h2>교수</h2>
+            {this.state.loading ? <Spin /> : ""}
             <Row>
                 <Col span={12}>
                     <Collapse style={{ borderRight: '0px' }}>

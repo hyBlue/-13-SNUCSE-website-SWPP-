@@ -46,7 +46,7 @@ export default class MainNavigateBar extends Component {
                             소개</Link></Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
-                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '교수진' }, { key: 1, title: '역대 교수진' }, { key: 2, title: '행정직원' }])}>
+                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '교수진', to: '/members/professor' }, { key: 1, title: '역대 교수진', to: '/members/honourProfessor' }, { key: 2, title: '행정직원', to: '/members/staff' }])}>
                         <Link className="MainCategories" to={'/members'}>구성원</Link>
                     </Dropdown>
                 </Col>

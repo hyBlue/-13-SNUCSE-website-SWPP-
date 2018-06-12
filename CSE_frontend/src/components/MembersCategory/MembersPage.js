@@ -10,23 +10,49 @@ import HonourProfessorPage from './HonourProfList';
 
 export default class MembersPage extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            currentSubCategory: ""
+            currentSubCategory: "",
+            currentMenuKey: ["professor"],
+            loading: true
+        }
+        console.log('construcotr');
+        
+    }
+    componentWillMount() {
+        if (this.props.match && this.props.match.params) {
+            const param = this.props.match.params;
+            this.setState({
+                currentSubCategory: param.category,
+                currentMenuKey: [param.category]
+            });
+            if(param.category!=="professor" && param.category!=="honourProfessor" && param.category!=="staff"){
+                this.setState({currentMenuKey: ["professor"]})
+            }//if no match, default ot professor
+        }  
+    }
+    componentWillReceiveProps(newProps) {
+        if (newProps.match && newProps.match.params) {
+            const param = newProps.match.params;
+            this.setState({
+                currentSubCategory: param.category,
+                currentMenuKey: [param.category]
+            });
+            if(param.category!=="professor" && param.category!=="honourProfessor" && param.category!=="staff"){
+                this.setState({currentMenuKey: ["professor"]})
+            }//if no match, default ot professor
         }
     }
     renderSubCategoryPage(subCategory) {
-        switch(subCategory){
+        switch (subCategory) {
             case "professor":
                 return <ProfessorPage />;
-            break;
             case "honourProfessor":
                 return <HonourProfessorPage />;
-            break;
-            case "adminWorkers":
-                return <StaffsPage />; 
-            break;
+            case "staff":
+                return <StaffsPage />;
+                //if no match, default ot professor
             default:
                 return <ProfessorPage />;
         }
@@ -36,9 +62,9 @@ export default class MembersPage extends Component {
             <div>
                 <Layout>
                     <Header style={{ backgroundColor: '#fff', height: '200px', padding: '0' }}>
-                            <div>
-                                <img src={forSlider3} style={{height: '200px', width: '100%'}} />
-                            </div>
+                        <div>
+                            <img src={forSlider3} style={{ height: '200px', width: '100%' }} />
+                        </div>
                     </Header>
 
                     <Layout>
@@ -50,14 +76,15 @@ export default class MembersPage extends Component {
                             <Affix>
                                 <Menu
                                     mode="inline"
-                                    defaultSelectedKeys={['1']}
+                                    defaultSelectedKeys={["professor"]}
+                                    selectedKeys={this.state.currentMenuKey}
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
-                                 <MenuItemGroup className="menuGroup" key="g1" title="구성원">
+                                    <MenuItemGroup className="menuGroup" key="g1" title="구성원">
 
-                                    <Menu.Item key="1" onClick={() => this.setState({currentSubCategory: 'professor'})}>교수</Menu.Item>
-                                    <Menu.Item key="2" onClick={() => this.setState({currentSubCategory: 'honourProfessor'})}>역대교수진</Menu.Item>
-                                    <Menu.Item key="3" onClick={() => this.setState({currentSubCategory: 'adminWorkers'})}>행정직원</Menu.Item>
+                                        <Menu.Item key="professor" onClick={() => this.setState({ currentSubCategory: 'professor', currentMenuKey: ['professor'] })}>교수</Menu.Item>
+                                        <Menu.Item key="honourProfessor" onClick={() => this.setState({ currentSubCategory: 'honourProfessor', currentMenuKey: ['honourProfessor'] })}>역대교수진</Menu.Item>
+                                        <Menu.Item key="staff" onClick={() => this.setState({ currentSubCategory: 'staff', currentMenuKey: ['staff'] })}>행정직원</Menu.Item>
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>

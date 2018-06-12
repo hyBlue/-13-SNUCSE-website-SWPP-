@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchStaffs, } from '../../actions';
-import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
+import { Collapse, Card, Spin, Avatar, Row, Col } from 'antd';
 import StaffDetail from './StaffDetail';
 const Meta = Card.Meta;
 const Panel = Collapse.Panel;
@@ -13,10 +13,11 @@ class StaffsList extends Component {
         super();
         this.state = {
             showingStaffs: {},
+            loading: true
         }
     }
     componentDidMount() {
-        this.props.fetchStaffs();
+        this.props.fetchStaffs().then(()=> { this.setState({loading: false})});;
     }
     showDetail(staff) {
         this.setState({
@@ -61,6 +62,7 @@ class StaffsList extends Component {
     render() {
         return (<div className="memberList">
             <h2>행정직원</h2>
+            {this.state.loading ? <Spin /> : ""}
             <Row>
                 <Col span={12}>
                     <Collapse style={{ borderRight: '0px' }}>
