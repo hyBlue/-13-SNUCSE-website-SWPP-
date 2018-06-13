@@ -11,18 +11,64 @@ import { fetchReservation } from '../../actions';
 // import LabReservePage from '';
 
 //여기서 특정 세미나실 시간표를 선택하면
-//fetch tㅜ행
+//fetch 실행
 
 class ReservationPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             currentSubCategory: 'seminar',
+            openKeys: ["seminar"],
             reserveRoomKey: '301-417',
-            openKeys: ["sub1"]
+            subcategories: ['seminar', 'lab'],//for compare url param
+            seminarRoomKeys: ["301-417", "301-551", "302-308", "302-309", "302-309-2", "301-317", "302-317-3"],
+            labRoomKeys: ["SoftWareLab", "HardWareLab"]
         }
     }
-    renderSubCategoryPage(subCategory) {
+    //Needed for access by url
+    componentWillMount() {
+        if (this.props.match && this.props.match.params) {
+            const param = this.props.match.params;
+            if (param.category && _.includes(this.state.subcategories, param.category)) {
+                this.setState({
+                    currentSubCategory: param.category,
+                    reserveRoomKey: param.category == "seminar" ? '301-417' : 'SoftWareLab',
+                    openKeys: [param.category]
+                });
+                if (param.roomkey) {
+                    if (param.category === 'seminar' && _.includes(this.state.seminarRoomKeys, param.roomkey)) {
+                        this.setState({ reserveRoomKey: param.roomkey })
+                    }
+                    if (param.category === 'lab' && _.includes(this.state.labRoomKeys, param.roomkey)) {
+                        this.setState({ reserveRoomKey: param.roomkey })
+                    }
+                }
+            }
+        }
+    }
+    //Just handle category for seminar or lab. not room(ummeaningful)
+    componentWillReceiveProps(newProps) {
+        if (newProps.match && newProps.match.params) {
+            const param = newProps.match.params;
+            if (param.category && _.includes(this.state.subcategories, param.category)) {
+                this.setState({
+                    currentSubCategory: param.category,
+                    reserveRoomKey: param.category == "seminar" ? '301-417' : "SoftWareLab",
+                    openKeys: [param.category]
+                });
+                if (param.roomkey) {
+                    if (param.category === 'seminar' && _.includes(this.state.seminarRoomKeys, param.roomkey)) {
+                        this.setState({ reserveRoomKey: param.roomkey })
+                    }
+                    if (param.category === 'lab' && _.includes(this.state.labRoomKeys, param.roomkey)) {
+                        this.setState({ reserveRoomKey: param.roomkey })
+                    }
+                }
+            }
+        }
+    }
+    renderSubCategoryPage() {
+        this.props.fetchReservation(this.state.currentSubCategory, this.state.reserveRoomKey).then(()=>console.log('fetch finished'));
         return (
             <RoomReservePage
                 subCategory={this.state.currentSubCategory}
@@ -32,12 +78,16 @@ class ReservationPage extends Component {
     //메뉴아이템 클릭시 
     onMenuClick(subCategory, reserveRoomKey) {
         this.props.fetchReservation(subCategory, reserveRoomKey);
-        this.setState({ currentSubCategory: subCategory, reserveRoomKey: reserveRoomKey })
+        this.setState({
+            currentSubCategory: subCategory,
+            openKeys: [subCategory],
+            reserveRoomKey: reserveRoomKey,
+        })
     }
     //메뉴사이드바 열기접기
     onOpenChange = (openKeys) => {
-        const rootSubmenuKeys = ["sub1", "sub2"];
-        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);        
+        const rootSubmenuKeys = ["seminar", "lab"];
+        const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
         if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
             this.setState({ openKeys });
         } else {
@@ -47,7 +97,6 @@ class ReservationPage extends Component {
         }
     }
     render() {
-
         return (
             <div>
                 <Layout>
@@ -66,14 +115,14 @@ class ReservationPage extends Component {
                             <Affix>
                                 <Menu
                                     mode="inline"
-                                    defaultSelectedKeys={['1']}
+                                    selectedKeys={[this.state.reserveRoomKey]}
                                     openKeys={this.state.openKeys}
-                                    defaultOpenKeys={['sub1']}
                                     onOpenChange={value => this.onOpenChange(value)}
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
                                     <MenuItemGroup className="menuGroup" key="g1" title="예약" />
-                                    <SubMenu key="sub1" title={'세미나실'} onClick={({ key }) => this.onMenuClick('seminar', key)}>
+                                    <SubMenu key="seminar" title={'세미나실'} onClick={({key}) => this.props.history.push(`/reservation/seminar/${key}`)}>
+                                    {/* ({ key }) => this.onMenuClick('seminar', key) */}
                                         <Menu.Item key="301-417">301-417(28석)</Menu.Item>
                                         <Menu.Item key="301-551">301-551(42석)</Menu.Item>
                                         <Menu.Item key="302-308">302-308(46석)</Menu.Item>
@@ -82,7 +131,7 @@ class ReservationPage extends Component {
                                         <Menu.Item key="301-317">301-317 교수회의실(30석)</Menu.Item>
                                         <Menu.Item key="302-317-3">302-317-3 교수회의실(8석)</Menu.Item>
                                     </SubMenu>
-                                    <SubMenu key="sub2" title={'실습실'} onClick={({ key }) => this.onMenuClick('lab', key)}>
+                                    <SubMenu key="lab" title={'실습실'} onClick={({key}) => this.props.history.push(`/reservation/lab/${key}`)}>
                                         <Menu.Item key="SoftWareLab">소프트웨어실습실(64석)</Menu.Item>
                                         <Menu.Item key="HardWareLab">항드웨어실습실(30석)</Menu.Item>
                                     </SubMenu>

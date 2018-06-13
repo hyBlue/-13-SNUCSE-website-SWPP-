@@ -126,6 +126,7 @@ ReactDOM.render(
               <Route path="/news" component={NewsList} />
               <Route path="/members/:category" component={MembersPage} />
               <Route path="/members" component={MembersPage} />
+              <Route path="/reservation/:category/:roomkey?" component={ReservationPage} />
               <Route path="/reservation" component={ReservationPage} />
               <Route path="/" component={MainPage} />
             </Switch>

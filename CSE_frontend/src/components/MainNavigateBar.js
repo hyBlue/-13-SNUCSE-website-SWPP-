@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../icons/snu_logo.png';
-import {  Divider, Button, Menu, Dropdown, Icon, Row, Col, Popover } from 'antd';
+import { Divider, Button, Menu, Dropdown, Icon, Row, Col, Popover } from 'antd';
 
 export default class MainNavigateBar extends Component {
 
@@ -67,7 +67,10 @@ export default class MainNavigateBar extends Component {
                     </Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
-                    <Link className="MainCategories" to={'/reservation'}>예약</Link></Col>
+                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '세미나실', to: '/reservation/seminar' }, { key: 1, title: '실습실 예약', to: '/reservation/lab' }])}>
+                        <Link className="MainCategories" to={'/reservation'}>예약</Link>
+                    </Dropdown>
+                </Col>
             </Row>
         )
     }
@@ -87,14 +90,14 @@ export default class MainNavigateBar extends Component {
             <div>
                 <Row>
                     <Col span={8} className="text-xs-left">
-                        <Link className="navbarTitle" to={'/'}  
-                        style={{ color: '#ffffff', fontSize: '1.5rem', textDecoration: 'none', whiteSpace: 'pre-wrap'}}>
-                        <img src={logo} style={{ height: '3.5rem', paddingBottom: '5px', paddingRight: '15px'}}/> 
-                        서울대학교 컴퓨터공학부
+                        <Link className="navbarTitle" to={'/'}
+                            style={{ color: '#ffffff', fontSize: '1.5rem', textDecoration: 'none', whiteSpace: 'pre-wrap' }}>
+                            <img src={logo} style={{ height: '3.5rem', paddingBottom: '5px', paddingRight: '15px' }} />
+                            서울대학교 컴퓨터공학부
                         {/* Seoul National University{"\n"}
                         Dept. of Computer Science and Enginerring */}
                         </Link>
-                        
+
                     </Col>
                     <Col span={16}>{this.renderMenu2()}</Col>
                 </Row>

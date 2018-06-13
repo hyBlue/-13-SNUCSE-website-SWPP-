@@ -18,8 +18,8 @@ export default class MembersPage extends Component {
             loading: true
         }
         console.log('construcotr');
-        
     }
+    //Needed for access by url
     componentWillMount() {
         if (this.props.match && this.props.match.params) {
             const param = this.props.match.params;
@@ -32,6 +32,7 @@ export default class MembersPage extends Component {
             }//if no match, default ot professor
         }  
     }
+    //Handle Change on url param match to subcategory
     componentWillReceiveProps(newProps) {
         if (newProps.match && newProps.match.params) {
             const param = newProps.match.params;
@@ -82,9 +83,9 @@ export default class MembersPage extends Component {
                                 >
                                     <MenuItemGroup className="menuGroup" key="g1" title="구성원">
 
-                                        <Menu.Item key="professor" onClick={() => this.setState({ currentSubCategory: 'professor', currentMenuKey: ['professor'] })}>교수</Menu.Item>
-                                        <Menu.Item key="honourProfessor" onClick={() => this.setState({ currentSubCategory: 'honourProfessor', currentMenuKey: ['honourProfessor'] })}>역대교수진</Menu.Item>
-                                        <Menu.Item key="staff" onClick={() => this.setState({ currentSubCategory: 'staff', currentMenuKey: ['staff'] })}>행정직원</Menu.Item>
+                                        <Menu.Item key="professor" onClick={() => this.props.history.push('/members/professor')}>교수</Menu.Item>
+                                        <Menu.Item key="honourProfessor" onClick={() => this.props.history.push('/members/honourProfessor')}>역대교수진</Menu.Item>
+                                        <Menu.Item key="staff" onClick={() => this.props.history.push('/members/staff')}>행정직원</Menu.Item>
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>

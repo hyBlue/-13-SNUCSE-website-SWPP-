@@ -33,7 +33,6 @@ class StandardCalendar extends React.Component {
     this.props.fetchReservation(this.props.subCategory, this.props.reserveRoomKey);
   }
   componentWillReceiveProps(newProps) {
-    // this.setState({selectedIntervals: this.state.selectedIntervals.concat(newProps.fetchedIntervals)});
     this.setState({ selectedIntervals: newProps.fetchedIntervals });
   }
 
@@ -62,10 +61,9 @@ class StandardCalendar extends React.Component {
 
     const { lastUid, selectedIntervals } = this.state;
     let newI = newIntervals[0];
-
     let isFalse = false;
-    if (this.state.selectedIntervals.length !== 0) {
-      this.state.selectedIntervals.map(oldI => {
+    if (selectedIntervals) {
+      selectedIntervals.map(oldI => {
         if ((oldI.start._d > newI.start._d && newI.end._d > oldI.start._d) ||
           (oldI.start._d < newI.start._d && newI.start._d < oldI.end._d)
         ) {
@@ -120,6 +118,6 @@ function mapStateToProps({ reservation }, ownProps) {
     const intervals = _.values(reservation[ownProps.subCategory][ownProps.reserveRoomKey]);
     return { fetchedIntervals: intervals };
   };
-  return {};
+  return { fetchedIntervals: []};
 }
 export default connect(mapStateToProps, { createReservation, fetchReservation, deleteReservation })(StandardCalendar);
