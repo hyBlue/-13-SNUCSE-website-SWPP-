@@ -190,7 +190,10 @@ class ReservationList(generics.ListCreateAPIView) :
         return queryset
 
     def perform_create(self, serializer) :
-        serializer.save(user = self.request.user.username)
+        # if self.request.user:
+        #     serializer.save(user = self.request.user)
+        # else:
+        serializer.save()
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
