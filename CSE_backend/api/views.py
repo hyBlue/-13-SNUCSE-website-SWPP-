@@ -17,14 +17,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 class NoticeList(generics.ListCreateAPIView):
-    queryset = Notice.objects.all()
+    queryset = Notice.objects.all().order_by('-created_at')
     serializer_class = NoticeSerializer
-    # parser_classes = (JSONParser,)
 
     @csrf_exempt
     def perform_create(self, serializer) :
         serializer.save(author = self.request.user.username)
-
 
     @csrf_exempt
     def post(self, request, format = None) :
