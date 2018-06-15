@@ -6,7 +6,7 @@ import forSlider3 from '../../../icons/forSlider3.jpg';
 import NoticeList from './NoticeList';
 import NewsList from './NewsList';
 
-export default class MembersPage extends Component {
+export default class NoticeNewsPage extends Component {
 
     constructor(props){
         super(props);

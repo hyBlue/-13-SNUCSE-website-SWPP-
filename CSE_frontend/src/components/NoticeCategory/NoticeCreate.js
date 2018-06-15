@@ -55,15 +55,6 @@ class Editor extends Component {
         );
     }
 
-    // render posts from firebase
-    renderPosts() {
-        return (
-            <div>
-                <h2>{this.state.title}</h2>
-                <p>{renderHTML(this.state.content)}</p>
-            </div>
-        );
-    }
     onHandleSubmit(e) {
         e.preventDefault();
         const post = {

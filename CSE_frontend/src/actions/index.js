@@ -121,14 +121,14 @@ export function createNotice(values, callback) {
     console.log(values);
     var formData = new FormData();
     Object.keys(values).map(key => {
-        if(key==='attached'){
-            let i=0;
+        if (key === 'attached') {
+            let i = 0;
             _.map(values[key], value => {
                 formData.append(`attached${i++}`, value);
             })
         } else {
             formData.append(key, values[key]);
-        }   
+        }
     })
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
         {
@@ -147,14 +147,16 @@ export function createNotice(values, callback) {
 export function createReservation(interval) {
     //intervals: 여러 요일을 겹쳐 예약하지 않는 이상 길이 1의 배열
     //Map intervals to Transform interval.start,end from moment type to date type
-        let newValue = {};
-        _.mapKeys(interval, (value, key) => {
-            if (key === 'start' || key === 'end') {
-                newValue[key] = value.toISOString();
-            } else {
-                newValue[key] = value;
-            }
-        });
+    let newValue = {};
+    _.mapKeys(interval, (value, key) => {
+        if (key === 'start' || key === 'end') {
+            newValue[key] = value.toISOString();
+        } else {
+            newValue[key] = value;
+        }
+    });
+    newValue["user"]=null;
+    console.log(newValue);
     const request = axios.post(`${ROOT_URL}/reservation/${API_KEY}`, newValue)
     return {
         type: CREATE_RESERVATION,

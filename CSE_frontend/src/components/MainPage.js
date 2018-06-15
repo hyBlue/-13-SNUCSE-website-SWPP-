@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import { fetchNotices, fetchNewses, fetchNews } from '../actions';
 import { Carousel, Row, Col, Card } from 'antd';
 import forSlider1 from '../../icons/forSlider1.jpg';
@@ -12,7 +13,6 @@ class MainPage extends Component {
 
   constructor() {
     super();
-
     this.state = {
       ntag: 0,
     };
@@ -86,7 +86,8 @@ class MainPage extends Component {
     }) 
   }
   renderNotice() {
-    const size = _.size(this.props.notices)
+    // const sortedNotices = _.orderBy(this.props.notices, ['created_at'], 'desc');
+    const size = _.size(this.props.notices);
     const rev = _.reject(this.props.notices, notice => { return notice.id <= size - 12  ; })
     const rrev = _.chain(rev).reverse().value()
 

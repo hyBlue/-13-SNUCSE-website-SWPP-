@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchHonourProfs, } from '../../actions';
-import { Collapse, Card, Icon, Avatar, Row, Col } from 'antd';
+import { Collapse, Card, Spin, Avatar, Row, Col } from 'antd';
 import HonourProfDetail from './HonourProfDetail';
 const Meta = Card.Meta;
 const Panel = Collapse.Panel;
@@ -13,10 +13,11 @@ class HonourProfsList extends Component {
         super();
         this.state = {
             showingHonourProfs: {},
+            loading: true
         }
     }
     componentDidMount() {
-        this.props.fetchHonourProfs();
+        this.props.fetchHonourProfs().then(()=> { this.setState({loading: false})});
     }
     showDetail(prof) {
         this.setState({
@@ -29,8 +30,8 @@ class HonourProfsList extends Component {
         const size = _.size(this.props.profs);
         const set = _.keys(this.props.profs)[0];
         const halfList =
-            whichHalf === 'first' ? _.filter(this.props.profs, prof => prof.id <= (parseInt(set) + Math.floor(size / 2))) :
-                _.filter(this.props.profs, prof => prof.id > (parseInt(set) + Math.floor(size / 2)))
+            whichHalf === 'first' ? _.filter(this.props.profs, prof => prof.id < (parseInt(set) + (size / 2))) :
+                _.filter(this.props.profs, prof => prof.id >= (parseInt(set) + (size / 2)))
         return _.map(halfList, prof => {
             const replacer = { "[at]": "@", "[dot]": ".", " ": "" }; //replace [] and space to correct cha
             const profCard = (<Card className='memberCard' key={prof.id} style={{ width: '100%', height: '130px' }} onClick={() => this.showDetail(prof)}>
@@ -57,6 +58,7 @@ class HonourProfsList extends Component {
     render() {
         return (<div className="memberList">
             <h2>명예교수</h2>
+            {this.state.loading ? <Spin /> : ""}
             <Row>
                 <Col span={12}>
                     <Collapse style={{ borderRight: '0px' }}>
