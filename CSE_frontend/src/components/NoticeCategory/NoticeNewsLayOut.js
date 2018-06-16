@@ -46,7 +46,7 @@ export default class NoticeNewsPage extends Component {
                                     defaultSelectedKeys={['1']}
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
-                                 <MenuItemGroup className="menuGroup" key="g1" title="구성원">
+                                 <MenuItemGroup className="menuGroup" key="g1" title="알림광장">
 
                                     <Menu.Item key="1" onClick={() => this.setState({currentSubCategory: 'noticeList'})}>공지사항</Menu.Item>
                                     <Menu.Item key="2" onClick={() => this.setState({currentSubCategory: 'newsList'})}>새소식</Menu.Item>
