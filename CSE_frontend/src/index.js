@@ -133,8 +133,6 @@ ReactDOM.render(
           </Content>
           <Footer>Footer</Footer>
         </Layout>
-
-
       </div>
     </BrowserRouter>
   </Provider>

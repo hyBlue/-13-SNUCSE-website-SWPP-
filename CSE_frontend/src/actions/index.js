@@ -155,7 +155,6 @@ export function createReservation(interval) {
             newValue[key] = value;
         }
     });
-    newValue["user"]=null;
     console.log(newValue);
     const request = axios.post(`${ROOT_URL}/reservation/${API_KEY}`, newValue)
     return {

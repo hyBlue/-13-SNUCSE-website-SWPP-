@@ -72,7 +72,7 @@ class MainPage extends Component {
       width: '50%',
       height: '50%',
       textAlign: 'center',
-      padding: '5px 5px 45px 5px',
+      padding: '25px 25px 45px 25px',
     };
     return _.map(new_arr, news => {
       return (
