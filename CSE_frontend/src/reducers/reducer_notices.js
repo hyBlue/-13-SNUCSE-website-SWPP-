@@ -12,7 +12,6 @@ export default (state = {}, action) => {
             //     // return newState;
             return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_NOTICES:
-            console.log(action.payload.data['results']);
             return _.mapKeys(action.payload.data['results'], 'id');
         default:
             return state;

@@ -17,7 +17,6 @@ export default class MembersPage extends Component {
             currentMenuKey: ["professor"],
             loading: true
         }
-        console.log('construcotr');
     }
     //Needed for access by url
     componentWillMount() {
@@ -27,10 +26,10 @@ export default class MembersPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if(param.category!=="professor" && param.category!=="honourProfessor" && param.category!=="staff"){
-                this.setState({currentMenuKey: ["professor"]})
+            if (param.category !== "professor" && param.category !== "honourProfessor" && param.category !== "staff") {
+                this.setState({ currentMenuKey: ["professor"] })
             }//if no match, default ot professor
-        }  
+        }
     }
     //Handle Change on url param match to subcategory
     componentWillReceiveProps(newProps) {
@@ -40,8 +39,8 @@ export default class MembersPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if(param.category!=="professor" && param.category!=="honourProfessor" && param.category!=="staff"){
-                this.setState({currentMenuKey: ["professor"]})
+            if (param.category !== "professor" && param.category !== "honourProfessor" && param.category !== "staff") {
+                this.setState({ currentMenuKey: ["professor"] })
             }//if no match, default ot professor
         }
     }
@@ -53,7 +52,7 @@ export default class MembersPage extends Component {
                 return <HonourProfessorPage />;
             case "staff":
                 return <StaffsPage />;
-                //if no match, default ot professor
+            //if no match, default ot professor
             default:
                 return <ProfessorPage />;
         }
@@ -82,7 +81,6 @@ export default class MembersPage extends Component {
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
                                     <MenuItemGroup className="menuGroup" key="g1" title="구성원">
-
                                         <Menu.Item key="professor" onClick={() => this.props.history.push('/members/professor')}>교수</Menu.Item>
                                         <Menu.Item key="honourProfessor" onClick={() => this.props.history.push('/members/honourProfessor')}>역대교수진</Menu.Item>
                                         <Menu.Item key="staff" onClick={() => this.props.history.push('/members/staff')}>행정직원</Menu.Item>
@@ -91,7 +89,7 @@ export default class MembersPage extends Component {
                             </Affix>
                         </Sider>
 
-                        <Content style={{ padding: '30px' }}>
+                        <Content className="pageContent">
                             {this.renderSubCategoryPage(this.state.currentSubCategory)}
                         </Content>
                     </Layout>

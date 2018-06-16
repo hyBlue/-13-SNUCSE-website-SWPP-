@@ -95,7 +95,8 @@ class NoticeList extends Component {
         _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
         return (
             <div>
-                <div className="pageTitle">공지사항</div>
+                {/* <div className="pageTitle">공지사항</div> */}
+                <h2> 공지사항 </h2>
                 <Row>
                     <Col span={12}> <Search
                         placeholder="제목+내용 검색하기"

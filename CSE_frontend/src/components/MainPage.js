@@ -103,7 +103,9 @@ class MainPage extends Component {
           <Row style={{padding: '5px'}}>
             <Col span={16} style={{paddingLeft: '15px', fontSize: '1.2rem'}}>
               <Link to={`/notice/${notice.id}`}>
-                {notice.title.length > 10 ? notice.title.substring(0, 10) : notice.title}
+                <div style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: 'royalblue'}}>
+                  {notice.title}
+                </div>
               </Link>
             </Col>
             <Col span={8}>
@@ -126,12 +128,12 @@ class MainPage extends Component {
         <Row>{this.renderBackgrounImgSlider()}</Row>
         <Row style={{ height: '650px' }}>
           <Col className='mainPostsContainer' span={14}>
-            <Card className='mainPostsList' title="새 소식" extra={<Link to="/news">더보기</Link>} >
+            <Card className='mainPostsList' title="새 소식" extra={<Link to="/noitceNews/news">더보기</Link>} >
                {this.renderGridCardNews()}
             </Card>
           </Col>
           <Col className='mainPostsContainer' span={10}>
-            <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice">더보기</Link>} >
+            <Card className='mainPostsList' title="공지사항" extra={<Link to="/noitceNews/notice">더보기</Link>} >
               {this.renderNotice()} 
             </Card>
           </Col>

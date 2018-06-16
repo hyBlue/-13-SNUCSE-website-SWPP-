@@ -37,7 +37,8 @@ class NewsList extends Component {
     }
     return (
         <div>
-            <div className="pageTitle">새소식</div>
+            {/* <div className="pageTitle">새소식</div> */}
+            <h2>새소식</h2>
             {this.renderNewsCards()}
         </div>
     );
