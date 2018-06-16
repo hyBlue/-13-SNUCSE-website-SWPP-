@@ -3,17 +3,23 @@ from api.models import *
 import requests
 from bs4 import BeautifulSoup
 
-notice_url = "http://cse.snu.ac.kr/node/"
-notice_list = [31861, 31860, 31854, 31853, 31852, 31851, 31848, 31842,31773, 31772, 31770]
-for i in notice_list :
-    idx = str(i)
-    html = requests.get(notice_url+idx).text
+url = "https://cse.snu.ac.kr/department-notices/"
+notice_url = "https://cse.snu.ac.kr"
+for i in range(25):
+    html = requests.get(url, params={'page': i}).text
     soup = BeautifulSoup(html, 'html.parser')
-    title = soup.find('h1', class_ = "title").text
-    content = soup.find('div', class_ ="field field-name-body field-type-text-with-summary field-label-hidden").text
-    author = soup.find('span', class_ = "username").text
-    tag = soup.find('span', class_ = "field-item even").text
-    notice = Notice(title = title, content = content, author = author)
-    notice.save()
-    notice.tag_set.set([Tag.objects.get(name = tag)])
-    notice.save()
+    for j in soup.select('td.views-field-title a'):
+        node_number = j['href']
+        html_ = requests.get(notice_url + node_number).text
+        soup_ = BeautifulSoup(html_, 'html.parser')
+        if soup_.find('div', class_='breadcrumb').find_all('a')[2].text == "공지사항":
+            title = soup_.find('h1', class_="title").text
+            content = soup_.find('div',
+                                class_="field field-name-body field-type-text-with-summary field-label-hidden").text
+            author = soup_.find('span', class_="username").text
+            tag = soup_.find('span', class_="field-item even").text
+            notice = Notice(title=title, content=content, author=author)
+            notice.save()
+            notice.tags.set([Tag.objects.get(name=tag)])
+            notice.save()
+
