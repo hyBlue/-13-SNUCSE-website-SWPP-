@@ -57,7 +57,7 @@ def get_json_or_error(link, number):
     sleep(0.05)
     try:
         res = requests.get(link).json()
-        return res[-number:]
+        return res['results']
     except Exception:
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
