@@ -139,7 +139,7 @@ class ReservationPage extends Component {
                             </Affix>
                         </Sider>
 
-                        <Content style={{ padding: '30px' }}>
+                        <Content className="pageContent">
                             {this.renderSubCategoryPage()}
                         </Content>
                     </Layout>

@@ -11,14 +11,43 @@ export default class NoticeNewsPage extends Component {
     constructor(props){
         super(props);
         this.state = {
-            currentSubCategory: ""
+            currentSubCategory: "",
+            currentMenuKey: ["notice"],
+            loading: true
         }
     }
+    //Needed for access by url
+    componentWillMount() {
+        if (this.props.match && this.props.match.params) {
+            const param = this.props.match.params;
+            this.setState({
+                currentSubCategory: param.category,
+                currentMenuKey: [param.category]
+            });
+            if(param.category!=="notice" && param.category!=="news"){
+                this.setState({currentMenuKey: ["notice"]})
+            }//if no match, default ot professor
+        }  
+    }
+    //Handle Change on url param match to subcategory
+    componentWillReceiveProps(newProps) {
+        if (newProps.match && newProps.match.params) {
+            const param = newProps.match.params;
+            this.setState({
+                currentSubCategory: param.category,
+                currentMenuKey: [param.category]
+            });
+            if(param.category!=="notice" && param.category!=="news"){
+                this.setState({currentMenuKey: ["notice"]})
+            }//if no match, default ot professor
+        }
+    }
+
     renderSubCategoryPage(subCategory) {
         switch(subCategory){
-            case "noticeList":
+            case "notice":
                 return <NoticeList />;
-            case "newsList":
+            case "news":
                 return <NewsList />;
             default:
                 return <NoticeList />;
@@ -43,19 +72,19 @@ export default class NoticeNewsPage extends Component {
                             <Affix>
                                 <Menu
                                     mode="inline"
-                                    defaultSelectedKeys={['1']}
+                                    defaultSelectedKeys={["notice"]}
+                                    selectedKeys={this.state.currentMenuKey}
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
-                                 <MenuItemGroup className="menuGroup" key="g1" title="구성원">
-
-                                    <Menu.Item key="1" onClick={() => this.setState({currentSubCategory: 'noticeList'})}>공지사항</Menu.Item>
-                                    <Menu.Item key="2" onClick={() => this.setState({currentSubCategory: 'newsList'})}>새소식</Menu.Item>
+                                 <MenuItemGroup className="menuGroup" key="g1" title="알림광장">
+                                    <Menu.Item key="notice" onClick={() => this.props.history.push('/noitceNews/notice')}>공지사항</Menu.Item>
+                                    <Menu.Item key="news" onClick={() => this.props.history.push('/noticeNews/news')}>새소식</Menu.Item>
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>
                         </Sider>
 
-                        <Content style={{ padding: '30px' }}>
+                        <Content className="pageContent">
                             {this.renderSubCategoryPage(this.state.currentSubCategory)}
                         </Content>
                     </Layout>

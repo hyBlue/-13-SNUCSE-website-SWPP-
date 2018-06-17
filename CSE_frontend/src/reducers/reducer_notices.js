@@ -12,7 +12,7 @@ export default (state = {}, action) => {
             //     // return newState;
             return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_NOTICES:
-            return _.mapKeys(action.payload.data, 'id');
+            return _.mapKeys(action.payload.data['results'], 'id');
         default:
             return state;
     }

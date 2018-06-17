@@ -2,28 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNewses } from '../../actions';
+import { Card } from 'antd';
 
 class NewsList extends Component {
   componentDidMount() {
       this.props.fetchNewses();
   }
 
-  renderNewses() {
+  renderNewsCards() {
+    
+    const gridStyle = {
+      width: '30%',
+      height: '30%',
+      textAlign: 'center',
+      padding: '15px 15px 10px 15px',
+    };
     return _.map(this.props.news, news => {
-        return (
-            <tr key={news.id}>
-                <td>{news.id}</td>
-                <td>
-                <Link to={`/news/${news.id}`}>
-                    {news.title} 
-                </Link>
-                </td>
-                <td>{news.created_at.substring(0,10)}</td>
-                <td></td>
-            </tr>
-        );
-    });
-}
+      return (
+        <Card.Grid key={news.id} style={gridStyle}>
+          <Link to={`/News/${news.id}`}>
+          <img src={news.image} style={{width:'100%', height:'100%'}}/>
+          <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
+          <p className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{news.content}</p>
+          </Link>
+        </Card.Grid>
+      )
+    }) 
+  }
 
   render() {
     const { news } = this.props;
@@ -32,33 +37,15 @@ class NewsList extends Component {
     }
     return (
         <div>
-            {/* <div className="write-News">
-                <Button type="primary">
-                    <Link className="btn " to="/">
-                        새소식 쓰기
-                    </Link></Button>
-            </div> */}
-            <h5>새 소식</h5>
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>날짜</th>
-                        <th>조회수</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderNewses()}
-                </tbody>
-            </table>
+            {/* <div className="pageTitle">새소식</div> */}
+            <h2>새소식</h2>
+            {this.renderNewsCards()}
         </div>
     );
   }
 }
 
 function mapStateToProps({ news }) {
-    //console.log(state.Newss);
     return { news };
 }
 

@@ -121,9 +121,9 @@ ReactDOM.render(
               <Route path="/research" component={Research} />
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
-              <Route path="/notice" component={NoticeNewsPage} />
               <Route path="/news/:id" component={NewsDetail} />
-              <Route path="/news" component={NewsList} />
+              <Route path="/noitceNews/:category" component={NoticeNewsPage} />
+              <Route path="/noitceNews" component={NoticeNewsPage} />
               <Route path="/members/:category" component={MembersPage} />
               <Route path="/members" component={MembersPage} />
               <Route path="/reservation/:category/:roomkey?" component={ReservationPage} />
@@ -133,8 +133,6 @@ ReactDOM.render(
           </Content>
           <Footer>Footer</Footer>
         </Layout>
-
-
       </div>
     </BrowserRouter>
   </Provider>
