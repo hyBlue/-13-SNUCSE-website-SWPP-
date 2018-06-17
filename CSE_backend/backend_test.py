@@ -57,7 +57,7 @@ def get_json_or_error(link, number):
     sleep(0.05)
     try:
         res = requests.get(link).json()
-        res_ = res['results'][:number]
+        res_ = res[:number]
         res_.reverse()
         return res_
     except Exception:
