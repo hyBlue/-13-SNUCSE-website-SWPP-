@@ -31,6 +31,8 @@ class Image(models.Model):
 
 class Attached(models.Model):
     attached = models.FileField(blank=True, upload_to='notice/', null=True)
+    name = models.CharField(blank=True, max_length=20)
+    size = models.IntegerField(blank=True, default=0)
 
 
 class News(Post):

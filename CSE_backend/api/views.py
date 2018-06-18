@@ -32,7 +32,8 @@ class NoticeList(generics.ListCreateAPIView):
         i = 0
         while True:
             if "attached" + str(i) in data:
-                attached = Attached(attached=data["attached" + str(i)])
+                attached = Attached(attached=data["attached" + str(i)], name=data["name"] + str(i),
+                                    size=data["size"] + str(i))
                 attached.save()
                 attached_list.append(attached)
                 i += 1
