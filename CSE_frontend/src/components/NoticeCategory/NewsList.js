@@ -13,15 +13,15 @@ class NewsList extends Component {
     
     const gridStyle = {
       width: '30%',
-      height: '30%',
+      height: 'auto',
       textAlign: 'center',
       padding: '15px 15px 10px 15px',
     };
     return _.map(this.props.news, news => {
       return (
         <Card.Grid key={news.id} style={gridStyle}>
-          <Link to={`/News/${news.id}`}>
-          <img src={news.image} style={{width:'100%', height:'100%'}}/>
+          <Link to={`/News/${news.id}`} >
+          <img src={news.image} style={{width:'100%', height:'10rem'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
           <p className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{news.content}</p>
           </Link>
