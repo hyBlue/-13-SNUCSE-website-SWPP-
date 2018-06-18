@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import _ from 'lodash';
-import { fetchNotices, fetchNewses, fetchNews } from '../actions';
-import { Carousel, Row, Col, Card } from 'antd';
+import { fetchMainNews, fetchMainNotices } from '../actions';
+import { Carousel, Row, Col, Card, Spin } from 'antd';
 import forSlider1 from '../../icons/forSlider1.jpg';
 import forSlider2 from '../../icons/forSlider2.jpg';
 import forSlider3 from '../../icons/forSlider3.jpg';
@@ -19,18 +19,10 @@ class MainPage extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchNotices();
-    this.props.fetchNewses();
-    //    const { id } = this.props.match.parms;
-    //   this.props.fetchNews(id);
-    this.props.fetchNews(1);
+    this.props.fetchMainNotices(10);
+    this.props.fetchMainNews(6);
   }
 
-  /*
-    onTagSelect(tag) {
-      this.setState(() => ({ ntag: tag }));
-    }
-  */
   renderBackgrounImgSlider() {
 
     return (
@@ -51,30 +43,14 @@ class MainPage extends Component {
     );
   }
 
-  renderGridCardNews() {
-    const size = _.size(this.props.news)
-    const rev = _.reject(this.props.news, New => { return New.id <= size - 4; })
-    const rrev = _.chain(rev).reverse().value()
-    const first_news = _.first(rrev)
-    let new_arr = new Array(4)
-    let i = 0
-    //error handling for img load
-    if (rrev.length != 4) {
-      return (
-        "Loading... Maybe no enough Imgs..."
-      );
-    }
-    _.map(rrev, New => {
-      new_arr[i] = New
-      i = i + 1
-    })
+  renderGridCardNews() {    
     const gridStyle = {
-      width: '50%',
+      width: '30%',
       height: '50%',
       textAlign: 'center',
       padding: '25px 25px 45px 25px',
     };
-    return _.map(new_arr, news => {
+    return _.map(this.props.news, news => {
       return (
         <Card.Grid key={news.id} style={gridStyle}>
           <Link to={`/News/${news.id}`}>
@@ -85,19 +61,8 @@ class MainPage extends Component {
       )
     }) 
   }
-  renderNotice() {
-    // const sortedNotices = _.orderBy(this.props.notices, ['created_at'], 'desc');
-    const size = _.size(this.props.notices);
-    const rev = _.reject(this.props.notices, notice => { return notice.id <= size - 12  ; })
-    const rrev = _.chain(rev).reverse().value()
-
-    if (size == 0) {
-      return (
-        "Loading... Maybe no Notice..."
-      );
-    }
-
-    return _.map(rrev, notice => {
+  renderNotice() {    
+    return _.map(this.props.notices, notice => {
       return (
         <div key={notice.id}>
           <Row style={{padding: '5px'}}>
@@ -109,7 +74,7 @@ class MainPage extends Component {
               </Link>
             </Col>
             <Col span={8}>
-              <p  style={{textAlign: 'right'}}>{notice.created_at.substring(0, 10)}</p>
+              <p  style={{textAlign: 'right', margin: '0', paddingTop: '17px'}}>{notice.created_at.substring(0, 10)}</p>
             </Col>
           </Row>
         </div>
@@ -120,13 +85,13 @@ class MainPage extends Component {
   render() {
     const { notices, news } = this.props;
     if (!notices || !news) {
-      return <div>Loading...</div>;
+      return <Spin />;
     }
     
     return (
       <div>
         <Row>{this.renderBackgrounImgSlider()}</Row>
-        <Row style={{ height: '650px' }}>
+        <Row style={{ height: '660px' }}>
           <Col className='mainPostsContainer' span={14}>
             <Card className='mainPostsList' title="새 소식" extra={<Link to="/noitceNews/news">더보기</Link>} >
                {this.renderGridCardNews()}
@@ -148,8 +113,9 @@ class MainPage extends Component {
   }
 }
 
-function mapStateToProps({ notices, news, }) {
-  return { notices, news, }
+function mapStateToProps({ mainItems }) {
+  console.log(mainItems);
+  return { notices: mainItems.notices, news: mainItems.news, }
 }
 
-export default connect(mapStateToProps, { fetchNotices, fetchNewses, fetchNews })(MainPage);
+export default connect(mapStateToProps, { fetchMainNews, fetchMainNotices })(MainPage);

@@ -6,7 +6,7 @@ export default (state = {}, action) => {
     case FETCH_UNDERCOURSE:
       return { ...state, [action.payload.data.id]: action.payload.data };
     case FETCH_UNDERCOURSES:
-      return _.mapKeys(action.payload.data['results'], 'id');
+      return _.mapKeys(action.payload.data, 'id');
     default:
       return state;
   }
