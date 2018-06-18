@@ -20,7 +20,6 @@ import NoticeCreate from './components/NoticeCategory/NoticeCreate';
 import NoticeNewsPage from './components/NoticeCategory/NoticeNewsLayOut';
 import NoticeDetail from './components/NoticeCategory/NoticeDetail';
 import Login from './components/Login';
-import NewsList from './components/NoticeCategory/NewsList';
 import NewsDetail from './components/NoticeCategory/NewsDetail';
 
 import { Layout } from 'antd';
@@ -50,8 +49,8 @@ ReactDOM.render(
               <Route path="/notice/new" component={NoticeCreate} />
               <Route path="/notice/:id" component={NoticeDetail} />
               <Route path="/news/:id" component={NewsDetail} />
-              <Route path="/noitceNews/:category" component={NoticeNewsPage} />
-              <Route path="/noitceNews" component={NoticeNewsPage} />
+              <Route path="/notice_news/:category/:postId?" component={NoticeNewsPage} />
+              <Route path="/noitce_news" component={NoticeNewsPage} />
               <Route path="/members/:category" component={MembersPage} />
               <Route path="/members" component={MembersPage} />
               <Route path="/reservation/:category/:roomkey?" component={ReservationPage} />

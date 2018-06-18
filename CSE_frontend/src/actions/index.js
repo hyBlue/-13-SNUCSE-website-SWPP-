@@ -150,6 +150,7 @@ export function createNotice(values, callback) {
         if (key === 'attached') {
             let i = 0;
             _.map(values[key], value => {
+                console.log(value);
                 formData.append(`attached${i++}`, value);
             })
         } else {

@@ -57,8 +57,3 @@ export default class ProfessorDetail extends Component {
     }
 }
 
-
-// function mapStateToProps({ notices }, ownProps) {
-//     return { notice: notices[ownProps.match.params.id] };
-// }
-// export default connect(mapStateToProps, { fetchNotice, deleteNotice })(NoticeDetail);

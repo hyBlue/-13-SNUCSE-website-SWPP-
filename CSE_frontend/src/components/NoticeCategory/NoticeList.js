@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNotices, fetchTags } from '../../actions';
-import { Button, Input, Tabs, Select, Row, Col } from 'antd';
+import { Button, Input, Tabs, Select, Row, Col, Spin } from 'antd';
 import NoticeListRender from './NoticeListRender';
+
 const Search = Input.Search;
 const TabPane = Tabs.TabPane;
 const Option = Select.Option;
@@ -19,12 +20,13 @@ class NoticeList extends Component {
             tagNotices: [],
             displayedTagNotices: [],
             isTagShow: false,
-            currentTab: "all"
+            currentTab: "all",
+            loading: true
         }
     }
     componentDidMount() {
         this.props.fetchNotices().then(() => {
-            this.setState({ displayedNotices: this.props.notices });
+            this.setState({ displayedNotices: this.props.notices, loading: false });
         });
         this.props.fetchTags().then(() => {
             let categoryItems = [];
@@ -50,21 +52,21 @@ class NoticeList extends Component {
         });
         return list;
     }
-    
+
     getCurrentTab(activeKey) {
         this.setState({ currentTab: activeKey });
     }
     //Search notices by title and content
     showSearchResult(searchValue) {
         let value = searchValue.toLowerCase();
-        if(this.state.isTagShow){//태그별 리스트 내에서 검색
+        if (this.state.isTagShow) {//태그별 리스트 내에서 검색
             let filteredNotices;
             filteredNotices = _.filter(this.state.tagNotices, notice =>
                 notice.title.toLowerCase().includes(value) || notice.content.toLowerCase().includes(value)
             )
             this.setState({ displayedTagNotices: filteredNotices });
         }
-        else if (this.state.currentTab === "all" ) {//전체에서 검색
+        else if (this.state.currentTab === "all") {//전체에서 검색
             let filteredNotices;
             filteredNotices = _.filter(this.props.notices, notice =>
                 notice.title.toLowerCase().includes(value) || notice.content.toLowerCase().includes(value)
@@ -83,13 +85,13 @@ class NoticeList extends Component {
     }
 
     handleTagChange(value) {
-        this.setState({isTagShow: value.length!==0});
-        this.setState({tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value)});        
+        this.setState({ isTagShow: value.length !== 0 });
+        this.setState({ tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value) });
     }
     render() {
-        const { notices, tags } = this.props;
-        if (!notices) {
-            return <div>Loading...</div>;
+        const { notices, loading } = this.props;
+        if (!notices || loading) {
+            return <Spin />;
         }
         const tagOptions = [];
         _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
@@ -111,7 +113,7 @@ class NoticeList extends Component {
                             defaultValue={[]}
                             onChange={this.handleTagChange.bind(this)}
                             allowClear={true}
-                            disabled={this.state.currentTab!=="all"}
+                            disabled={this.state.currentTab !== "all"}
                         >
                             {tagOptions}
                         </Select>
@@ -119,12 +121,13 @@ class NoticeList extends Component {
                 </Row>
 
                 <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
-                    <TabPane tab="전체" key="all"><NoticeListRender notices={!this.state.isTagShow? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
+                    <TabPane tab="전체" key="all"><NoticeListRender loading={this.state.loading} notices={!this.state.isTagShow ? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
                     <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} /></TabPane>
                     <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} /></TabPane>
                     <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} /></TabPane>
                     <TabPane tab="기타" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} /></TabPane>
                 </Tabs>
+
                 <div className="write-notice text-xs-right">
                     <Button type="primary">
                         <Link className="btn" to="/notice/new">

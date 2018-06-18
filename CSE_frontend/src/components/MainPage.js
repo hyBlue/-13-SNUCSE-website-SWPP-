@@ -93,12 +93,12 @@ class MainPage extends Component {
         <Row>{this.renderBackgrounImgSlider()}</Row>
         <Row style={{ height: '660px' }}>
           <Col className='mainPostsContainer' span={14}>
-            <Card className='mainPostsList' title="새 소식" extra={<Link to="/noitceNews/news">더보기</Link>} >
+            <Card className='mainPostsList' title="새 소식" extra={<Link to="/notice_news/news">더보기</Link>} >
                {this.renderGridCardNews()}
             </Card>
           </Col>
           <Col className='mainPostsContainer' span={10}>
-            <Card className='mainPostsList' title="공지사항" extra={<Link to="/noitceNews/notice">더보기</Link>} >
+            <Card className='mainPostsList' title="공지사항" extra={<Link to="/notice_news/notice">더보기</Link>} >
               {this.renderNotice()} 
             </Card>
           </Col>
@@ -114,7 +114,6 @@ class MainPage extends Component {
 }
 
 function mapStateToProps({ mainItems }) {
-  console.log(mainItems);
   return { notices: mainItems.notices, news: mainItems.news, }
 }
 
