@@ -40,7 +40,7 @@ export default class MainNavigateBar extends Component {
             <Row>
                 <Col span={4} className="catBlock text-xs-center" >
                     <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '학부소개', to: '/about/CSE' }, { key: 1, title: '학부장', to: '/about/greetings' }, { key: 2, title: '연혁', to: '/about/history' },
-                    { key: 3, title: '졸업생 진로', to: '/about/career-options' }, { key: 4, title: '동아리 소개', to: '/about/student-clubs' }, { key: 5, title: '시설안내', to: '/about/facilities' },
+                    { key: 3, title: '졸업생 진로', to: '/about/career' }, { key: 4, title: '동아리 소개', to: '/about/clubs' }, { key: 5, title: '시설안내', to: '/about/facilities' },
                     { key: 6, title: '연락처', to: '/about/contact-us' }, { key: 7, title: '찾아오는 길', to: '/about/directions' }])}>
                         <Link className="MainCategories" to={'/about/CSE'}>
                             소개</Link></Dropdown>
@@ -51,19 +51,19 @@ export default class MainNavigateBar extends Component {
                     </Dropdown>
                 </Col>
                 <Col span={4} className="catBlock  text-xs-center">
-                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '연구 그룹' }, { key: 1, title: '연구 센터' }, { key: 2, title: '연구실 목록' }, { key: 3, title: 'CSE Top Conference List' }])}>
+                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '연구 그룹', to: '/research/groups' }, { key: 1, title: '연구 센터', to: '/research/centers' }, { key: 2, title: '연구실 목록', to: '/research/labs' }, { key: 3, title: 'CSE Top Conference List' }])}>
                         <Link className="MainCategories" to={'/'}>연구</Link></Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
-                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu2({ groupTitle: '학부', items: [{ key: 0, title: '수시 모집' }, { key: 1, title: '정시 모집' }, { key: 2, title: '학사 편입학' },] },
-                        { groupTitle: '대학원', items: [{ key: 3, title: '전기/후기 모집' }] })}>
-                        <Link className="MainCategories" to={'/'}>입학</Link>
+                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu2({ groupTitle: '학부', items: [{ key: 0, title: '수시 모집', to: '/admissions/susi' }, { key: 1, title: '정시 모집', to: '/admissions/jeongsi' }, { key: 2, title: '학사 편입학', to: '/admissions/transfer' },] },
+                        { groupTitle: '대학원', items: [{ key: 3, title: '전기/후기 모집', to: '/admissions/regular' }] })}>
+                        <Link className="MainCategories" to={'/admissions'}>입학</Link>
                     </Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
-                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu2({ groupTitle: '학부', items: [{ key: 0, title: '교과목 정보', to: '/undergraduate/courses' }, { key: 1, title: '선수 교과목', to: '/undergraduate/course-dependency-graph' }, { key: 2, title: '전공 이수 표준 형태', to: '/undergraduate/recommended-tracks' }, { key: 3, title: '필수 교양 과목', to: '/undergraduate/general-education-requirements' }, { key: 4, title: '졸업 규정', to: '/undergraduate/degree-requirements' }, { key: 5, title: '교과목 변경 내역', to: '/undergraduate/course-changes' }, { key: 6, title: '장학제도', to: '/undergraduate/scholarships' },] },
+                    <Dropdown placement="bottomCenter" overlay={this.renderSubMenu2({ groupTitle: '학부', items: [{ key: 0, title: '교과목 정보', to: '/academic/courses' }, { key: 1, title: '선수 교과목', to: '/academic/course-dependency-graph' }, { key: 2, title: '전공 이수 표준 형태', to: '/academic/recommended-tracks' }, { key: 3, title: '필수 교양 과목', to: '/academic/general-education-requirements' }, { key: 4, title: '졸업 규정', to: '/academic/degree-requirements' }, { key: 5, title: '교과목 변경 내역', to: '/academic/course-changes' }, { key: 6, title: '장학제도', to: '/academic/scholarships' },] },
                         { groupTitle: '대학원', items: [{ key: 7, title: '교과목 정보' }, { key: 8, title: '교과목 변경내역' }, { key: 9, title: '장학제도' }] })}>
-                        <Link className="MainCategories" to={'/undergraduate'}>학사</Link>
+                        <Link className="MainCategories" to={'/academic'}>학사</Link>
                     </Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
