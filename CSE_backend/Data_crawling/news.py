@@ -3,10 +3,11 @@ import io
 from bs4 import BeautifulSoup
 
 url = "https://cse.snu.ac.kr/news"
-for i in range(10):
+for i in range(10, -1, -1):
     html = requests.get(url, params={'page': i}).text
     soup = BeautifulSoup(html, 'html.parser')
     news = soup.select('div.clearfix2 h2.node-title')
+    news.reverse()
     for j in news:
         node = j.find('a')['href']
         html_ = requests.get('https://cse.snu.ac.kr' + node).text
