@@ -95,7 +95,7 @@ class StandardCalendar extends React.Component {
   }
 
   render() {
-    return <WeekCalendar
+    return <div><WeekCalendar
       className="weekCalendar"
       firstDay={this.props.date}
       startTime={moment({ h: 9, m: 0 })}
@@ -109,7 +109,7 @@ class StandardCalendar extends React.Component {
       onIntervalSelect={value => this.handleSelect(value)}
       onIntervalUpdate={this.handleEventUpdate}
       onIntervalRemove={this.handleEventRemove}
-    />
+    /></div>
   }
 }
 

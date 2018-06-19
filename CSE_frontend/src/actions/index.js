@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const FETCH_MAINNOTICES = 'fetch_main_notices';
+export const FETCH_MAINNEWS = 'fetch_main_news';
 export const FETCH_NOTICES = 'fetch_notices';
 export const FETCH_NOTICE = 'fetch_notice';
 export const FETCH_NEWSES = 'fetch_newses';
@@ -22,12 +24,48 @@ export const DELETE_RESERVATION = 'delete_reservation';
 const ROOT_URL = 'http://127.0.0.1:8000/api';
 const API_KEY = '?key=TEMPORARY1234';
 
+export function fetchMainNotices(itemNumber) {
+    const request = axios.get(`${ROOT_URL}/notice${API_KEY}`, {
+        params: {
+            page : 1,
+            page_size : itemNumber
+        }
+    })
+    return {
+        type: FETCH_MAINNOTICES,
+        payload: request
+    }
+}
+export function fetchMainNews(itemNumber) {
+    const request = axios.get(`${ROOT_URL}/news${API_KEY}`, {
+        params: {
+            page : 1,
+            page_size : itemNumber
+        }
+    })
+    return {
+        type: FETCH_MAINNEWS,
+        payload: request
+    }
+}
 export function fetchNotices() {
     const request = axios.get(`${ROOT_URL}/notice${API_KEY}`)
     return {
         type: FETCH_NOTICES,
         payload: request
     };
+}
+export function fetchNoticeByPage(pageNumber, pageSize) {
+    const request = axios.get(`${ROOT_URL}/notice${API_KEY}`, {
+        params: {
+            page : pageNumber,
+            page_size : pageSize
+        }
+    })
+    return {
+        type: FETCH_MAINNOTICES,
+        payload: request
+    }
 }
 
 export function fetchNotice(id) {
@@ -124,6 +162,7 @@ export function createNotice(values, callback) {
         if (key === 'attached') {
             let i = 0;
             _.map(values[key], value => {
+                console.log(value);
                 formData.append(`attached${i++}`, value);
             })
         } else {

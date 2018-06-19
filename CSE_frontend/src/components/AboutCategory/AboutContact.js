@@ -6,8 +6,8 @@ class AboutContact extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>연락처</h5>
+                <Row className="pageTitle">
+                    <h3>연락처</h3>
                 </Row>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <h6>서울대학교 공과대학 컴퓨터공학부</h6>

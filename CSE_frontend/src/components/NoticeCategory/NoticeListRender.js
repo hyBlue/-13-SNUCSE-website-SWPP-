@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Button, Input, Tabs, List, Row, Col, Table, Spin } from 'antd';
+import { fetchNotices, fetchTags }  from '../../actions';
 const Search = Input.Search;
 
-export default class NoticeListRender extends Component {
+class NoticeListRender extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             noticeList: [],
-            loading: true
         }
-    }
-    componentDidMount() {
-        //It's currently the best loading action...
-        setTimeout(function() {this.setState({loading:false})}.bind(this), 350)
     }
 
     //공지 리스트 만들기
@@ -35,41 +32,45 @@ export default class NoticeListRender extends Component {
         });
     }
 
-    renderList(){
+    renderList() {
         const columns = [{
             title: '번호',
             dataIndex: 'id',
             key: 'id',
             align: 'center'
-          }, {
+        }, {
             title: '제목',
             dataIndex: 'title',
             key: 'title',
-            render: (text, notice) =>  <Link to={`/notice/${notice.id}`}>{text}</Link>
-          }, {
+            render: (text, notice) => <Link to={`/notice_news/notice/${notice.id}`}>{text}</Link>
+        }, {
             title: '작성일',
             dataIndex: 'created_at',
             key: 'created_at',
             align: 'center',
             render: (text) => text.substring(0, 10)
-          }, {
+        }, {
             title: '조회수',
             dataIndex: 'view',
             key: 'view',
             align: 'center'
-          }
+        }
         ];
-        return (<Table loading={this.state.loading} dataSource={_.values(_.mapValues(this.props.notices, element => 
-            { let notice = element; notice['key']=element.id; return notice;}))}
-            columns={columns}
-            pagination={{pageSize: 15, showSizeChanger: true}} 
-        />);
+        return (
+            <Table 
+                loading={this.state.loading} 
+                dataSource={_.values(_.mapValues(this.props.notices2, element => 
+                    { let notice = element; notice['key'] = element.id; return notice; }))}
+                columns={columns}
+                pagination={{ pageSize: 15, showSizeChanger: true, onChange: () => {} }}
+            />
+        );
     }
-   
+
     render() {
-        const { notices } = this.props;
-        if (!notices) {
-            return <div>Loading...</div>;
+        const { loading } = this.props;
+        if (loading) {
+            return <Spin />;
         }
         return (
             <div>
@@ -78,3 +79,9 @@ export default class NoticeListRender extends Component {
         );
     }
 }
+
+function mapStateToProps({ notices }) {
+    return { notices2: notices }
+}
+
+export default connect(mapStateToProps, { fetchNotices, fetchTags })(NoticeListRender);

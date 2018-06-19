@@ -39,6 +39,16 @@ a, u {
 .pageContent {
   padding: 20px 30px 30px 30px!important;
 }
+/* Title style for all page */
+.pageTitle {
+  font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
+  background: #d6ffd6!important; 
+  margin-bottom: 20px!important;
+  padding: 10px!important;
+}
+.pageTitle h3 {
+  margin: 0;
+}
 
 .main-notice {
   border: 1px solid #ddd;
@@ -149,19 +159,21 @@ a, u {
   font-size: 20px!important;
   font-style: oblique!important;
 }
+
+
+
+
 /* Notice List UI*/
-.pageTitle {
-  font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
-  color: rgb(73, 145, 226)!important;
-  font-size: 2em!important;
-  padding: 5px 5px 5px 10px!important;
-  margin-bottom: 10px!important;
-  /* //border: 1px outset #ced1d72b!important; */
-}
+
 .ant-tabs-bar {
   margin-bottom: 2px!important;
 }
-
+.post .ant-card-head-title {
+  font-size: 2rem!important;
+}
+.postButtons {
+  margin-left: 5px!important;
+}
 
 /* Professor List UI */
 .memberList * {
@@ -226,6 +238,9 @@ a, u {
   color: royalblue!important;
   font-size:calc(10px + 0.5rem)!important;
   text-align: center!important;
+}
+.weekCalendar__headerWrapper {
+
 }
 .weekCalendar__headerColumn {
   color: white!important;

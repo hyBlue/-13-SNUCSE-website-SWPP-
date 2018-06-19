@@ -1,7 +1,5 @@
-
 import requests
 from time import sleep
-
 
 
 def get_json_or_error_new(link):
@@ -17,6 +15,7 @@ def get_json_or_error_new(link):
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
 
+
 def delete_or_error(link):
     sleep(0.05)
     try:
@@ -27,6 +26,7 @@ def delete_or_error(link):
     except Exception:
         print("ERROR: Cannot delete {0}".format(link))
         exit(1)
+
 
 def put_or_error(link, data):
     sleep(0.05)
@@ -44,7 +44,7 @@ def put_or_error(link, data):
 def post_or_error(link, data):
     sleep(0.05)
     try:
-        res = requests.post(link, data=data, auth = ("user1", "1"))
+        res = requests.post(link, data=data, auth=("user1", "1"))
         if res.status_code != 201:
             print("ERROR: Cannot post {0} : {1}, id = {2}, pwd = {3}".format(link, res.status_code))
             exit(1)
@@ -57,10 +57,13 @@ def get_json_or_error(link, number):
     sleep(0.05)
     try:
         res = requests.get(link).json()
-        return res['results']
+        res_ = res[:number]
+        res_.reverse()
+        return res_
     except Exception:
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
+
 
 def forbidden_or_error(method, link):
     sleep(0.05)
@@ -80,24 +83,27 @@ def forbidden_or_error(method, link):
         print("ERROR: Cannot {0} {1}".format(method, link))
         exit(1)
 
+
 def forbidden_or_error_anon(method, link):
     sleep(0.05)
     try:
         if method == "GET":
             res = requests.get(link)
         elif method == "DELETE":
-            res = requests.delete(link, auth = ("user1", "1"))
+            res = requests.delete(link, auth=("user1", "1"))
         elif method == "POST":
             res = requests.post(link)
         elif method == "PUT":
             res = requests.put(link)
 
         if res.status_code != 403:
-            print("ERROR: Should not be allowed to {0} {1} with no auth : code {2}".format(method, link, res.status_code))
+            print(
+                "ERROR: Should not be allowed to {0} {1} with no auth : code {2}".format(method, link, res.status_code))
             exit(1)
     except Exception:
         print("ERROR: Cannot get {0}".format(link))
         exit(1)
+
 
 def check_key(json, key):
     if key not in json:
@@ -105,9 +111,8 @@ def check_key(json, key):
         exit(1)
 
 
-
-print("******************************************************************************************************************")
-
+print(
+    "******************************************************************************************************************")
 
 sleep(10)
 
@@ -116,11 +121,11 @@ noticeN = 10
 print("1. Checking POST Notice http://localhost:8000/api/notice by creating {0} Notice.".format(noticeN))
 notices = []
 for i in range(0, noticeN):
-    title = "Notice{0}".format(i+1)
-    content = "Content{0}".format(i+1)
+    title = "Notice{0}".format(i + 1)
+    content = "Content{0}".format(i + 1)
     author = "user1"
 
-    notice = {'title':title, 'content':content, 'author':author, }
+    notice = {'title': title, 'content': content, 'author': author, }
     notices.append(notice)
     post_or_error(link, notice)
 
@@ -140,7 +145,8 @@ for notice in notices:
         check_key(notice_json, "content")
         check_key(notice_json, "author")
 
-        if notice_json["title"] == notice["title"] and notice_json["content"] == notice["content"] and notice_json["author"] == notice["author"]:
+        if notice_json["title"] == notice["title"] and notice_json["content"] == notice["content"] and notice_json[
+            "author"] == notice["author"]:
             found = True
             notice["id"] = notice_json["id"]
             notice["created_at"] = notice_json["created_at"]
@@ -150,7 +156,8 @@ for notice in notices:
         exit(1)
 
 print("POST AND GET SUCCESS")
-print("******************************************************************************************************************")
+print(
+    "******************************************************************************************************************")
 link = "http://localhost:8000/api/notice/"
 
 test_cnt = 0
@@ -160,11 +167,11 @@ for notice in notices:
     link2 = link + str(notice["id"]) + "/"
     print("\tModify notice {0}".format(link2))
 
-
-    payload = {'title': notice['title']+"_modified", 'content':notice['content']+"_modified"}
+    payload = {'title': notice['title'] + "_modified", 'content': notice['content'] + "_modified"}
     put_or_error(link2, payload)
 
-print("******************************************************************************************************************")
+print(
+    "******************************************************************************************************************")
 link = "http://localhost:8000/api/notice/"
 print("4. Checking DELETE http://localhost:8000/api/notice/")
 for notice in notices:
