@@ -52,7 +52,7 @@ export default class MainNavigateBar extends Component {
                 </Col>
                 <Col span={4} className="catBlock  text-xs-center">
                     <Dropdown placement="bottomCenter" overlay={this.renderSubMenu([{ key: 0, title: '연구 그룹', to: '/research/groups' }, { key: 1, title: '연구 센터', to: '/research/centers' }, { key: 2, title: '연구실 목록', to: '/research/labs' }, { key: 3, title: 'CSE Top Conference List' }])}>
-                        <Link className="MainCategories" to={'/'}>연구</Link></Dropdown>
+                        <Link className="MainCategories" to={'/research'}>연구</Link></Dropdown>
                 </Col>
                 <Col span={4} className="catBlock text-xs-center">
                     <Dropdown placement="bottomCenter" overlay={this.renderSubMenu2({ groupTitle: '학부', items: [{ key: 0, title: '수시 모집', to: '/admissions/susi' }, { key: 1, title: '정시 모집', to: '/admissions/jeongsi' }, { key: 2, title: '학사 편입학', to: '/admissions/transfer' },] },
