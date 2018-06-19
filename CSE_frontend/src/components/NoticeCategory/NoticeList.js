@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchMainNotices, fetchfetchTags } from '../../actions';
+import { fetchNotices, fetchMainNotices, fetchTags } from '../../actions';
 import { Button, Input, Tabs, Select, Row, Col, Spin } from 'antd';
 import NoticeListRender from './NoticeListRender';
 
@@ -21,10 +21,13 @@ class NoticeList extends Component {
             displayedTagNotices: [],
             isTagShow: false,
             currentTab: "all",
+            tempDataloading: true
         }
     }
     componentDidMount() {
-
+        this.props.fetchMainNotices(15).then(()=> {
+            this.setState({tempDataloading: false});
+        })
         // this.props.fetchNotices().then(() => {
         this.setState({ displayedNotices: this.props.notices });
         // });
@@ -38,16 +41,12 @@ class NoticeList extends Component {
         });
     }
     componentWillReceiveProps(newProps) {
-        if (newProps.notices !== this.props.notices) {
-            this.props.fetchNotices().then(() => this.setState({ displayedNotices: this.props.notices }));
-        }
-        if (!this.props.loading) {
-            this.props.fetchMainNotices(15).then(()=> {
-                this.setState({ displayedNotices: this.props.temporaryNotice });
-            })
-        }
-        else {
-            this.setState({ displayedNotices: this.props.notices });
+        // if (newProps.notices !== this.props.notices) {
+        //     this.props.fetchNotices().then(() => this.setState({ displayedNotices: this.props.notices }));
+        // }
+        if (newProps.loading !== this.props.loading) {
+            if(!newProps.loading)
+                this.setState({ displayedNotices: this.props.notices });
         }
     }
 
@@ -131,7 +130,10 @@ class NoticeList extends Component {
                 </Row>
 
                 <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
-                    <TabPane tab="전체" key="all"><NoticeListRender loading={loading} notices={!this.state.isTagShow ? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
+                    <TabPane tab="전체" key="all"><NoticeListRender
+                        loading={this.state.tempDataloading}
+                        notices={loading? this.props.temporaryNotices : 
+                                          (!this.state.isTagShow ? this.state.displayedNotices : this.state.displayedTagNotices)} /></TabPane>
                     <TabPane tab="학부 공지" key="0"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[0]} /></TabPane>
                     <TabPane tab="학사 공지" key="1"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[1]} /></TabPane>
                     <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[2]} /></TabPane>
@@ -150,7 +152,7 @@ class NoticeList extends Component {
 }
 
 function mapStateToProps({ mainItems, notices, tags, }) {
-    return { temporaryNotice: mainItems.notices , notices, tags }
+    return { temporaryNotices: mainItems.notices , notices, tags }
 }
 
 export default connect(mapStateToProps, { fetchNotices, fetchMainNotices, fetchTags })(NoticeList);
