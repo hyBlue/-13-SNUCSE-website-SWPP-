@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchNewses } from '../../actions';
 import { Card, Spin } from 'antd';
+import renderHTML from 'react-render-html';
 
 class NewsList extends Component {
 
@@ -28,7 +29,7 @@ class NewsList extends Component {
           <Link to={`/notice_news/news/${news.id}`} >
           <img src={news.image} style={{width:'100%', height:'13rem'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
-          <p className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{news.content}</p>
+          <p className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{renderHTML(news.content)}</p>
           </Link>
         </Card.Grid>
       )
