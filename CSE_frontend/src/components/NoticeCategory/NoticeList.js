@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchNotices, fetchTags } from '../../actions';
+import { fetchNotices, fetchMainNotices, fetchfetchTags } from '../../actions';
 import { Button, Input, Tabs, Select, Row, Col, Spin } from 'antd';
 import NoticeListRender from './NoticeListRender';
 
@@ -21,13 +21,13 @@ class NoticeList extends Component {
             displayedTagNotices: [],
             isTagShow: false,
             currentTab: "all",
-            loading: true
         }
     }
     componentDidMount() {
-        this.props.fetchNotices().then(() => {
-            this.setState({ displayedNotices: this.props.notices, loading: false });
-        });
+
+        // this.props.fetchNotices().then(() => {
+        this.setState({ displayedNotices: this.props.notices });
+        // });
         this.props.fetchTags().then(() => {
             let categoryItems = [];
             categoryItems[0] = this.getCategoryNotices([1, 7, 8, 9, 10]);
@@ -36,6 +36,19 @@ class NoticeList extends Component {
             categoryItems[3] = this.getCategoryNotices([11, 12, 17]);
             this.setState({ categoryNotices: categoryItems, displayedCategoryNotices: categoryItems })
         });
+    }
+    componentWillReceiveProps(newProps) {
+        if (newProps.notices !== this.props.notices) {
+            this.props.fetchNotices().then(() => this.setState({ displayedNotices: this.props.notices }));
+        }
+        if (!this.props.loading) {
+            this.props.fetchMainNotices(15).then(()=> {
+                this.setState({ displayedNotices: this.props.temporaryNotice });
+            })
+        }
+        else {
+            this.setState({ displayedNotices: this.props.notices });
+        }
     }
 
     //카테고리별(tags의 notice 수합) 공지 리스트 만들기
@@ -89,10 +102,7 @@ class NoticeList extends Component {
         this.setState({ tagNotices: this.getCategoryNotices(value), displayedTagNotices: this.getCategoryNotices(value) });
     }
     render() {
-        const { notices, loading } = this.props;
-        if (!notices || loading) {
-            return <Spin />;
-        }
+        const { loading } = this.props;
         const tagOptions = [];
         _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
         return (
@@ -121,11 +131,11 @@ class NoticeList extends Component {
                 </Row>
 
                 <Tabs defaultActiveKey="all" onChange={(currentTab) => this.getCurrentTab(currentTab)}>
-                    <TabPane tab="전체" key="all"><NoticeListRender loading={this.state.loading} notices={!this.state.isTagShow ? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
-                    <TabPane tab="학부 공지" key="0"><NoticeListRender notices={this.state.displayedCategoryNotices[0]} /></TabPane>
-                    <TabPane tab="학사 공지" key="1"><NoticeListRender notices={this.state.displayedCategoryNotices[1]} /></TabPane>
-                    <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender notices={this.state.displayedCategoryNotices[2]} /></TabPane>
-                    <TabPane tab="기타" key="3"><NoticeListRender notices={this.state.displayedCategoryNotices[3]} /></TabPane>
+                    <TabPane tab="전체" key="all"><NoticeListRender loading={loading} notices={!this.state.isTagShow ? this.state.displayedNotices : this.state.displayedTagNotices} /></TabPane>
+                    <TabPane tab="학부 공지" key="0"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[0]} /></TabPane>
+                    <TabPane tab="학사 공지" key="1"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[1]} /></TabPane>
+                    <TabPane tab="취업/대외활동 공지" key="2"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[2]} /></TabPane>
+                    <TabPane tab="기타" key="3"><NoticeListRender loading={loading} notices={this.state.displayedCategoryNotices[3]} /></TabPane>
                 </Tabs>
 
                 <div className="write-notice text-xs-right">
@@ -139,8 +149,8 @@ class NoticeList extends Component {
     }
 }
 
-function mapStateToProps({ notices, tags, }) {
-    return { notices, tags, }
+function mapStateToProps({ mainItems, notices, tags, }) {
+    return { temporaryNotice: mainItems.notices , notices, tags }
 }
 
-export default connect(mapStateToProps, { fetchNotices, fetchTags })(NoticeList);
+export default connect(mapStateToProps, { fetchNotices, fetchMainNotices, fetchTags })(NoticeList);

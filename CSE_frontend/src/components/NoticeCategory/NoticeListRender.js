@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Button, Input, Tabs, List, Row, Col, Table, Spin } from 'antd';
+import { fetchNotices, fetchTags }  from '../../actions';
 const Search = Input.Search;
 
-export default class NoticeListRender extends Component {
+class NoticeListRender extends Component {
 
     constructor(props) {
         super(props);
@@ -57,10 +59,10 @@ export default class NoticeListRender extends Component {
         return (
             <Table 
                 loading={this.state.loading} 
-                dataSource={_.values(_.mapValues(this.props.notices, element => 
+                dataSource={_.values(_.mapValues(this.props.notices2, element => 
                     { let notice = element; notice['key'] = element.id; return notice; }))}
                 columns={columns}
-                pagination={{ pageSize: 15, showSizeChanger: true }}
+                pagination={{ pageSize: 15, showSizeChanger: true, onChange: () => {} }}
             />
         );
     }
@@ -77,3 +79,9 @@ export default class NoticeListRender extends Component {
         );
     }
 }
+
+function mapStateToProps({ notices }) {
+    return { notices2: notices }
+}
+
+export default connect(mapStateToProps, { fetchNotices, fetchTags })(NoticeListRender);

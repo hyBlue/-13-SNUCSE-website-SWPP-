@@ -1,7 +1,7 @@
 import { Affix, Layout, Row, Col, Menu, Icon, Button } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 const MenuItemGroup = Menu.ItemGroup;
-import { deleteNotice } from '../../actions';
+import { fetchNotices, fetchNewses, deleteNotice } from '../../actions';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import forSlider3 from '../../../icons/forSlider3.jpg';
@@ -23,6 +23,8 @@ class NoticeNewsPage extends Component {
     }
     //Needed for access by url
     componentWillMount() {
+        this.props.fetchNotices().then(()=> this.setState({loading: false}));
+        this.props.fetchNewses();
         if (this.props.match && this.props.match.params) {
             const param = this.props.match.params;
             this.setState({
@@ -72,11 +74,11 @@ class NoticeNewsPage extends Component {
     renderSubCategoryPage(subCategory) {
         switch (subCategory) {
             case "notice":
-                return <NoticeList />;
+                return <NoticeList loading={this.state.loading}/>;
             case "news":
-                return <NewsList />;
+                return <NewsList loading={this.state.loading}/>;
             default:
-                return <NoticeList />;
+                return <NoticeList loading={this.state.loading}/>;
         }
     }
     render() {
@@ -103,8 +105,8 @@ class NoticeNewsPage extends Component {
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
                                     <MenuItemGroup className="menuGroup" key="g2" title="알림광장">
-                                        <Menu.Item key="notice" onClick={() => this.props.history.push('/noitce_news/notice')}>공지사항</Menu.Item>
-                                        <Menu.Item key="news" onClick={() => this.props.history.push('/notice_news/news')}>새소식</Menu.Item>
+                                        <Menu.Item key="notice" onClick={() => { this.props.fetchNotices(); this.props.history.push('/noitce_news/notice')}}>공지사항</Menu.Item>
+                                        <Menu.Item key="news" onClick={() => { this.props.fetchNewses(); this.props.history.push('/notice_news/news')}}>새소식</Menu.Item>
                                         {/* <Menu.Item key="professor" onClick={() => this.props.history.push('/members/professor')}>교수</Menu.Item> */}
                                     </MenuItemGroup>
                                 </Menu>
@@ -133,4 +135,4 @@ class NoticeNewsPage extends Component {
     }
 }
 
-export default connect(null, { deleteNotice })(NoticeNewsPage);
+export default connect(null, { fetchNotices, fetchNewses, deleteNotice })(NoticeNewsPage);
