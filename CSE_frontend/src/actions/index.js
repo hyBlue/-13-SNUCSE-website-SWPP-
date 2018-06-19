@@ -55,6 +55,18 @@ export function fetchNotices() {
         payload: request
     };
 }
+export function fetchNoticeByPage(pageNumber, pageSize) {
+    const request = axios.get(`${ROOT_URL}/notice${API_KEY}`, {
+        params: {
+            page : pageNumber,
+            page_size : pageSize
+        }
+    })
+    return {
+        type: FETCH_MAINNOTICES,
+        payload: request
+    }
+}
 
 export function fetchNotice(id) {
     const request = axios.get(`${ROOT_URL}/notice/${id}${API_KEY}`)

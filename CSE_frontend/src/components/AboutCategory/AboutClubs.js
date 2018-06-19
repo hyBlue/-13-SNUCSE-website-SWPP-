@@ -27,8 +27,8 @@ class AboutClubs extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>동아리 소개</h5>
+                <Row className="pageTitle">
+                    <h3>동아리 소개</h3>
                 </Row>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <Row style={{ backgroundColor: '#f9f9f9', padding: '10px' }}>

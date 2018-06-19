@@ -6,8 +6,8 @@ class AboutHistory extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>연혁</h5>
+                <Row className="pageTitle">
+                    <h3>연혁</h3>
                 </Row>
                 <div>
                 

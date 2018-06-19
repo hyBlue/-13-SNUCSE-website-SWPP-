@@ -6,8 +6,8 @@ class AboutContact extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>찾아오는 길</h5>
+                <Row className="pageTitle">
+                    <h3>찾아오는 길</h3>
                 </Row>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     컴퓨터공학부는 서울대학교 관악캠퍼스 제1공학관 (301동)과 제2공학관 (302동)에 있습니다.

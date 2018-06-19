@@ -6,8 +6,8 @@ class AboutGreetings extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>학부장 인사말</h5>
+                <Row className="pageTitle">
+                    <h3>학부장 인사말</h3>
                 </Row>
                 <div>
                 

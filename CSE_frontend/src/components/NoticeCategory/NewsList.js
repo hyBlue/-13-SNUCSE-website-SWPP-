@@ -8,16 +8,14 @@ class NewsList extends Component {
 
   constructor() {
     super();
-    this.state = {
-      loading: true
-    }
   }
-  componentDidMount() {
-      this.props.fetchNewses().then(() => this.setState({loading: false}));
+ 
+  componentWillReceiveProps(newProps) {
+    if(newProps.news !== this.props.news)
+        this.props.fetchNewses();
   }
 
   renderNewsCards() {
-    
     const gridStyle = {
       width: '30%',
       height: 'auto',
@@ -38,15 +36,11 @@ class NewsList extends Component {
   }
 
   render() {
-    const { news } = this.props;
-    if(!news) {
-        return <div>Loading...</div>;
-    }
     return (
         <div>
             {/* <div className="pageTitle">새소식</div> */}
             <h2>새소식</h2>
-            {this.state.loading && <Spin />}
+            {this.props.loading && <Spin />}
             {this.renderNewsCards()}
         </div>
     );
