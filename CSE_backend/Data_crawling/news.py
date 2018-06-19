@@ -13,7 +13,7 @@ for i in range(10, -1, -1):
         html_ = requests.get('https://cse.snu.ac.kr' + node).text
         soup_ = BeautifulSoup(html_, 'html.parser')
         title = soup_.find('h1', class_='title').text
-        content = soup_.find('div', class_='field field-name-body field-type-text-with-summary field-label-hidden').text
+        content = soup_.find('div', class_='field field-name-body field-type-text-with-summary field-label-hidden')
         image_url = soup_.find('div', class_='field field-name-field-main-image '
                                              'field-type-image field-label-hidden').find('img')['src']
         image = requests.get(image_url).content
