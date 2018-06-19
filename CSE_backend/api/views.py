@@ -1,4 +1,3 @@
-
 from api.models import *
 from api.serializers import *
 from rest_framework import generics
@@ -12,8 +11,10 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
+
 class NoticePagination(PageNumberPagination):
     page_size_query_param = 'page_size'
+
 
 class NoticeList(generics.ListCreateAPIView):
     queryset = Notice.objects.all().order_by('-created_at')
@@ -25,16 +26,17 @@ class NoticeList(generics.ListCreateAPIView):
         serializer.save(author=self.request.user.username)
 
     @csrf_exempt
-    def post(self, request, format = None):
+    def post(self, request, format=None):
         data = request.data
         attached_list = []
         i = 0
         while True:
             if "attached" + str(i) in data:
-                attached = Attached(attached=data["attached" + str(i)])
+                attached = Attached(attached=data["attached" + str(i)], name=data["name"] + str(i),
+                                    size=data["size"] + str(i))
                 attached.save()
                 attached_list.append(attached)
-                i+=1
+                i += 1
             else:
                 break
         tag_set = []
@@ -104,14 +106,12 @@ class UserList(generics.ListAPIView):
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class NewsList(generics.ListCreateAPIView):
-
-    queryset = News.objects.all()
+    queryset = News.objects.all().order_by('-created_at')
     serializer_class = NewsSerializer
     pagination_class = NoticePagination
 
@@ -123,6 +123,7 @@ class NewsList(generics.ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
 
 class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = News.objects.all()
