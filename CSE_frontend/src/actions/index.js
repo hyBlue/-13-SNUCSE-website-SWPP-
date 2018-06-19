@@ -31,6 +31,7 @@ export function fetchMainNotices(itemNumber) {
             page_size : itemNumber
         }
     })
+    console.log(itemNumber);
     return {
         type: FETCH_MAINNOTICES,
         payload: request
