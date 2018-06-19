@@ -1,18 +1,23 @@
-import { Affix, Layout, Row, Col, Menu, Icon } from 'antd';
+import { Affix, Layout, Row, Col, Menu, Icon, Button } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 const MenuItemGroup = Menu.ItemGroup;
+import { deleteNotice } from '../../actions';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import forSlider3 from '../../../icons/forSlider3.jpg';
 import NoticeList from './NoticeList';
 import NewsList from './NewsList';
+import NoticeDetail from './NoticeDetail';
+import NewsDetail from './NewsDetail';
 
-export default class NoticeNewsPage extends Component {
+class NoticeNewsPage extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             currentSubCategory: "",
             currentMenuKey: ["notice"],
+            postId: "",
             loading: true
         }
     }
@@ -22,12 +27,18 @@ export default class NoticeNewsPage extends Component {
             const param = this.props.match.params;
             this.setState({
                 currentSubCategory: param.category,
-                currentMenuKey: [param.category]
+                currentMenuKey: [param.category],
+                postId: ""
             });
-            if(param.category!=="notice" && param.category!=="news"){
-                this.setState({currentMenuKey: ["notice"]})
+            if (param.category !== "notice" && param.category !== "news") {
+                this.setState({ currentMenuKey: ["notice"] })
             }//if no match, default ot professor
-        }  
+
+            //Check if the notice posts' id comes with
+            if (param.postId) {
+                this.setState({ postId: param.postId });
+            }
+        }
     }
     //Handle Change on url param match to subcategory
     componentWillReceiveProps(newProps) {
@@ -35,16 +46,31 @@ export default class NoticeNewsPage extends Component {
             const param = newProps.match.params;
             this.setState({
                 currentSubCategory: param.category,
-                currentMenuKey: [param.category]
+                currentMenuKey: [param.category],
+                postId: ""
             });
-            if(param.category!=="notice" && param.category!=="news"){
-                this.setState({currentMenuKey: ["notice"]})
+            if (param.category !== "notice" && param.category !== "news") {
+                this.setState({ currentMenuKey: ["notice"] })
             }//if no match, default ot professor
+
+            //Check if the notice posts' id comes with
+            if (param.postId) {
+                this.setState({ postId: param.postId });
+            }
         }
     }
 
+    onDeleteClick() {
+        this.props.deleteNotice(this.state.postId, () => {
+            this.setState({ postId: "" });
+        });
+    }
+    onUpdateClick() {
+        console.log('update');
+    }
+
     renderSubCategoryPage(subCategory) {
-        switch(subCategory){
+        switch (subCategory) {
             case "notice":
                 return <NoticeList />;
             case "news":
@@ -58,9 +84,9 @@ export default class NoticeNewsPage extends Component {
             <div>
                 <Layout>
                     <Header style={{ backgroundColor: '#fff', height: '200px', padding: '0' }}>
-                            <div>
-                                <img src={forSlider3} style={{height: '200px', width: '100%'}} />
-                            </div>
+                        <div>
+                            <img src={forSlider3} style={{ height: '200px', width: '100%' }} />
+                        </div>
                     </Header>
 
                     <Layout>
@@ -76,15 +102,28 @@ export default class NoticeNewsPage extends Component {
                                     selectedKeys={this.state.currentMenuKey}
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
-                                 <MenuItemGroup className="menuGroup" key="g1" title="알림광장">
-                                    <Menu.Item key="notice" onClick={() => this.props.history.push('/noitceNews/notice')}>공지사항</Menu.Item>
-                                    <Menu.Item key="news" onClick={() => this.props.history.push('/noticeNews/news')}>새소식</Menu.Item>
+                                    <MenuItemGroup className="menuGroup" key="g2" title="알림광장">
+                                        <Menu.Item key="notice" onClick={() => this.props.history.push('/noitce_news/notice')}>공지사항</Menu.Item>
+                                        <Menu.Item key="news" onClick={() => this.props.history.push('/notice_news/news')}>새소식</Menu.Item>
+                                        {/* <Menu.Item key="professor" onClick={() => this.props.history.push('/members/professor')}>교수</Menu.Item> */}
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>
                         </Sider>
 
                         <Content className="pageContent">
+                            {(this.state.currentSubCategory === 'notice' || this.state.currentSubCategory === 'news') && this.state.postId !== "" ?
+                                <div>
+                                    <div style={{ padding: '0 10px 5px 0' }}>
+                                        <Button className="postButtons" type="primary" ghost onClick={() => this.setState({ postId: "" })} >접기</Button>
+                                        {/*temporary handling for newsdetail because currently no remove news*/}
+                                        {this.state.currentSubCategory === 'notice' && <span>
+                                        <Button className="postButtons" type="danger" ghost onClick={this.onDeleteClick.bind(this)}>지우기</Button>
+                                        <Button className="postButtons" ghost style={{ border: '1px solid #6b9a79', color: '#6b9a79' }} onClick={() => this.onUpdateClick.bind(this)}>수정하기</Button></span>}
+                                    </div>
+                                    {this.state.currentSubCategory === "notice" ? <NoticeDetail id={this.state.postId} /> : <NewsDetail id={this.state.postId} />}
+                                    <br />
+                                </div> : ""}
                             {this.renderSubCategoryPage(this.state.currentSubCategory)}
                         </Content>
                     </Layout>
@@ -93,3 +132,5 @@ export default class NoticeNewsPage extends Component {
         )
     }
 }
+
+export default connect(null, { deleteNotice })(NoticeNewsPage);

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import MainItemsReducer from './reducer_mainItems';
 import NoticesReducer from './reducer_notices';
 import NewsReducer from './reducer_news';
 import MembersReducer from './reducer_members';
@@ -10,6 +11,7 @@ import { reducer as formReducer } from 'redux-form';
 
 
 const rootReducer = combineReducers({
+  mainItems: MainItemsReducer, 
   notices: NoticesReducer,
   news: NewsReducer,
   members: MembersReducer,
