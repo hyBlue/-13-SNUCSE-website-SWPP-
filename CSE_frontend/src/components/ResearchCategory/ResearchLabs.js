@@ -17,18 +17,10 @@ class ResearchLabs extends Component {
   }
 
   renderResearchlabs() {
-    return _.map(this.props.labs, lab => {
+console.log(this.props);
+    return _.map(this.props.researchlabs, lab => {
       console.log(lab);
-      if (lab.professors.length > 1)
-        return (
-          <tr key={lab.id}>
-            <td>{lab.name}</td>
-            <td>{lab.professors.shift()}</td>
-            <td>{lab.location}</td>
-            <td>{lab.abbreviation}</td>
-          </tr>
-        );
-      else
+
         return (
           <tr key={lab.id}>
             <td>{lab.name}</td>

@@ -30,10 +30,10 @@ export default class AdmissionPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if (param.category !== "admissions" && param.category !== "under" && 
-                param.category !== "undersusi" && param.category !== "underjeongsi" && 
-                param.category !== "undertransfer" && param.category !== "grad" && 
-                param.category !== "gradregular") {
+            if (param.category !== "admissions" && param.category !== "undergraduate" && 
+                param.category !== "susi" && param.category !== "jeongsi" && 
+                param.category !== "transfer" && param.category !== "graduate" && 
+                param.category !== "regular") {
                 this.setState({ currentMenuKey: ["admissions"] })
             }
         }
@@ -46,10 +46,10 @@ export default class AdmissionPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if (param.category !== "admissions" && param.category !== "under" && 
-                param.category !== "undersusi" && param.category !== "underjeongsi" && 
-                param.category !== "undertransfer" && param.category !== "grad" && 
-                param.category !== "gradregular") {
+            if (param.category !== "admissions" && param.category !== "undergraduate" && 
+                param.category !== "susi" && param.category !== "jeongsi" && 
+                param.category !== "transfer" && param.category !== "graduate" && 
+                param.category !== "regular") {
                 this.setState({ currentMenuKey: ["admissions"] })
             }
         }
@@ -104,12 +104,12 @@ console.log(subCategory);
                                 >
                                     <MenuItemGroup className="menuGroup" key="g1" title="입학">
                                         <Menu.Item key="admissions" onClick={() => this.props.history.push('/admissions')}>입학 안내</Menu.Item>
-                                        <Menu.Item key="under" onClick={() => this.props.history.push('/admissions/undergraduate')}>학부</Menu.Item>
-                                        <Menu.Item key="undersusi" onClick={() => this.props.history.push('/admissions/susi')}>수시 모집</Menu.Item>
-                                        <Menu.Item key="underjeongsi" onClick={() => this.props.history.push('/admissions/jeongsi')}>정시 모집</Menu.Item>
-                                        <Menu.Item key="undertransfer" onClick={() => this.props.history.push('/admissions/transfer')}>학사 편입학</Menu.Item>
-                                        <Menu.Item key="grad" onClick={() => this.props.history.push('/admissions/graduate')}>대학원</Menu.Item>
-                                        <Menu.Item key="gradregular" onClick={() => this.props.history.push('/admissions/regular')}>전기/후기 모집</Menu.Item>
+                                        <Menu.Item key="undergraduate" onClick={() => this.props.history.push('/admissions/undergraduate')}>학부</Menu.Item>
+                                        <Menu.Item key="susi" onClick={() => this.props.history.push('/admissions/susi')}>수시 모집</Menu.Item>
+                                        <Menu.Item key="jeongsi" onClick={() => this.props.history.push('/admissions/jeongsi')}>정시 모집</Menu.Item>
+                                        <Menu.Item key="transfer" onClick={() => this.props.history.push('/admissions/transfer')}>학사 편입학</Menu.Item>
+                                        <Menu.Item key="graduate" onClick={() => this.props.history.push('/admissions/graduate')}>대학원</Menu.Item>
+                                        <Menu.Item key="regular" onClick={() => this.props.history.push('/admissions/regular')}>전기/후기 모집</Menu.Item>
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>
