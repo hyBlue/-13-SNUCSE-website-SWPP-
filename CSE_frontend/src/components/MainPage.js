@@ -53,7 +53,7 @@ class MainPage extends Component {
     return _.map(this.props.news, news => {
       return (
         <Card.Grid key={news.id} style={gridStyle}>
-          <Link to={`/News/${news.id}`}>
+          <Link  to={`/notice_news/news/${news.id}`}>
           <img src={news.image} style={{width:'100%', height:'100%'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
           </Link>
@@ -67,7 +67,7 @@ class MainPage extends Component {
         <div key={notice.id}>
           <Row style={{padding: '5px'}}>
             <Col span={16} style={{paddingLeft: '15px', fontSize: '1.2rem'}}>
-              <Link to={`/notice/${notice.id}`}>
+              <Link to={`/notice_news/notice/${notice.id}`}>
                 <div style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: 'royalblue'}}>
                   {notice.title}
                 </div>

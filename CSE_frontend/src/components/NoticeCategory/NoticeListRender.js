@@ -58,8 +58,8 @@ class NoticeListRender extends Component {
         ];
         return (
             <Table 
-                loading={this.state.loading} 
-                dataSource={_.values(_.mapValues(this.props.notices2, element => 
+                // loading={this.state.loading} 
+                dataSource={_.values(_.mapValues(this.props.notices, element => 
                     { let notice = element; notice['key'] = element.id; return notice; }))}
                 columns={columns}
                 pagination={{ pageSize: 15, showSizeChanger: true, onChange: () => {} }}
@@ -80,8 +80,9 @@ class NoticeListRender extends Component {
     }
 }
 
-function mapStateToProps({ notices }) {
-    return { notices2: notices }
-}
+// function mapStateToProps({ notices }) {
+//     console.log(notices);
+//     return { notices }
+// }
 
-export default connect(mapStateToProps, { fetchNotices, fetchTags })(NoticeListRender);
+export default connect(null, { fetchNotices, fetchTags })(NoticeListRender);

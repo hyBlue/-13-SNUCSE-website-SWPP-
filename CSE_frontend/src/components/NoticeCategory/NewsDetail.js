@@ -33,7 +33,7 @@ class NewsDetail extends Component {
             <div className="post">
                 <div style={{ background: '#6b9a79', padding: '2px' }}>
                     <Card title={News.title} bordered={false} style={{ width: '100%', padding: '10px' }}
-                            cover={<img alt="example" src={News.image} />}>
+                            cover={<img alt="example" src={News.image} style={{width:'600px', height: '500px'}}/>}>
                         <Row style={{ fontSize: '8px', marginBottom: '15px', padding: '5px' }}>
                             <p>작성일: {News.created_at.substring(0, 10)}</p>
                         </Row>

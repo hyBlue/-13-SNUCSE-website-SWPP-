@@ -12,6 +12,10 @@ export default (state = {}, action) => {
             //     // return newState;
             return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_NOTICES:
+            // const data = _.mapKeys(action.payload.data, 'id');
+            // console.log(_.sortBy(data, (a,b) => { return a['id'] - b['id']}
+            // ));
+            // return action.payload.data;  
             return _.mapKeys(action.payload.data, 'id');
         default:
             return state;

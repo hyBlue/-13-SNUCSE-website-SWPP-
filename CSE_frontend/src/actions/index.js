@@ -21,7 +21,8 @@ export const CREATE_LOGIN = 'create_login';
 
 export const DELETE_NOTICE = 'delete_notice';
 export const DELETE_RESERVATION = 'delete_reservation';
-const ROOT_URL = 'http://127.0.0.1:8000/api';
+// const ROOT_URL = 'http://127.0.0.1:8000/api';
+const ROOT_URL = 'http://52.79.135.176:8008/api';
 const API_KEY = '?key=TEMPORARY1234';
 
 export function fetchMainNotices(itemNumber) {
@@ -31,6 +32,7 @@ export function fetchMainNotices(itemNumber) {
             page_size : itemNumber
         }
     })
+    console.log(itemNumber);
     return {
         type: FETCH_MAINNOTICES,
         payload: request

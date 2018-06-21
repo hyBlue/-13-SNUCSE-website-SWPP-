@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import { FETCH_MAINNEWS, FETCH_MAINNOTICES } from '../actions';
-
+//Why _.mapKeys are reversing the order?
 export default (state = {}, action) => {
     switch (action.type) {
         case FETCH_MAINNEWS: 
-            return {...state, news: _.mapKeys(action.payload.data['results'], 'id')};
+            return {...state, news: action.payload.data['results']};
         case FETCH_MAINNOTICES:
-            return {...state, notices: _.mapKeys(action.payload.data['results'], 'id')};
+            return {...state, notices: action.payload.data['results']};
+            // return {...state, notices: _.mapKeys(action.payload.data['results'], 'id')};
         default:
             return state;
     }
