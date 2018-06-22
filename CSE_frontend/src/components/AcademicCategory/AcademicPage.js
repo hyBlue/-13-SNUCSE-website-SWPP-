@@ -29,10 +29,10 @@ export default class AcademicPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if (param.category !== "ucourses" && param.category !== "ucoursechange" && 
-                param.category !== "udegreereq" && param.category !== "udependency" && 
-                param.category !== "ugeneralreq" && param.category !== "urecommended" && 
-                param.category !== "uscholarships") {
+            if (param.category !== "ucourses" && param.category !== "course-changes" && 
+                param.category !== "degree-requirements" && param.category !== "course-dependency-graph" && 
+                param.category !== "general-education-requirements" && param.category !== "recommended-tracks" && 
+                param.category !== "scholarships") {
                 this.setState({ currentMenuKey: ["ucourses"] })
             }
         }
@@ -45,10 +45,10 @@ export default class AcademicPage extends Component {
                 currentSubCategory: param.category,
                 currentMenuKey: [param.category]
             });
-            if (param.category !== "ucourses" && param.category !== "ucoursechange" && 
-                param.category !== "udegreereq" && param.category !== "udependency" && 
-                param.category !== "ugeneralreq" && param.category !== "urecommended" && 
-                param.category !== "uscholarships") {
+            if (param.category !== "ucourses" && param.category !== "course-changes" && 
+                param.category !== "degree-requirements" && param.category !== "course-dependency-graph" && 
+                param.category !== "general-education-requirements" && param.category !== "recommended-tracks" && 
+                param.category !== "scholarships") {
                 this.setState({ currentMenuKey: ["ucourses"] })
             }
         }
@@ -100,13 +100,13 @@ console.log(subCategory);
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
                                     <MenuItemGroup className="menuGroup" key="g1" title="학사">
-                                        <Menu.Item key="ucourses" onClick={() => this.props.history.push('/academic/courses')}>교과목 정보 (학부)</Menu.Item>
-                                        <Menu.Item key="ucoursechange" onClick={() => this.props.history.push('/academic/course-changes')}>교과목 변경 내역 (학부)</Menu.Item>
-                                        <Menu.Item key="udegreereq" onClick={() => this.props.history.push('/academic/degree-requirements')}>졸업 규정</Menu.Item>
-                                        <Menu.Item key="udependency" onClick={() => this.props.history.push('/academic/course-dependency-graph')}>선수 교과목</Menu.Item>
-                                        <Menu.Item key="ugeneralreq" onClick={() => this.props.history.push('/academic/general-education-requirements')}>필수 교양 과목</Menu.Item>
-                                        <Menu.Item key="urecommended" onClick={() => this.props.history.push('/academic/recommended-tracks')}>전공 이수 표준 형태</Menu.Item>
-                                        <Menu.Item key="uscholarships" onClick={() => this.props.history.push('/academic/scholarships')}>장학제도 (학부)</Menu.Item>
+                                        <Menu.Item key="courses" onClick={() => this.props.history.push('/academic/courses')}>교과목 정보 (학부)</Menu.Item>
+                                        <Menu.Item key="course-changes" onClick={() => this.props.history.push('/academic/course-changes')}>교과목 변경 내역 (학부)</Menu.Item>
+                                        <Menu.Item key="degree-requirements" onClick={() => this.props.history.push('/academic/degree-requirements')}>졸업 규정</Menu.Item>
+                                        <Menu.Item key="course-dependency-graph" onClick={() => this.props.history.push('/academic/course-dependency-graph')}>선수 교과목</Menu.Item>
+                                        <Menu.Item key="general-education-requirements" onClick={() => this.props.history.push('/academic/general-education-requirements')}>필수 교양 과목</Menu.Item>
+                                        <Menu.Item key="recommended-tracks" onClick={() => this.props.history.push('/academic/recommended-tracks')}>전공 이수 표준 형태</Menu.Item>
+                                        <Menu.Item key="scholarships" onClick={() => this.props.history.push('/academic/scholarships')}>장학제도 (학부)</Menu.Item>
                                     </MenuItemGroup>
                                 </Menu>
                             </Affix>
