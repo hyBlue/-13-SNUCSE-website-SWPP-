@@ -17,7 +17,7 @@ class ResearchLabs extends Component {
   }
 
   renderResearchlabs() {
-    return _.map(this.props.labs, lab => {
+    return _.map(this.props.researchlabs, lab => {
       console.log(lab);
       if (lab.professors.length > 1)
         return (
@@ -43,9 +43,7 @@ class ResearchLabs extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>연구실 목록</h5>
-          </Row>
+            <h2 className="pageTitle">연구실 목록</h2>
             <table className="table table-hover">
                 <thead>
                     <tr>

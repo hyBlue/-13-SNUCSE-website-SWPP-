@@ -6,9 +6,7 @@ class AdmissionsGrad extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>대학원</h5>
-                </Row>
+                <h2 className="pageTitle">대학원</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <Row style={{ backgroundColor: '#f9f9f9', padding: '10px' }}>
 대학원생은 전기모집과 후기모집을 통해 1년에 2번 선발합니다.<br />

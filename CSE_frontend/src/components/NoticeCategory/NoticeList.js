@@ -25,7 +25,7 @@ class NoticeList extends Component {
         }
     }
     componentDidMount() {
-        this.props.fetchMainNotices(15).then(()=> {
+        this.props.fetchMainNotices(75).then(()=> {
             this.setState({tempDataloading: false});
         })
         // this.props.fetchNotices().then(() => {
@@ -105,7 +105,7 @@ class NoticeList extends Component {
         const tagOptions = [];
         _.map(this.props.tags, tag => tagOptions.push(<Option key={tag.id}>{tag.name}</Option>));
         return (
-            <div>
+            <div className="noticeList">
                 {/* <div className="pageTitle">공지사항</div> */}
                 <h2> 공지사항 </h2>
                 <Row>

@@ -7,9 +7,7 @@ class UnderCourseChanges extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>교과목 변경 내역 (학부)</h5>
-          </Row>
+          <h2 className="pageTitle">교과목 변경 내역 (학부)</h2>
           <div style={{ background: '#E8E8E8', padding: '10px' }}>
             <font size="4" color="#6a7eff">
               <br />2018학년도 1학기 시행 교과과정 변경<br />

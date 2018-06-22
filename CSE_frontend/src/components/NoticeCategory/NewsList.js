@@ -29,7 +29,8 @@ class NewsList extends Component {
           <Link to={`/notice_news/news/${news.id}`} >
           <img src={news.image} style={{width:'100%', height:'13rem'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
-          <p className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{renderHTML(news.content)}</p>
+          <div
+           className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{renderHTML(news.content)}</div>
           </Link>
         </Card.Grid>
       )
@@ -49,7 +50,9 @@ class NewsList extends Component {
 }
 
 function mapStateToProps({ news }) {
-    return { news };
+    //order data by id or createdtime
+    const sortedData = _.orderBy(news, ['id'], ['desc']);
+    return { news: sortedData };
 }
 
 export default connect(mapStateToProps, { fetchNewses })(NewsList);

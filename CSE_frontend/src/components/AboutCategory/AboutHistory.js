@@ -6,12 +6,7 @@ class AboutHistory extends Component {
     render() {
         return (
             <div>
-                <Row className="pageTitle">
-                    <h3>연혁</h3>
-                </Row>
-                <div>
-                
-                </div>
+                <h2 className="pageTitle">연혁</h2>
                 <div style={{ background: '#E8E8E8', padding: '30px' }}>
 서울대학교 컴퓨터공학부의 역사는 1963년 응용수학과가 설립되면서부터 시작되었다. 이후 수십 년간 컴퓨터공학 학문이 급격히 요동치며 발전해나가는 동안, 컴퓨터공학부의 모습 또한 커다란 변화를 거듭해 왔다.<br /><br />
 1975년 3월, 자연과학대학의 계산통계학과가 신설되었다. 계산통계학과는 2년 뒤인 1977년 3월, 석사과정을 전산과학전공과 통계전공으로 분리하였다.<br /><br />

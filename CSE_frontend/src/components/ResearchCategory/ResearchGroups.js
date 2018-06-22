@@ -6,9 +6,7 @@ class ResearchGroups extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>연구 그룹</h5>
-                </Row>
+                <h2 className="pageTitle">연구 그룹</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <Row style={{ backgroundColor: '#f9f9f9', padding: '10px' }}>
                         <font size="4" color="#6a7eff">

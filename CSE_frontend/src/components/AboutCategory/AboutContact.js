@@ -6,9 +6,7 @@ class AboutContact extends Component {
     render() {
         return (
             <div>
-                <Row className="pageTitle">
-                    <h3>연락처</h3>
-                </Row>
+                <h2 className="pageTitle">연락처</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <h6>서울대학교 공과대학 컴퓨터공학부</h6>
                     08826 서울특별시 관악구 관악로 1

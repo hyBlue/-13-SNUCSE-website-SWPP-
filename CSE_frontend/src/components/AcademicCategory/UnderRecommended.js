@@ -11,9 +11,7 @@ class UnderRecommended extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>전공 이수 표준 형태</h5>
-          </Row>
+          <h2 className="pageTitle">전공 이수 표준 형태</h2>
           <div style={{ background: '#E8E8E8', padding: '10px' }}>
             <font size="4" color="#6a7eff">
               전공선택 인정교과목<br />

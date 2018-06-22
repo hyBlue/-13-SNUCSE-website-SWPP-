@@ -7,9 +7,7 @@ class AboutCSE extends Component {
     render() {
         return (
             <div>
-                <Row className="pageTitle">
-                    <h3>학부 소개</h3>
-                </Row>
+                <h2 className="pageTitle">학부 소개</h2>
                 <div style={{ background: 'white', padding: '30px', fontFamily: 'Nanum Gothic, sans-serif'}}>
 서울대학교 컴퓨터공학부(이하 컴퓨터공학부)는 컴퓨터 공학의 기초를 이루는 컴퓨터 구조 및 설계, 소프트웨어시스템, 네트워크, 컴퓨터 이론은 물론 모바일 컴퓨팅, 멀티미디어, 컴퓨터게임, 그래픽스, 내장형 시스템, 바이오 컴퓨팅, 유비쿼터스 컴퓨팅, 전자상거래, 암호 및 보안 등과 같은 첨단의 영역까지 컴퓨터 공학의 <Link to={`/research/groups`}>다양한 분야</Link>를 선도적으로 개척해 나가고 있다.<br /><br />
 컴퓨터공학부 교수들은 세계적인 컴퓨터 관련 주요 학회에서 국제학술회의 위원장, 기조 연설자 등으로 활발하게 활동하고 있으며, 또한 국내 외 각종 산업계와도 긴밀하게 협력하여 정부 지원과제나 민간 산업체 지원 연구과제 등을 수행하여 우수한 성과를 내고 있다.<br /><br />

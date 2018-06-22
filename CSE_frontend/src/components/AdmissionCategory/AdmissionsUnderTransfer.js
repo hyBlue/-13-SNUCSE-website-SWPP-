@@ -6,9 +6,7 @@ class AdmissionsUnderTransfer extends Component {
     render() {
         return (
             <div>
-                <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-                    <h5>학사 편입학</h5>
-                </Row>
+                <h2 className="pageTitle">학사 편입학</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <Row style={{ backgroundColor: '#f9f9f9', padding: '10px' }}>
 학사 학위 소지자는 본 학교의 학부생으로 편입할 수 있습니다. 편입할 경우 3학년으로 편입되는 것이 일반적이지만 군위탁 편입학 대상자의 경우 전형위원회 심의 결과 또는 교육과학기술부 추천 현황에 따라 2학년으로 편입될 수도 있습니다.<br />

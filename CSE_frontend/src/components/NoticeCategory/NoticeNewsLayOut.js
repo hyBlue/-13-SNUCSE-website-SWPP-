@@ -18,13 +18,14 @@ class NoticeNewsPage extends Component {
             currentSubCategory: "",
             currentMenuKey: ["notice"],
             postId: "",
-            loading: true
+            noticeLoading: true,
+            newsLoading: true
         }
     }
     //Needed for access by url
     componentWillMount() {
-        this.props.fetchNotices().then(()=> this.setState({loading: false}));
-        this.props.fetchNewses();
+        this.props.fetchNotices().then(()=> this.setState({noticeLoading: false}));
+        this.props.fetchNewses().then(()=> this.setState({newsLoading: false}));
         if (this.props.match && this.props.match.params) {
             const param = this.props.match.params;
             this.setState({
@@ -74,11 +75,11 @@ class NoticeNewsPage extends Component {
     renderSubCategoryPage(subCategory) {
         switch (subCategory) {
             case "notice":
-                return <NoticeList loading={this.state.loading}/>;
+                return <NoticeList loading={this.state.noticeLoading}/>;
             case "news":
-                return <NewsList loading={this.state.loading}/>;
+                return <NewsList loading={this.state.newsLoading}/>;
             default:
-                return <NoticeList loading={this.state.loading}/>;
+                return <NoticeList loading={this.state.noticeLoading}/>;
         }
     }
     render() {
@@ -123,7 +124,9 @@ class NoticeNewsPage extends Component {
                                         <Button className="postButtons" type="danger" ghost onClick={this.onDeleteClick.bind(this)}>지우기</Button>
                                         <Button className="postButtons" ghost style={{ border: '1px solid #6b9a79', color: '#6b9a79' }} onClick={() => this.onUpdateClick.bind(this)}>수정하기</Button></span>}
                                     </div>
-                                    {this.state.currentSubCategory === "notice" ? <NoticeDetail id={this.state.postId} /> : <NewsDetail id={this.state.postId} />}
+                                    {this.state.currentSubCategory === "notice" ? 
+                                        <NoticeDetail id={this.state.postId} /> :
+                                        <NewsDetail key={this.state.postId} id={this.state.postId} />}
                                     <br />
                                 </div> : ""}
                             {this.renderSubCategoryPage(this.state.currentSubCategory)}

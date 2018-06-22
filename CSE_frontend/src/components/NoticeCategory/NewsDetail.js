@@ -21,7 +21,7 @@ class NewsDetail extends Component {
 
     onUpdateClick() {
         const { id } = this.props;
-        this.props.history.push('/news/id/update');
+        this.props.history.push(`/news/${id}/update`);
     }
 
     render() {
@@ -33,13 +33,13 @@ class NewsDetail extends Component {
             <div className="post">
                 <div style={{ background: '#6b9a79', padding: '2px' }}>
                     <Card title={News.title} bordered={false} style={{ width: '100%', padding: '10px' }}
-                            cover={<img alt="example" src={News.image} style={{width:'600px', height: '500px'}}/>}>
+                            cover={<img alt="example" src={News.image} style={{width:'300px', height: '300px', margin: '10px'}}/>}>
                         <Row style={{ fontSize: '8px', marginBottom: '15px', padding: '5px' }}>
                             <p>작성일: {News.created_at.substring(0, 10)}</p>
                         </Row>
-                        <p>
+                        <div style={{fontSize: '1rem'}}>
                             {renderHTML(News.content)}
-                        </p>
+                        </div>
                     </Card>
                 </div>
             </div>
