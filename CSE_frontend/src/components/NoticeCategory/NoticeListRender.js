@@ -37,7 +37,10 @@ class NoticeListRender extends Component {
             title: '번호',
             dataIndex: 'id',
             key: 'id',
-            align: 'center'
+            align: 'center',
+            //To show data in Desc order
+            sorter: (a, b) => b.id - a.id,
+            sortOrder: true
         }, {
             title: '제목',
             dataIndex: 'title',
@@ -48,7 +51,10 @@ class NoticeListRender extends Component {
             dataIndex: 'created_at',
             key: 'created_at',
             align: 'center',
-            render: (text) => text.substring(0, 10)
+            render: (text) => text.substring(0, 10),
+            //To show data in Desc order
+            sorter: (a, b) => b.id - a.id,
+            sortOrder: false//temp
         }, {
             title: '조회수',
             dataIndex: 'view',
@@ -58,7 +64,6 @@ class NoticeListRender extends Component {
         ];
         return (
             <Table 
-                // loading={this.state.loading} 
                 dataSource={_.values(_.mapValues(this.props.notices, element => 
                     { let notice = element; notice['key'] = element.id; return notice; }))}
                 columns={columns}
@@ -69,6 +74,7 @@ class NoticeListRender extends Component {
 
     render() {
         const { loading } = this.props;
+
         if (loading) {
             return <Spin />;
         }

@@ -6,9 +6,7 @@ class AboutContact extends Component {
     render() {
         return (
             <div>
-                <Row className="pageTitle">
-                    <h3>찾아오는 길</h3>
-                </Row>
+                <h2 className="pageTitle">찾아오는 길</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     컴퓨터공학부는 서울대학교 관악캠퍼스 제1공학관 (301동)과 제2공학관 (302동)에 있습니다.
                     <br /><br />주소: 08826 서울특별시 관악구 관악로 1 서울대학교 공과대학 컴퓨터공학부

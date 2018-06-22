@@ -61,7 +61,7 @@ class StaffsList extends Component {
 
     render() {
         return (<div className="memberList">
-            <h2>행정직원</h2>
+            <h2 className="pageTitle">행정직원</h2>
             {this.state.loading ? <Spin /> : ""}
             <Row>
                 <Col span={12}>

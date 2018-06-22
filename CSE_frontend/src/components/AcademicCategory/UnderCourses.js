@@ -49,9 +49,7 @@ class UnderCourses extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>교과목 정보 (학부)</h5>
-          </Row>
+            <h2 className="pageTitle">교과목 정보 (학부)</h2>
             <table className="table table-hover">
                 <thead>
                     <tr>

@@ -27,9 +27,7 @@ class AboutClubs extends Component {
     render() {
         return (
             <div>
-                <Row className="pageTitle">
-                    <h3>동아리 소개</h3>
-                </Row>
+                <h2 className="pageTitle">동아리 소개</h2>
                 <div style={{ background: '#E8E8E8', padding: '10px' }}>
                     <Row style={{ backgroundColor: '#f9f9f9', padding: '10px' }}>
                         <font size="4" color="#6a7eff" onClick={() => this.select(1)}>

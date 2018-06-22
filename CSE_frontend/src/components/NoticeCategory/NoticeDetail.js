@@ -39,7 +39,7 @@ class NoticeDetail extends Component {
                             <div> 첨부파일
                               {this.renderAttachFileList(notice.attached)}
                             <br /></div>}
-                        <p>{renderHTML(notice.content)}</p>
+                        <div style={{fontSize: '1rem'}}> {renderHTML(notice.content)} </div>
                     </Card>
                 </div>
             </div>

@@ -40,16 +40,18 @@ a, u {
   padding: 20px 30px 30px 30px!important;
 }
 /* Title style for all page */
-.pageTitle {
+/* .pageTitle {
   font-family: "Lucida Sans Unicode", Verdana, Helvetica, Arial, "맑은 고딕", 나눔고딕, 서울남산체, sans-serif!important;
   background: #d6ffd6!important; 
   margin-bottom: 20px!important;
   padding: 10px!important;
-}
-.pageTitle h3 {
-  margin: 0;
+} */
+.pageTitle {
+  padding: 0.7rem!important;
+  background: #e6f7ff!important;
 }
 
+/* 
 .main-notice {
   border: 1px solid #ddd;
   width: 50%;
@@ -82,7 +84,7 @@ a, u {
   border: 1px solid #ddd;
   width: 25%;
   height: 30px;
-}
+} */
 
 .main-login {
   float: right;
@@ -138,14 +140,6 @@ a, u {
   border: none!important;
 }
 
-.flright {
-  float: right;
-}
-
-.flcenter {
-    text-align: center;
-}
-
 /*Page Layout UI */
 .menuGroup .ant-menu-item-group-title {
   font-size: 35px!important;
@@ -164,7 +158,6 @@ a, u {
 
 
 /* Notice List UI*/
-
 .ant-tabs-bar {
   margin-bottom: 2px!important;
 }
@@ -173,6 +166,10 @@ a, u {
 }
 .postButtons {
   margin-left: 5px!important;
+}
+/* hide the default sort button in antd table */
+.noticeList .ant-table-column-sorter {
+  display: none!important;
 }
 
 /* Professor List UI */

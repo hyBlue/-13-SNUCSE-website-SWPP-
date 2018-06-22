@@ -57,7 +57,7 @@ class HonourProfsList extends Component {
 
     render() {
         return (<div className="memberList">
-            <h2>명예교수</h2>
+            <h2 className="pageTitle">명예교수</h2>
             {this.state.loading ? <Spin /> : ""}
             <Row>
                 <Col span={12}>

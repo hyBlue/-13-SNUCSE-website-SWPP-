@@ -7,9 +7,7 @@ class UnderScholarships extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>장학제도 (학부)</h5>
-          </Row>
+          <h2 className="pageTitle">장학제도 (학부)</h2>
           <div style={{ background: '#E8E8E8', padding: '10px' }}>
             컴퓨터공학부에서는 성적 우수, 근로장학금 등 여러 종류의 교내 장학금과 관정 이종환 재단 장학금 등 외부 우수 재단으로부터 다수의 장학금 수혜의 기회를 제공하고 있습니다. 매해 평균 학부생 60% 이상이 교내외 장학금에서 수혜를 받고 있습니다.<br />
             <font size="4" color="#6a7eff">

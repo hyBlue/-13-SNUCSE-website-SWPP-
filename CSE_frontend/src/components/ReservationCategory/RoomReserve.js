@@ -28,7 +28,7 @@ export default class RoomReserve extends Component {
     render() {
         return (
             <div className='reservationCategory'>
-                <h2>{this.props.reserveRoomKey} 예약현황</h2>
+                <h2 className="pageTitle">{this.props.reserveRoomKey} 예약현황</h2>
                 <WeekPicker className="weekPicker" size="large" locale={locale} onChange={this.onChange.bind(this)} placeholder="연도-n번째 주" />
                 <StandardCalendar date={this.state.date} subCategory={this.props.subCategory} reserveRoomKey={this.props.reserveRoomKey} />
             </div>

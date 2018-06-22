@@ -6,6 +6,9 @@ export default (state = {}, action) => {
         case FETCH_NEWS:
              return { ...state, [action.payload.data.id]: action.payload.data };
         case FETCH_NEWSES:
+            // let toSort = _.mapKeys(action.payload.data, 'id');
+            // const sortedData = _.orderBy(toSort, ['id'], ['desc']);
+            // return sortedData;
             return _.mapKeys(action.payload.data, 'id');
         default:
             return state;

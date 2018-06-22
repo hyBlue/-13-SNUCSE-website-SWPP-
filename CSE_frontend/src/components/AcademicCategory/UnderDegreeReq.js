@@ -7,9 +7,7 @@ class UnderDegreeReq extends Component {
   render() {
     return (
         <div>
-          <Row style={{backgroundColor: '#e6e5f4', marginBottom: '20px', padding: '10px'}}>
-            <h5>졸업 규정</h5>
-          </Row>
+          <h2 className="pageTitle">졸업 규정</h2>
           <div style={{ background: '#E8E8E8', padding: '10px' }}>
             <div style={{ border: '3px solid #ccc' }}>
                         목차 [숨기기]<br />
