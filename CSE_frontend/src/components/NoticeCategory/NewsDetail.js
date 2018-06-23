@@ -29,6 +29,8 @@ class NewsDetail extends Component {
         if (!News) {
             return <div>해당되는 새소식이 없습니다.</div>;
         }
+        //remove whitespace between tags javascript      
+        let replaced = News.content.replace(/\>\s+\</g,'');
         return (
             <div className="post">
                 <div style={{ background: '#6b9a79', padding: '2px' }}>
@@ -38,7 +40,7 @@ class NewsDetail extends Component {
                             <p>작성일: {News.created_at.substring(0, 10)}</p>
                         </Row>
                         <div style={{fontSize: '1rem'}}>
-                            {renderHTML(News.content)}
+                            {renderHTML(replaced)}
                         </div>
                     </Card>
                 </div>

@@ -18,8 +18,6 @@ class ResearchLabs extends Component {
 
   renderResearchlabs() {
     return _.map(this.props.researchlabs, lab => {
-      console.log(lab);
-
         return (
           <tr key={lab.id}>
             <td>{lab.name}</td>

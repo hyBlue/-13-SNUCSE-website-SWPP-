@@ -28,6 +28,8 @@ class NoticeDetail extends Component {
         if (!notice) {
             return <div>해당되는 공지글이 없습니다.</div>;
         }
+        //remove whitespace between tags javascript
+        let replaced = notice.content.replace(/\>\s+\</g,'');
         return (
             <div className="post">
                 <div style={{ background: '#6b9a79', padding: '2px' }}>
@@ -39,7 +41,7 @@ class NoticeDetail extends Component {
                             <div> 첨부파일
                               {this.renderAttachFileList(notice.attached)}
                             <br /></div>}
-                        <div style={{fontSize: '1rem'}}> {renderHTML(notice.content)} </div>
+                        <div style={{fontSize: '1rem'}}> {renderHTML(replaced)} </div>
                     </Card>
                 </div>
             </div>
