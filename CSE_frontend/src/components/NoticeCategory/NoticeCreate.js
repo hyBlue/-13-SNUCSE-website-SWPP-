@@ -6,7 +6,8 @@ import 'react-quill/dist/quill.snow.css';
 import renderHTML from 'react-render-html';
 import Dropzone from 'react-dropzone';
 import { createNotice, fetchTags } from '../../actions';
-import { Select, Row, Col } from 'antd';
+import { Select, Row, Col, Button, Popconfirm } from 'antd';
+import { URLSearchParams } from 'url';
 const Option = Select.Option;
 
 class Editor extends Component {
@@ -38,6 +39,7 @@ class Editor extends Component {
                         파일 가져오기
                     </button>
                     <Dropzone className="form-control"
+                        disableClick
                         style={{ height: '70px', overflowY: 'scroll' }}
                         ref={(node) => { dropzoneRef = node; }}
                         name='첨부파일 드랍존'
@@ -47,12 +49,40 @@ class Editor extends Component {
                     >
                         <div>첨부파일들을 드래그앤드롭하세요</div>
                         {
-                            this.state.accepted ? this.state.accepted.map(f => <li key={f.name}>{f.name} - {f.size} bytes</li>) : ""
+                            this.state.accepted ? <ul>
+                                {this.state.accepted.map(f =>
+                                    <li key={f.name} ><Popconfirm
+                                        title="이 첨부파일을 제외하시겠습니까?"
+                                        onConfirm={() => this.confirm(f)}
+                                        onCancel={this.cancel}
+                                        okText="네"
+                                        cancelText="아니오"
+                                    >
+                                        <a href="#">{f.name} - {f.size} bytes</a>
+                                    </Popconfirm></li>)} </ul>
+                                : ""
                         }
                     </Dropzone>
                 </div>
             </div>
         );
+    }
+    //Prevent click event of dropzone and button overlap
+    // handleClick(e) {
+    //     e.cancelBubble = true;
+    //     if (e.stopPropagation) e.stopPropagation();
+    // }
+
+    canel(e) {
+        console.log('oncancel');
+    }
+    confirm(file) {
+        let filtered = this.state.accepted.filter((item) => { 
+            return item !== file
+        })
+        this.setState({
+            accepted: filtered
+        })
     }
 
     onHandleSubmit(e) {
@@ -73,7 +103,7 @@ class Editor extends Component {
         _.map(tags, tag => {
             tagArray.push(this.props.tags[tag].name);
         });
-        this.setState({tags: tagArray});
+        this.setState({ tags: tagArray });
     }
     //컨텐츠 변경 핸들
     onHandleContentChange(e) {
