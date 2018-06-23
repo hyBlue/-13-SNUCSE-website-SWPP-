@@ -17,7 +17,7 @@ class Notice(Post):
     created_at = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=30, default='anonymous')
     view = models.IntegerField(default=0)
-    tags = models.ManyToManyField('Tag', related_name='notices', blank=True)
+    tags = models.ManyToManyField('Tag', related_name='notices', blank=True, null=True)
     attached = models.ManyToManyField('Attached', related_name='notice', blank=True)
 
     def __str__(self):
