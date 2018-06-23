@@ -171,7 +171,6 @@ export function createNotice(values, callback) {
             formData.append(key, values[key]);
         }
     })
-    console.log(formData);
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
         {
             headers: {
@@ -197,7 +196,6 @@ export function createReservation(interval) {
             newValue[key] = value;
         }
     });
-    console.log(newValue);
     const request = axios.post(`${ROOT_URL}/reservation/${API_KEY}`, newValue)
     return {
         type: CREATE_RESERVATION,
@@ -234,8 +232,6 @@ export function deleteNews(id, callback) {
 }
 
 export function deleteReservation(event) {
-    console.log(event);
-    console.log(event.id);
     const request = axios.delete(`${ROOT_URL}/reservation/${event.id}${API_KEY}`);
     return {
         type: DELETE_RESERVATION,

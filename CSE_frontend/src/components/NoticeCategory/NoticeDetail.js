@@ -17,14 +17,15 @@ class NoticeDetail extends Component {
         return _.map(files, file => {
             return (<div key={i++}> 
                         <a href={file.attached}
-                            download style={{paddingLeft: '14px', fontSize: '1rem'}}><Icon type="link" /> 아리랑{file.name} </a>
-                        <span> (12345{file.size}byte) </span>
+                            download style={{paddingLeft: '14px', fontSize: '1rem'}}><Icon type="link" /> {file.name} </a>
+                        <span> (    {file.size}byte) </span>
                     </div>);
         });
     }
 
     render() {
         const { notice } = this.props;
+        console.log(notice);
         if (!notice) {
             return <div>해당되는 공지글이 없습니다.</div>;
         }
