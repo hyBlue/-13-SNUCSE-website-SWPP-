@@ -74,7 +74,6 @@ class Editor extends Component {
             tagArray.push(this.props.tags[tag].name);
         });
         this.setState({tags: tagArray});
-        console.log(this.state.tags)
     }
     //컨텐츠 변경 핸들
     onHandleContentChange(e) {

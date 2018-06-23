@@ -1,7 +1,7 @@
 import { Affix, Layout, Row, Col, Menu, Icon, Button } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 const MenuItemGroup = Menu.ItemGroup;
-import { fetchNotices, fetchNewses, deleteNotice } from '../../actions';
+import { fetchNotices, fetchNewses, deleteNotice, deleteNews } from '../../actions';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import forSlider3 from '../../../icons/forSlider3.jpg';
@@ -21,11 +21,17 @@ class NoticeNewsPage extends Component {
             noticeLoading: true,
             newsLoading: true
         }
+        this.onDeleteClick = this.onDeleteClick.bind(this);
+        this.onUpdateClick = this.onUpdateClick.bind(this);
     }
     //Needed for access by url
     componentWillMount() {
-        this.props.fetchNotices().then(()=> this.setState({noticeLoading: false}));
-        this.props.fetchNewses().then(()=> this.setState({newsLoading: false}));
+        // this.props.deleteNews(156);pub.php때문에 에러나는 것들 지움
+        // this.props.deleteNews(170);
+        // this.props.deleteNews(180);
+
+        this.props.fetchNotices().then(() => this.setState({ noticeLoading: false }));
+        this.props.fetchNewses().then(() => this.setState({ newsLoading: false }));
         if (this.props.match && this.props.match.params) {
             const param = this.props.match.params;
             this.setState({
@@ -63,10 +69,17 @@ class NoticeNewsPage extends Component {
         }
     }
 
-    onDeleteClick() {
-        this.props.deleteNotice(this.state.postId, () => {
-            this.setState({ postId: "" });
-        });
+    onDeleteClick(category) {
+        if (category === 'notice') {
+            this.props.deleteNotice(this.state.postId, () => {
+                this.setState({ postId: "" });
+            });
+        }
+        else {
+            this.props.deleteNews(this.state.postId, () => {
+                this.setState({ postId: "" });
+            });
+        }
     }
     onUpdateClick() {
         console.log('update');
@@ -75,11 +88,11 @@ class NoticeNewsPage extends Component {
     renderSubCategoryPage(subCategory) {
         switch (subCategory) {
             case "notice":
-                return <NoticeList loading={this.state.noticeLoading}/>;
+                return <NoticeList loading={this.state.noticeLoading} />;
             case "news":
-                return <NewsList loading={this.state.newsLoading}/>;
+                return <NewsList loading={this.state.newsLoading} />;
             default:
-                return <NoticeList loading={this.state.noticeLoading}/>;
+                return <NoticeList loading={this.state.noticeLoading} />;
         }
     }
     render() {
@@ -106,8 +119,8 @@ class NoticeNewsPage extends Component {
                                     style={{ height: '100%', margin: '10px', border: '1px solid #aaaaaa', borderRadius: '10px' }}
                                 >
                                     <MenuItemGroup className="menuGroup" key="g2" title="알림광장">
-                                        <Menu.Item key="notice" onClick={() => { this.props.fetchNotices(); this.props.history.push('/noitce_news/notice')}}>공지사항</Menu.Item>
-                                        <Menu.Item key="news" onClick={() => { this.props.fetchNewses(); this.props.history.push('/notice_news/news')}}>새소식</Menu.Item>
+                                        <Menu.Item key="notice" onClick={() => { this.props.fetchNotices(); this.props.history.push('/noitce_news/notice') }}>공지사항</Menu.Item>
+                                        <Menu.Item key="news" onClick={() => { this.props.fetchNewses(); this.props.history.push('/notice_news/news') }}>새소식</Menu.Item>
                                         {/* <Menu.Item key="professor" onClick={() => this.props.history.push('/members/professor')}>교수</Menu.Item> */}
                                     </MenuItemGroup>
                                 </Menu>
@@ -119,12 +132,12 @@ class NoticeNewsPage extends Component {
                                 <div>
                                     <div style={{ padding: '0 10px 5px 0' }}>
                                         <Button className="postButtons" type="primary" ghost onClick={() => this.setState({ postId: "" })} >접기</Button>
+                                        <Button className="postButtons" type="danger" ghost onClick={() => this.onDeleteClick(this.state.currentSubCategory)}>지우기</Button>
                                         {/*temporary handling for newsdetail because currently no remove news*/}
                                         {this.state.currentSubCategory === 'notice' && <span>
-                                        <Button className="postButtons" type="danger" ghost onClick={this.onDeleteClick.bind(this)}>지우기</Button>
-                                        <Button className="postButtons" ghost style={{ border: '1px solid #6b9a79', color: '#6b9a79' }} onClick={() => this.onUpdateClick.bind(this)}>수정하기</Button></span>}
+                                            <Button className="postButtons" ghost style={{ border: '1px solid #6b9a79', color: '#6b9a79' }} onClick={() => this.onUpdateClick.bind(this)}>수정하기</Button></span>}
                                     </div>
-                                    {this.state.currentSubCategory === "notice" ? 
+                                    {this.state.currentSubCategory === "notice" ?
                                         <NoticeDetail id={this.state.postId} /> :
                                         <NewsDetail key={this.state.postId} id={this.state.postId} />}
                                     <br />
@@ -138,4 +151,4 @@ class NoticeNewsPage extends Component {
     }
 }
 
-export default connect(null, { fetchNotices, fetchNewses, deleteNotice })(NoticeNewsPage);
+export default connect(null, { fetchNotices, fetchNewses, deleteNotice, deleteNews })(NoticeNewsPage);

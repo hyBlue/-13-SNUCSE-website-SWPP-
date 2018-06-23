@@ -20,9 +20,10 @@ export const CREATE_RESERVATION = 'create_reservation';
 export const CREATE_LOGIN = 'create_login';
 
 export const DELETE_NOTICE = 'delete_notice';
+export const DELETE_NEWS = 'delete_news';
 export const DELETE_RESERVATION = 'delete_reservation';
-const ROOT_URL = 'http://127.0.0.1:8000/api';
-// const ROOT_URL = 'http://52.79.206.30:8000/api';
+// const ROOT_URL = 'http://127.0.0.1:8000/api';
+const ROOT_URL = 'http://52.79.206.30:8000/api';
 const API_KEY = '?key=TEMPORARY1234';
 
 export function fetchMainNotices(itemNumber) {
@@ -151,8 +152,6 @@ export function fetchReservation(subCategory, RoomKey) {
     return {
         type: FETCH_RESERVATION,
         payload: request,
-        // subCategory: subCategory,
-        // RoomKey: RoomKey
     }
 }
 
@@ -164,12 +163,15 @@ export function createNotice(values, callback) {
             let i = 0;
             _.map(values[key], value => {
                 console.log(value);
-                formData.append(`attached${i++}`, value);
+                formData.append(`attached${i}`, value);
+                formData.append(`name${i}`, value.name);
+                formData.append(`size${i++}`, value.size);
             })
         } else {
             formData.append(key, values[key]);
         }
     })
+    console.log(formData);
     const request = axios.post(`${ROOT_URL}/notice/${API_KEY}`, formData,
         {
             headers: {
@@ -218,6 +220,15 @@ export function deleteNotice(id, callback) {
         .then(() => callback());
     return {
         type: DELETE_NOTICE,
+        payload: id
+    }
+}
+
+export function deleteNews(id, callback) {
+    const request = axios.delete(`${ROOT_URL}/news/${id}${API_KEY}`)
+        .then(() => callback());
+    return {
+        type: DELETE_NEWS,
         payload: id
     }
 }

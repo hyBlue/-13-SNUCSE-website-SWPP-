@@ -23,15 +23,17 @@ class NewsList extends Component {
       textAlign: 'center',
       padding: '15px 15px 10px 15px',
     };
-    return _.map(this.props.news, news => {
+    return _.map(this.props.news, news => {        
+      //remove whitespace between tags javascript
+      let replaced = news.content.replace(/\>\s+\</g,'');
       return (
         <Card.Grid key={news.id} style={gridStyle}>
           <Link to={`/notice_news/news/${news.id}`} >
           <img src={news.image} style={{width:'100%', height:'13rem'}}/>
           <div className="newsTitle" style={{textOverflow: 'ellipsis', fontSize: '1.2rem', overflow: 'hidden', whiteSpace: 'nowrap', padding: '10px', wordWrap: 'normal', textDecoration: 'none', color: '#000'}}>{news.title}</div>
-          <div
-           className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{renderHTML(news.content)}</div>
           </Link>
+          <div
+           className="newsContent" style={{height: '3rem', lineHeight: '1rem', textOverflow: 'ellipsis', fontSize: '0.8rem', overflow: 'hidden', textDecoration: 'none', color: '#000'}}>{renderHTML(replaced)}</div>
         </Card.Grid>
       )
     }) 
