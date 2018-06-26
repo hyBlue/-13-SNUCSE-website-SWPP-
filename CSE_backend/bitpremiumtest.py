@@ -4,11 +4,11 @@ import requests
 data = {'total_max': -100.0, 'total_min': 100.0}
 base_endpoint = "https://api.binance.com/"
 ticker_price_url = "api/v1/ticker/24hr"
-common_list = eval(open('common_list.txt', 'r').read())
+symbols = ['QTUM', 'EOS', 'SNT', 'BNT', 'BNB', 'OAX', 'DNT', 'MCO', 'ICN', 'WTC', 'LRC', 'OMG', 'ZRX', 'STRAT', 'SNGLS', 'BQX', 'KNC', 'FUN', 'SNM', 'NEO', 'IOTA', 'LINK', 'XVG', 'SALT', 'MDA', 'MTL', 'SUB', 'ETC', 'MTH', 'ENG', 'ZEC', 'AST', 'DASH', 'BTG', 'EVX', 'REQ', 'VIB', 'HSR', 'TRX', 'POWR', 'ARK', 'YOYO', 'XRP', 'MOD', 'ENJ', 'STORJ', 'VEN', 'KMD', 'RCN', 'NULS', 'RDN', 'XMR', 'DLT', 'AMB', 'BCC', 'BAT', 'BCPT', 'ARN', 'GVT', 'CDT', 'GXS', 'POE', 'QSP', 'BTS', 'XZC', 'LSK', 'TNT', 'FUEL', 'MANA', 'BCD', 'DGD', 'ADX', 'ADA', 'PPT', 'CMT', 'XLM', 'CND', 'LEND', 'WABI', 'LTC', 'TNB', 'WAVES', 'GTO', 'ICX', 'OST', 'ELF', 'AION', 'NEBL', 'BRD', 'EDO', 'WINGS', 'NAV', 'LUN', 'TRIG', 'APPC', 'VIBE', 'RLC', 'INS', 'PIVX', 'IOST', 'CHAT', 'STEEM', 'NANO', 'VIA', 'BLZ', 'AE', 'RPX', 'NCASH', 'POA', 'ZIL', 'ONT', 'STORM', 'XEM', 'WAN', 'WPR', 'QLC', 'SYS', 'GRS', 'CLOAK', 'GNT', 'LOOM', 'BCN', 'REP', 'TUSD', 'ZEN']
 
 while True:
     start = time.time()
-    for symbol in common_list:
+    for symbol in symbols:
         if symbol not in data:
             data[symbol] = {'max': (0, -100.0), 'min': (0, 100.0), 'ticker': []}
 
