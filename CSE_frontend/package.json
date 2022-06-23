@@ -27,7 +27,7 @@
     "enzyme": "^3.3.0",
     "file-loader": "^1.1.11",
     "jquery": "^2.2.1",
-    "jsdom": "^8.1.0",
+    "jsdom": "^16.5.0",
     "lodash": "^4.17.10",
     "mocha": "^3.5.3",
     "react-hot-loader": "^4.1.3",
